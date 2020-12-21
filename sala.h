@@ -135,4 +135,7 @@ public:
 	}
 
 	void metodaAndrei2020()	{}
+
+
+	void metodaaaa() {}
 };
