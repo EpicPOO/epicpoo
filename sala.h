@@ -129,8 +129,5 @@ public:
 			}
 		}
 	}
-	void metodaVlad2010()
-	{
-
-	}
+	
 };
