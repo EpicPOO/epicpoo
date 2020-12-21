@@ -129,13 +129,4 @@ public:
 			}
 		}
 	}
-	int metodaVLad()
-	{
-		return 0;
-	}
-
-	void metodaAndrei2020()	{}
-
-
-	void metodaaaa() {}
 };
