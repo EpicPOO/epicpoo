@@ -133,4 +133,6 @@ public:
 	{
 		return 0;
 	}
+
+	void metodaAndrei2020()	{}
 };
