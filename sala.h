@@ -129,5 +129,8 @@ public:
 			}
 		}
 	}
-	
+	int metodaVLad()
+	{
+		return 0;
+	}
 };
