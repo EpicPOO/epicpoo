@@ -78,7 +78,7 @@ public:
 	{
 		if (totalLocuri != nullptr) { delete[] totalLocuri; }
 	}
-	sala operator=(sala s) //operator =
+	sala operator=(sala s) //operator=
 	{
 		if (totalLocuri != nullptr) { delete[] totalLocuri; }
 		if (s.numeSala != "")	{ this->numeSala = s.numeSala; }		else { this->numeSala = "Necunoscuta"; }
@@ -129,28 +129,66 @@ public:
 			}
 		}
 	}
-	sala operator+(int anulate)
+	sala operator+(int anulate) //supraincarcarea operator+
 	{
 		sala copie = *this;
 		copie.nrLibere += anulate;
 		return copie;
 	}
-	void anulareBilete(int anulare, int alegere)
+	void anulareBilete(int anulare, int alegere, int* bileteAnulate) // m-am folosit sa testez daca merge bine operatorul+ 
+		//nu am reusit s-o fac sa mearga bine functia. 
 	{
 		switch (alegere)
 		{
 		case 1:
-			nrRezervate -= anulare;
+			for (int i = 0; i < (nrCumparate + nrRezervate); i++)
+			{
+				if (totalLocuri[i] == bileteAnulate[i])
+				{
+					totalLocuri[i] = totalLocuri[i + 1];
+					nrRezervate--;
+				}
+			}
 			break;
-		case 2:
-			nrCumparate -= anulare;
+		case 2:	
+			for (int i = 0; i < (nrCumparate + nrRezervate); i++)
+			{
+				if (totalLocuri[i] == bileteAnulate[i])
+				{
+					totalLocuri[i] = totalLocuri[i + 1];
+					nrCumparate--;
+				}
+			}
+			  break;
+			
 		default:
 			cout << "Nu ati introdus o categorie corecta!" << endl;
 			break;
 		}
 	}
+
+	int& operator[](int index) throw (exception) //supraincarcarea operator[]
+	{
+		if (index >= 0 && index < (this->nrCumparate + this->nrRezervate) && this->totalLocuri != nullptr)
+		{
+			return totalLocuri[index];
+		}
+		else
+		{
+			throw exception("index invalid");
+		}
+	}
+	
+	bool operator!() //supraincarcarea operator!
+	{
+		int locOcupate = nrRezervate + nrCumparate;
+		return locOcupate > 0;
+	}
+
 	friend ostream& operator<<(ostream&, sala);
 	friend istream& operator>>(istream&, sala&);
+	friend bool operator<(sala, sala);
+	friend bool operator==(sala, sala);
 };
 
 ostream& operator<<(ostream& out, sala s)
@@ -249,4 +287,33 @@ istream& operator>>(istream& in, sala& s)
 	cout << "Locuri libere: " << s.nrLibere;
 
 	return in;
+}
+
+bool operator<(sala s1, sala s2)
+{
+	return(s1.nrLibere < s2.nrLibere);
+}
+
+bool operator==(sala s1, sala s2)
+{
+	bool numeSala = true;
+	bool tipSala =  true;
+	bool totalSala = true;
+	bool nrRezervate = true; 
+	bool nrCumparate =  true;
+
+	if (s1.numeSala == s2.numeSala)			{		numeSala = true;	}	else	{		numeSala = false;	}
+	if (s1.tipSala == s2.tipSala)			{		tipSala = true;		}	else	{		tipSala = true;	}
+	if (s1.totalSala == s2.totalSala)		{		totalSala = true;	}	else	{		totalSala = false;	}
+	if (s1.nrRezervate == s2.nrRezervate)	{		nrRezervate = true;	}	else	{		nrRezervate = false;	}
+	if (s1.nrCumparate == s2.nrCumparate)	{		nrCumparate = true;	}	else	{		nrCumparate = false;	}
+	
+	if (numeSala == tipSala == totalSala == nrRezervate == nrCumparate)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
