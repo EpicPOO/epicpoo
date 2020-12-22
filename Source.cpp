@@ -35,11 +35,27 @@ int main()
 	for (int i = 0; i < nrRezervateMain; i++)
 	{
 		cin >> locuriAlese[i];
+		for (int j = 0; j < i; j++)
+		{
+			if (locuriAlese[j] == locuriAlese[i])
+			{
+				cout << "Loc Ocupat!" << " Alege altul: " << endl;
+				cin >> locuriAlese[i];
+			}
+		}
 	}	
 	cout << "Introduceti scaunele cumparate: " << endl;
 	for (int i = nrRezervateMain; i < nrLocuriOcupate; i++)
 	{
 		cin >> locuriAlese[i];
+		for (int j = 0; j < i; j++)
+		{
+			if (locuriAlese[j] == locuriAlese[i])
+			{
+				cout << "Loc Ocupat!" << " Alege altul: " << endl;
+				cin >> locuriAlese[i];
+			}
+		}
 	}
 	
 	sala B("B", "2D", totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
@@ -59,17 +75,15 @@ int main()
 	if (B.getNrRezervate() == nrRezervateMain) { cout << "Corect Nr Rezervate" << endl; }	else { cout << "Gresit Numar Rezervate" << endl; }
 	if (B.getNrCumparate() == nrCumparateMain) { cout << "Corect Nr Cumparate" << endl; }	else { cout << "Gresit Numar Cumparate" << endl; }
 	
+	cout << "		CONSTRUCTOR DE COPIERE SI OPERATORUL =" << endl;
 	sala C("C", "3D", totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
 
 	sala D = C;
 	sala E;
 	sala F = E = D;
-	if (F.getNumeSala() == "C") { cout << "Corect Numele Sala" << endl; }
-	else { cout << "Gresit Numele Sala" << endl; }
-	if (F.getTipSala() == "3D") { cout << "Corect Tip Sala" << endl; }
-	else { cout << "Gresit Tip Sala" << endl; }
-	if (F.getTotalSala() == totalSalaMain) { cout << "Corect Total Sala" << endl; }
-	else { cout << "Gresit Total Sala" << endl; }
+	if (F.getNumeSala() == "C") { cout << "Corect Numele Sala" << endl; }			else { cout << "Gresit Numele Sala" << endl; }
+	if (F.getTipSala() == "3D") { cout << "Corect Tip Sala" << endl; }				else { cout << "Gresit Tip Sala" << endl; }
+	if (F.getTotalSala() == totalSalaMain) { cout << "Corect Total Sala" << endl; }	else { cout << "Gresit Total Sala" << endl; }
 	for (int i = 0; i < nrLocuriOcupate; i++)
 	{
 		if (F.getTotalLocuri()[i] == locuriAlese[i])
@@ -78,12 +92,15 @@ int main()
 		}
 		else { cout << "Gresit Total Locuri" << endl; }
 	}
-	if (F.getNrLibere() == (totalSalaMain - nrLocuriOcupate)) { cout << "Corect Numar Locuri" << endl; }
-	else { cout << "Gresit Numar Locuri" << endl; }
-	if (F.getNrRezervate() == nrRezervateMain) { cout << "Corect Nr Rezervate" << endl; }
-	else { cout << "Gresit Numar Rezervate" << endl; }
-	if (F.getNrCumparate() == nrCumparateMain) { cout << "Corect Nr Cumparate" << endl; }
-	else { cout << "Gresit Numar Cumparate" << endl; }
+	if (F.getNrLibere() == (totalSalaMain - nrLocuriOcupate)) { cout << "Corect Numar Locuri" << endl; }	else { cout << "Gresit Numar Locuri" << endl; }
+	if (F.getNrRezervate() == nrRezervateMain) { cout << "Corect Nr Rezervate" << endl; }					else { cout << "Gresit Numar Rezervate" << endl; }
+	if (F.getNrCumparate() == nrCumparateMain) { cout << "Corect Nr Cumparate" << endl; }					else { cout << "Gresit Numar Cumparate" << endl; }
+
+	cout << "		SUPRAINCARCAREA OPERATORULUI<<" << endl;
+	cout << A;
+	cout << "		SUPRAINCARCAREA OPERATORULUI>>" << endl;
+	cin >> A;
+	cout << endl << "		Afisare obiect introdus anterior" << endl << A;
 
 	return 0;
 }
