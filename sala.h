@@ -129,6 +129,26 @@ public:
 			}
 		}
 	}
+	sala operator+(int anulate)
+	{
+		sala copie = *this;
+		copie.nrLibere += anulate;
+		return copie;
+	}
+	void anulareBilete(int anulare, int alegere)
+	{
+		switch (alegere)
+		{
+		case 1:
+			nrRezervate -= anulare;
+			break;
+		case 2:
+			nrCumparate -= anulare;
+		default:
+			cout << "Nu ati introdus o categorie corecta!" << endl;
+			break;
+		}
+	}
 	friend ostream& operator<<(ostream&, sala);
 	friend istream& operator>>(istream&, sala&);
 };
