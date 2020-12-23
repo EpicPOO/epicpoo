@@ -6,24 +6,18 @@ using namespace std;
 
 int main()
 {
+															//TESTARE CLASA SALA
 	//	test constructor implicit
 
 	sala A;
 	cout << "		CONSTRUCTOR IMPLICIT" << endl;
-	if (A.getNumeSala() == "") { cout << "Corect Numele Sala" << endl; }
-	else { cout << "Gresit Numele Sala" << endl; }
-	if (A.getTipSala() == "") { cout << "Corect Tip Sala" << endl; }
-	else { cout << "Gresit Tip Sala" << endl; }
-	if (A.getTotalSala() == 0) { cout << "Corect Total Sala" << endl; }
-	else { cout << "Gresit Total Sala" << endl; }
-	if (A.getTotalLocuri() == nullptr) { cout << "Corect Total Locuri" << endl; }
-	else { cout << "Gresit Total Locuri" << endl; }
-	if (A.getNrLibere() == 0) { cout << "Corect Numar Locuri" << endl; }
-	else { cout << "Gresit Numar Locuri" << endl; }
-	if (A.getNrRezervate() == 0) { cout << "Corect Nr Rezervate" << endl; }
-	else { cout << "Gresit Numar Rezervate" << endl; }
-	if (A.getNrCumparate() == 0) { cout << "Corect Nr Cumparate" << endl; }
-	else { cout << "Gresit Numar Cumparate" << endl; }
+	if (A.getNumeSala() == "") { cout << "Corect Numele Sala" << endl; }			else { cout << "Gresit Numele Sala" << endl; }
+	if (A.getTipSala() == nullptr) { cout << "Corect Tip Sala" << endl; }				else { cout << "Gresit Tip Sala" << endl; }
+	if (A.getTotalSala() == 0) { cout << "Corect Total Sala" << endl; }				else { cout << "Gresit Total Sala" << endl; }
+	if (A.getTotalLocuri() == nullptr) { cout << "Corect Total Locuri" << endl; }	else { cout << "Gresit Total Locuri" << endl; }
+	if (A.getNrLibere() == 0) { cout << "Corect Numar Locuri" << endl; }			else { cout << "Gresit Numar Locuri" << endl; }
+	if (A.getNrRezervate() == 0) { cout << "Corect Nr Rezervate" << endl; }			else { cout << "Gresit Numar Rezervate" << endl; }
+	if (A.getNrCumparate() == 0) { cout << "Corect Nr Cumparate" << endl; }			else { cout << "Gresit Numar Cumparate" << endl; }
 
 	//test counstructor cu parametri
 	cout << "		CONSTRUCTOR CU PARAMETRI" << endl;
@@ -64,8 +58,8 @@ int main()
 			}
 		}
 	}
-	
-	sala B("B", "2D", totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
+	char tipSalaMain[] = "2D";
+	sala B("B", tipSalaMain, totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
 	
 	if (B.getNumeSala() == "B") { cout << "Corect Numele Sala" << endl; }					else { cout << "Gresit Numele Sala" << endl; }
 	if (B.getTipSala() == "2D") { cout << "Corect Tip Sala" << endl; }						else { cout << "Gresit Tip Sala" << endl; }
@@ -83,7 +77,7 @@ int main()
 	if (B.getNrCumparate() == nrCumparateMain) { cout << "Corect Nr Cumparate" << endl; }	else { cout << "Gresit Numar Cumparate" << endl; }
 	
 	cout << "		CONSTRUCTOR DE COPIERE SI OPERATORUL =" << endl;
-	sala C("C", "3D", totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
+	sala C("C", tipSalaMain, totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
 
 	sala D = C;
 	sala E;
@@ -105,63 +99,54 @@ int main()
 
 	cout << "		SUPRAINCARCAREA OPERATORULUI<<" << endl;
 	cout << A;
+
 	cout << "		SUPRAINCARCAREA OPERATORULUI>>" << endl;
 	cin >> A;
 	cout << endl << "		Afisare obiect introdus anterior" << endl << A;
 	cout << "Locul cu indexul 1: " << A[1] << endl;
+
 	cout << "		SUPRAINCARCAREA OPERATORULUI+" << endl; // nu functioneaza corect functia de anulate a biletelor
-	int anulate = 0, alegere = 0;
-	int* bileteAnulate = nullptr;
-	cout << "Locuri anulate: (1 - rezervate, 2 - cumparate)" << endl;
-	cin >> alegere;
-	cout << "Numarul biletelor anulate: ";
-	cin >> anulate;
-	cout << "Introduceti locurile: " << endl;
-	bileteAnulate = new int[anulate];
-	for (int i = 0; i < anulate; i++)
-	{
-		cin >> bileteAnulate[i];
-	}
-	A.anulareBilete(anulate, alegere, bileteAnulate);
-	A = A + anulate;
-		
-	cout << "		SUPRAINCARCAREA OPERATORULUI!" << endl;
-	if (!A)
-	{
-		cout << "Sunt locuri ocupate!" << endl;
-	}
-	else
-	{
-		cout << "NU sunt locuri ocupate!" << endl;
-	}
+	int locuriSuplimentare = 0;
+	cout << "INAINTE de adaugarea locurilor SUPLIMENTATE: " << A.getTotalSala() << endl;
+	cout << "Locuri Suplimentate: "; cin >> locuriSuplimentare;
+	A = A + locuriSuplimentare;
+	cout << "Dupa adaugarea locurilor SUPLIMENTATE: " << A.getTotalSala() << endl;
 
 	cout << "		SUPRAINCARCAREA OPERATORULUI!" << endl;
-	if (A < B)
-	{
-		cout << "TRUE " << A.getTotalLocuri() << " < " << B.getTotalLocuri();
-	}
-	else
-	{
-		cout << "FALSE " << A.getNrLibere() << " > " << B.getNrLibere();
-	}
+	if (!A)	{		cout << "Sunt locuri ocupate!" << endl;	}	
+	else	{		cout << "NU sunt locuri ocupate!" << endl;	}
+
+	cout << "		SUPRAINCARCAREA OPERATORULUI!" << endl;
+	if (A < B)	{		cout << "TRUE " << A.getTotalLocuri() << " < " << B.getTotalLocuri();	}	
+	else		{		cout << "FALSE " << A.getNrLibere() << " > " << B.getNrLibere();		}
+
 	cout << "		SUPRAINCARCAREA OPERATORULUI==" << endl;
-	if (A == B)
-	{
-		cout << "TRUE! Obiecte identice" << endl;
-	}
-	else
-	{
-		cout << "FALSE! Obiecte DIFERITE" << endl;
-	}
+	if (A == B)	{		cout << "TRUE! Obiecte identice" << endl;	}
+	else		{		cout << "FALSE! Obiecte DIFERITE" << endl;	}
 	sala G = A;
-	if (A == G)
-	{
-		cout << "TRUE! Obiecte identice" << endl;
-	}
-	else
-	{
-		cout << "FALSE! Obiecte DIFERITE" << endl;
-	}
-	delete[] bileteAnulate;
+	if (A == G)	{		cout << "TRUE! Obiecte identice" << endl;	}
+	else		{		cout << "FALSE! Obiecte DIFERITE" << endl;	}
+
+	cout << "		SUPRAINCARCAREA OPERATORULUI++" << endl;
+	cout << "Total locuri inainte de INCREMENTARE: " << A.getTotalSala()<< endl;
+	cout << "Total locuri  PRE-INCREMENTARE : " << A++ << endl;
+	cout << "Total locuri DUPA PRE-INCREMENTARE: " << A.getTotalSala() << endl;
+	cout << "Total locuri POST-INCREMENTARE: " << ++A << endl;
+	cout << "Total locuri DUPA POST-INCREMENTARE: " << A.getTotalSala() << endl;
+
+	cout << "		Operatorul de CAST IMPLICIT si EXPLICIT" << endl;
+	int locuriLibere = (int)A;
+	cout << "Locuri libere sala " << A() << " " << locuriLibere << endl;
+
+	cout << "		campul STATIC" << endl;
+	sala H;
+	cout << "Numele Cinematografului: " << H.getNumeCinematograf() << endl;
+	string numeCinematografMain;
+	cout << "Numele Cinematografului: "; cin >> numeCinematografMain;
+	H.setNumeCinematograf(numeCinematografMain);
+	cout << "Numele Cinematografului: " << H.getNumeCinematograf() << endl;
+	
+
+	//delete[] bileteAnulate;
 	return 0;
 }
