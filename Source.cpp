@@ -146,7 +146,5 @@ int main()
 	H.setNumeCinematograf(numeCinematografMain);
 	cout << "Numele Cinematografului: " << H.getNumeCinematograf() << endl;
 	
-
-	//delete[] bileteAnulate;
 	return 0;
 }
