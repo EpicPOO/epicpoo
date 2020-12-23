@@ -8,15 +8,16 @@ using namespace std;
 class sala
 {
 private:
+	const int idSala = 0;
 	string numeSala; //A,B,C sau I.C.Carageale, M. Eminescu sau A2D, A3D, B2D, B3D //done
 	string tipSala;// 2D, 3D, 4D, s.a. //done
 	int totalSala; // numarul total de locuri pe care le are Sala //done
-	int* totalLocuri; //vectorul in care se stocheaza locurile alese din sala (rezervate si cumparate) //done
+	int* totalLocuri; //vectorul in care se stocheaza locurile alese din sala (rezervate + cumparate) //done
 	int nrLibere; //numarul locurilor ramase 
 	int nrRezervate; // numarul locurilor rezervate //done
 	int nrCumparate; //numarul biletelor cumparate de la casa //done
 public:
-	sala() //constructor implicit
+	sala():idSala(1) //constructor implicit
 	{
 		numeSala = "";
 		tipSala = "";
@@ -26,7 +27,7 @@ public:
 		nrRezervate = 0;
 		nrCumparate = 0;
 	}
-	sala(string numeSala, string tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate) // constructor cu 6 parametri (sunt toti cei necesari)
+	sala(string numeSala, string tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate):idSala(idSala) // constructor cu 6 parametri (sunt toti cei necesari)
 	{
 		if (numeSala != "")		{			this->numeSala = numeSala;			}	else	{			this->numeSala = "Necunoscuta";		}
 		if (tipSala != "")		{			this->tipSala = tipSala;			}	else	{			this->tipSala = "Necunoscuta";		}
@@ -51,7 +52,7 @@ public:
 
 		this->nrLibere = totalSala - (nrCumparate + nrRezervate); // aflu cate locuri libere mai raman
 	}
-	sala(const sala& s) //constructor de copiere
+	sala(const sala& s):idSala(s.idSala) //constructor de copiere
 	{
 		if (s.numeSala != "")	{ this->numeSala = s.numeSala; }		else { this->numeSala = "Necunoscuta"; }
 		if (s.tipSala != "")	{ this->tipSala = s.tipSala; }			else { this->tipSala = "Necunoscuta"; }
@@ -95,7 +96,8 @@ public:
 		this->nrLibere = s.totalSala - (s.nrCumparate + s.nrRezervate);
 		return *this;
 	}
-	
+	//getter si setter pentru atribute
+
 	string	getNumeSala()		{	return numeSala;	}
 	void	setNumeSala(string numeSala)	{	if (numeSala != "")	{	this->numeSala = numeSala;	}	else	{	this->numeSala = "";	}	}
 
@@ -129,6 +131,7 @@ public:
 			}
 		}
 	}
+	//SUPRAINCARCAREA OPERATORILOR SI METODELE FRIEND
 	sala operator+(int anulate) //supraincarcarea operator+
 	{
 		sala copie = *this;
@@ -185,12 +188,25 @@ public:
 		return locOcupate > 0;
 	}
 
-	friend ostream& operator<<(ostream&, sala);
-	friend istream& operator>>(istream&, sala&);
-	friend bool operator<(sala, sala);
-	friend bool operator==(sala, sala);
-};
+	sala operator++() // mareste numarul total de locuri pe care-l are sala
+	{
+		this->totalSala++;
+		return *this;
+	}
 
+	sala operator++(int i) // mareste numarul total de locuri pe care-l are sala
+	{
+		sala copie = *this;
+		this->totalSala++;
+		return copie;
+	}
+
+	friend ostream& operator<<(ostream&, sala);		// operatorul<<
+	friend istream& operator>>(istream&, sala&);	// operatorul>>
+	friend bool operator<(sala, sala);				// operatorul<
+	friend bool operator==(sala, sala);				// operatorul==
+};
+// operatorul<<
 ostream& operator<<(ostream& out, sala s)
 {
 	out << "Nume sala: " << s.numeSala << endl;
@@ -210,8 +226,8 @@ ostream& operator<<(ostream& out, sala s)
 	out << "Locuri cumparate: " << s.nrCumparate << endl;
 
 	return out;
-}
-
+} 
+// operatorul>>
 istream& operator>>(istream& in, sala& s)
 {
 	cout << "Nume sala: ";		in >> ws;	getline(in, s.numeSala);
@@ -288,12 +304,12 @@ istream& operator>>(istream& in, sala& s)
 
 	return in;
 }
-
+// operatorul<
 bool operator<(sala s1, sala s2)
 {
 	return(s1.nrLibere < s2.nrLibere);
 }
-
+// operatorul==
 bool operator==(sala s1, sala s2)
 {
 	bool numeSala = true;
