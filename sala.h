@@ -8,28 +8,39 @@ using namespace std;
 class sala
 {
 private:
+	const int idSala = 0;
 	string numeSala; //A,B,C sau I.C.Carageale, M. Eminescu sau A2D, A3D, B2D, B3D //done
-	string tipSala;// 2D, 3D, 4D, s.a. //done
+	char* tipSala;// 2D, 3D, 4D, s.a. //done
 	int totalSala; // numarul total de locuri pe care le are Sala //done
-	int* totalLocuri; //vectorul in care se stocheaza locurile alese din sala (rezervate si cumparate) //done
+	int* totalLocuri; //vectorul in care se stocheaza locurile alese din sala (rezervate + cumparate) //done
 	int nrLibere; //numarul locurilor ramase 
 	int nrRezervate; // numarul locurilor rezervate //done
 	int nrCumparate; //numarul biletelor cumparate de la casa //done
+	static string numeCinematograf;
 public:
-	sala() //constructor implicit
+	sala():idSala(1) //constructor implicit
 	{
 		numeSala = "";
-		tipSala = "";
+		tipSala = nullptr;
 		totalSala = 0; //
 		totalLocuri = nullptr;
 		nrLibere = 0;
 		nrRezervate = 0;
 		nrCumparate = 0;
 	}
-	sala(string numeSala, string tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate) // constructor cu 6 parametri (sunt toti cei necesari)
+	sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate):idSala(idSala) // constructor cu 6 parametri (sunt toti cei necesari)
 	{
 		if (numeSala != "")		{			this->numeSala = numeSala;			}	else	{			this->numeSala = "Necunoscuta";		}
-		if (tipSala != "")		{			this->tipSala = tipSala;			}	else	{			this->tipSala = "Necunoscuta";		}
+		if (tipSala != nullptr)		
+		{			
+			this->tipSala = new char[strlen(tipSala) + 1];
+			strcpy_s(this->tipSala, strlen(tipSala) + 1, tipSala);
+		}	
+		else	
+		{		
+			this->tipSala = new char[strlen("Necunoscuta") + 1];
+			strcpy_s(this->tipSala, strlen("Necunoscuta")+1, "Necunoscuta");		
+		}
 		if (totalSala > 0)		{			this->totalSala = totalSala;		}	else	{			this->totalSala = 0;				}
 		if (nrRezervate > 0)	{			this->nrRezervate = nrRezervate;	}	else	{			this->nrRezervate = 0;				}
 		if (nrCumparate > 0)	{			this->nrCumparate = nrCumparate;	}	else	{			this->nrCumparate = 0;				}
@@ -51,10 +62,19 @@ public:
 
 		this->nrLibere = totalSala - (nrCumparate + nrRezervate); // aflu cate locuri libere mai raman
 	}
-	sala(const sala& s) //constructor de copiere
+	sala(const sala& s):idSala(s.idSala) //constructor de copiere
 	{
 		if (s.numeSala != "")	{ this->numeSala = s.numeSala; }		else { this->numeSala = "Necunoscuta"; }
-		if (s.tipSala != "")	{ this->tipSala = s.tipSala; }			else { this->tipSala = "Necunoscuta"; }
+		if (s.tipSala != nullptr)
+		{
+			this->tipSala = new char[strlen(s.tipSala) + 1];
+			strcpy_s(this->tipSala, strlen(s.tipSala) + 1, s.tipSala);
+		}
+		else
+		{
+			this->tipSala = new char[strlen("Necunoscuta") + 1];
+			strcpy_s(this->tipSala, strlen("Necunoscuta") + 1, "Necunoscuta");
+		}
 		if (s.totalSala > 0)	{ this->totalSala = s.totalSala; }		else { this->totalSala = 0; }
 		if (s.nrRezervate > 0)	{ this->nrRezervate = s.nrRezervate; }	else { this->nrRezervate = 0; }
 		if (s.nrCumparate > 0)	{ this->nrCumparate = s.nrCumparate; }	else { this->nrCumparate = 0; }
@@ -82,7 +102,16 @@ public:
 	{
 		if (totalLocuri != nullptr) { delete[] totalLocuri; }
 		if (s.numeSala != "")	{ this->numeSala = s.numeSala; }		else { this->numeSala = "Necunoscuta"; }
-		if (s.tipSala != "")	{ this->tipSala = s.tipSala; }			else { this->tipSala = "Necunoscuta"; }
+		if (tipSala != nullptr)
+		{
+			this->tipSala = new char[strlen(s.tipSala) + 1];
+			strcpy_s(this->tipSala, strlen(s.tipSala) + 1, s.tipSala);
+		}
+		else
+		{
+			this->tipSala = new char[strlen("Necunoscuta") + 1];
+			strcpy_s(this->tipSala, strlen("Necunoscuta") + 1, "Necunoscuta");
+		}
 		if (s.totalSala > 0)	{ this->totalSala = s.totalSala; }		else { this->totalSala = 0; }
 		if (s.nrRezervate > 0)	{ this->nrRezervate = s.nrRezervate; }	else { this->nrRezervate = 0; }
 		if (s.nrCumparate > 0)	{ this->nrCumparate = s.nrCumparate; }	else { this->nrCumparate = 0; }
@@ -95,12 +124,25 @@ public:
 		this->nrLibere = s.totalSala - (s.nrCumparate + s.nrRezervate);
 		return *this;
 	}
-	
+	//getter si setter pentru atribute
+
 	string	getNumeSala()		{	return numeSala;	}
 	void	setNumeSala(string numeSala)	{	if (numeSala != "")	{	this->numeSala = numeSala;	}	else	{	this->numeSala = "";	}	}
 
-	string	getTipSala()		{	return tipSala;		}
-	void	setTipSala(string tipSala) 		{ 	if (tipSala != "")	{	this->tipSala = tipSala;	} 	else	{	this->tipSala = "";		}	}
+	char*	getTipSala()		{	return tipSala;		}
+	void	setTipSala(char* tipSala) 		
+	{ 	
+		if (tipSala != nullptr)	
+		{	
+			this->tipSala = new char[strlen(tipSala) + 1];
+			strcpy_s(this->tipSala, strlen(tipSala)+1, tipSala);	
+		} 	
+		else	
+		{	
+			this->tipSala = new char[strlen("Necunoscuta") + 1];
+			strcpy_s(this->tipSala,strlen("Necunoscuta")+1, "Necunoscuta");		
+		}	
+	}
 
 	int		getTotalSala()		{	return totalSala;	}
 	void	setTotaSala(int totalSala)		{	if (totalSala != 0)	{	this->totalSala = totalSala;}	else	{	this->totalSala = 0;	}	}
@@ -129,44 +171,29 @@ public:
 			}
 		}
 	}
-	sala operator+(int anulate) //supraincarcarea operator+
+	string getNumeCinematograf()
 	{
-		sala copie = *this;
-		copie.nrLibere += anulate;
-		return copie;
+		return numeCinematograf;
 	}
-	void anulareBilete(int anulare, int alegere, int* bileteAnulate) // m-am folosit sa testez daca merge bine operatorul+ 
-		//nu am reusit s-o fac sa mearga bine functia. 
+	void setNumeCinematograf(string numeCinematograf)
 	{
-		switch (alegere)
+		if (numeCinematograf != "")
 		{
-		case 1:
-			for (int i = 0; i < (nrCumparate + nrRezervate); i++)
-			{
-				if (totalLocuri[i] == bileteAnulate[i])
-				{
-					totalLocuri[i] = totalLocuri[i + 1];
-					nrRezervate--;
-				}
-			}
-			break;
-		case 2:	
-			for (int i = 0; i < (nrCumparate + nrRezervate); i++)
-			{
-				if (totalLocuri[i] == bileteAnulate[i])
-				{
-					totalLocuri[i] = totalLocuri[i + 1];
-					nrCumparate--;
-				}
-			}
-			  break;
-			
-		default:
-			cout << "Nu ati introdus o categorie corecta!" << endl;
-			break;
+			this->numeCinematograf = numeCinematograf;
+		}
+		else
+		{
+			this->numeCinematograf = "Necunoscut";
 		}
 	}
 
+	//SUPRAINCARCAREA OPERATORILOR SI METODELE FRIEND
+	sala operator+(int locSuplimentar) //supraincarcarea operator+
+	{
+		sala copie = *this;
+		copie.totalSala += locSuplimentar;
+		return copie;
+	}
 	int& operator[](int index) throw (exception) //supraincarcarea operator[]
 	{
 		if (index >= 0 && index < (this->nrCumparate + this->nrRezervate) && this->totalLocuri != nullptr)
@@ -185,12 +212,38 @@ public:
 		return locOcupate > 0;
 	}
 
-	friend ostream& operator<<(ostream&, sala);
-	friend istream& operator>>(istream&, sala&);
-	friend bool operator<(sala, sala);
-	friend bool operator==(sala, sala);
-};
+	sala operator++() // mareste numarul total de locuri pe care-l are sala
+	{
+		this->totalSala++;
+		return *this;
+	}
 
+	sala operator++(int i) // mareste numarul total de locuri pe care-l are sala
+	{
+		sala copie = *this;
+		this->totalSala++;
+		return copie;
+	}
+	// Operatorul de CAST EXPLICIT
+	explicit operator int()
+	{
+		nrLibere = totalSala - (nrCumparate + nrRezervate);
+		return this->nrLibere;
+	}
+	// Operatorul de CAST IMPLICIT
+	string operator()()
+	{
+		return this->numeSala;
+	}
+
+	friend ostream& operator<<(ostream&, sala);		// operatorul<<
+	friend istream& operator>>(istream&, sala&);	// operatorul>>
+	friend bool operator<(sala, sala);				// operatorul<
+	friend bool operator==(sala, sala);				// operatorul==
+};
+// initializare atribut static
+string sala::numeCinematograf = "Necunoscut";
+// operatorul<<
 ostream& operator<<(ostream& out, sala s)
 {
 	out << "Nume sala: " << s.numeSala << endl;
@@ -210,12 +263,17 @@ ostream& operator<<(ostream& out, sala s)
 	out << "Locuri cumparate: " << s.nrCumparate << endl;
 
 	return out;
-}
-
+} 
+// operatorul>>
 istream& operator>>(istream& in, sala& s)
 {
 	cout << "Nume sala: ";		in >> ws;	getline(in, s.numeSala);
-	cout << "Tip sala: ";		in >> ws;	getline(in, s.tipSala);
+	cout << "Tip sala: ";
+	char buffer[20];
+	in >> ws;
+	in.getline(buffer, 19);
+	s.tipSala = new char[strlen(buffer) + 1];
+	strcpy_s(s.tipSala, strlen(buffer) + 1, buffer);
 	cout << "Total locuri: ";	in >> s.totalSala;
 	cout << "Locuri rezervare: ";	in >> s.nrRezervate;
 	cout << "Locuri cumparate: ";	in >> s.nrCumparate;
@@ -288,12 +346,12 @@ istream& operator>>(istream& in, sala& s)
 
 	return in;
 }
-
+// operatorul<
 bool operator<(sala s1, sala s2)
 {
 	return(s1.nrLibere < s2.nrLibere);
 }
-
+// operatorul==
 bool operator==(sala s1, sala s2)
 {
 	bool numeSala = true;
