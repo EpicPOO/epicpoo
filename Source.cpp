@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include "sala.h"
+#include "film.h"
 
 using namespace std;
 
@@ -146,5 +147,77 @@ int main()
 	H.setNumeCinematograf(numeCinematografMain);
 	cout << "Numele Cinematografului: " << H.getNumeCinematograf() << endl;
 	
+	//TESTE Andrei -> pentru sala.h
+	
+	cout <<"Teste pentru sala.h
+
+	film f1;
+	cout << "Test constructor implicit:\n";
+	cout << f1 << "\n\n";
+
+	string stringuri[2];
+	stringuri[0] = "15.10 15:30 - 17:30";
+	stringuri[1] = "16.10 15:50 - 17:50";
+	string nume = "Avengers";
+	char tip[] = "3D";
+	int varsta = 14, nr = 2;
+
+	film f2(nume, tip, varsta, nr, stringuri);
+	cout << "Test constructor cu parametri:\n" << f2 << "\n\n";
+
+	film f3;
+	f3.setNumeFilm(nume);
+	f3.setTipFilm(tip);
+	f3.setNrRulari(nr);
+	f3.setVarstaMin(varsta);
+	f3.setProgram(stringuri, nr);
+
+	cout << "Test setteri" << f3 << "\n\n";
+
+	bool t = true;
+
+	if (f3.getNumeFilm() == nume && f3.getTipFilm()[0] == tip[0] && f3.getTipFilm()[1] == tip[1] && f3.getVarstaMin() == varsta && f3.getNrRulari() == nr) {
+		for (int i = 0; i < nr; i++)
+			if (f3.getProgram()[i] != stringuri[i]) { t = false; break; }
+	}
+	else t = false;
+	if (t == true)
+		cout << "Getteri corecti" << "\n\n";
+	else cout << "Getteri incorecti" << "\n\n";
+
+	film f4(f1);
+	film f5 = f1;
+	film f6;
+	f6 = f1;
+
+	cout << "Test constructor de copiere:\n" << f4 << endl << f5 << "\n\n";
+
+	cout << "Test operator = :\n" << f6 << "\n\n";
+
+	f6 = f6 + 1;
+	cout << "Test operator +: " << f6 << "\n\n";
+
+	//cout << "Test operator ++: " << f6++ << "\n" << f6 << "\n\n";
+
+	//film f7;
+	//cout << "Test operator pre ++: " << f7 << "\n" << ++f7 << "\n\n";
+
+	cout << "Testare cast explicit la int: " << (int)f6 << "\n\n";
+
+	string testMyName = f2();
+	cout << "Testare cast implicit la string: " << testMyName << "\n\n";
+
+	cout << "Testare operator !: ";
+	if (!f2) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
+	cout << "Testare operator <: ";
+	if (f1 < f2) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
+	cout << "Testare operator ==: ";
+	if (f2 == f3) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
 	return 0;
 }
