@@ -16,9 +16,9 @@ private:
 	int nrLibere; //numarul locurilor ramase 
 	int nrRezervate; // numarul locurilor rezervate //done
 	int nrCumparate; //numarul biletelor cumparate de la casa //done
-	static string numeCinematograf;
+	static int numarSali;//pentru a preincrementa in idSala la constructori//done
 public:
-	sala():idSala(1) //constructor implicit
+	sala():idSala(++numarSali) //constructor implicit
 	{
 		numeSala = "";
 		tipSala = nullptr;
@@ -28,7 +28,7 @@ public:
 		nrRezervate = 0;
 		nrCumparate = 0;
 	}
-	sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate):idSala(idSala) // constructor cu 6 parametri (sunt toti cei necesari)
+	sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate):idSala(++numarSali) // constructor cu 6 parametri (sunt toti cei necesari)
 	{
 		if (numeSala != "")		{			this->numeSala = numeSala;			}	else	{			this->numeSala = "Necunoscuta";		}
 		if (tipSala != nullptr)		
@@ -97,6 +97,7 @@ public:
 	~sala() //destructor
 	{
 		if (totalLocuri != nullptr) { delete[] totalLocuri; }
+		if (tipSala != nullptr)		{ delete[] tipSala; }
 	}
 	sala operator=(sala s) //operator=
 	{
@@ -171,21 +172,6 @@ public:
 			}
 		}
 	}
-	string getNumeCinematograf()
-	{
-		return numeCinematograf;
-	}
-	void setNumeCinematograf(string numeCinematograf)
-	{
-		if (numeCinematograf != "")
-		{
-			this->numeCinematograf = numeCinematograf;
-		}
-		else
-		{
-			this->numeCinematograf = "Necunoscut";
-		}
-	}
 
 	//SUPRAINCARCAREA OPERATORILOR SI METODELE FRIEND
 	sala operator+(int locSuplimentar) //supraincarcarea operator+
@@ -242,7 +228,7 @@ public:
 	friend bool operator==(sala, sala);				// operatorul==
 };
 // initializare atribut static
-string sala::numeCinematograf = "Necunoscut";
+int sala::numarSali = 0;
 // operatorul<<
 ostream& operator<<(ostream& out, sala s)
 {
@@ -268,80 +254,57 @@ ostream& operator<<(ostream& out, sala s)
 istream& operator>>(istream& in, sala& s)
 {
 	cout << "Nume sala: ";		in >> ws;	getline(in, s.numeSala);
+	
 	cout << "Tip sala: ";
 	char buffer[20];
 	in >> ws;
 	in.getline(buffer, 19);
+	
+	if (s.tipSala != nullptr) delete[] s.tipSala;
 	s.tipSala = new char[strlen(buffer) + 1];
 	strcpy_s(s.tipSala, strlen(buffer) + 1, buffer);
-	cout << "Total locuri: ";	in >> s.totalSala;
+	
+	cout << "Total locuri: ";		in >> s.totalSala;
+
+	if (s.totalSala < 1) cout << "Sala trebuie sa aiba minim 1 loc! Alege din nou: "; in >> s.totalSala;
+	
 	cout << "Locuri rezervare: ";	in >> s.nrRezervate;
+	
 	cout << "Locuri cumparate: ";	in >> s.nrCumparate;
 
 	s.nrLibere = s.totalSala - (s.nrCumparate + s.nrRezervate);
 
 	cout << "		Locuri ocupate " << endl;	int locOcupate = s.nrRezervate + s.nrCumparate;
-	if (s.totalLocuri != nullptr)
+	if (s.totalLocuri != nullptr)	delete[] s.totalLocuri;
+	s.totalLocuri = new int[locOcupate];
+	cout << "Locuri Rezervate: " << endl;
+	for (int i = 0; i < s.nrRezervate; i++)
 	{
-		delete[] s.totalLocuri;
-		s.totalLocuri = new int[locOcupate];
-		cout << "Locuri Rezervate: " << endl;
-		for (int i = 0; i < s.nrRezervate; i++)
+		in >> s.totalLocuri[i];
+		for (int j = 0; j < i; j++)
 		{
-			in >> s.totalLocuri[i];
-			for (int j = 0; j < i; j++)
+			if (s.totalLocuri[j] == s.totalLocuri[i])
 			{
-				if (s.totalLocuri[j] == s.totalLocuri[i])
-				{
-					cout << "Loc Ocupat!" << "Alege din nou: " << endl;
-					in >> s.totalLocuri[i];
-				}
-			}
-		}
-		cout << "Locuri Cumparate: " << endl;
-		for (int i = s.nrRezervate; i < locOcupate; i++)
-		{
-			in >> s.totalLocuri[i];
-			for (int j = 0; j < i; j++)
-			{
-				if (s.totalLocuri[j] == s.totalLocuri[i])
-				{
-					cout << "Loc Ocupat!" << "Alege din nou: " << endl;
-					in >> s.totalLocuri[i];
-				}
+				cout << "Loc Ocupat!" << "Alege din nou: " << endl;
+				in >> s.totalLocuri[i];
 			}
 		}
 	}
-	else
+	cout << "Locuri Cumparate: " << endl;		
+	for (int i = s.nrRezervate; i < locOcupate; i++)
 	{
-		s.totalLocuri = new int[locOcupate];
-		cout << "Locuri Rezervate: " << endl;
-		for (int i = 0; i < s.nrRezervate; i++)
+		in >> s.totalLocuri[i];
+		for (int j = 0; j < i; j++)
 		{
-			in >> s.totalLocuri[i];
-			for (int j = 0; j < i; j++)
+			if (s.totalLocuri[j] == s.totalLocuri[i])
 			{
-				if (s.totalLocuri[j] == s.totalLocuri[i])
-				{
-					cout << "Loc Ocupat!" << "Alege din nou: " << endl;
-					in >> s.totalLocuri[i];
-				}
-			}
-		}
-		cout << "Locuri Cumparate: " << endl;
-		for (int i = s.nrRezervate; i < locOcupate; i++)
-		{
-			in >> s.totalLocuri[i];
-			for (int j = 0; j < i; j++)
-			{
-				if (s.totalLocuri[j] == s.totalLocuri[i])
-				{
-					cout << "Loc Ocupat!" << "Alege din nou: " << endl;
-					in >> s.totalLocuri[i];
-				}
+				cout << "Loc Ocupat!" << "Alege din nou: " << endl;
+				in >> s.totalLocuri[i];				
 			}
 		}
 	}
+
+
 	cout << "Locuri libere: " << s.nrLibere;
 
 	return in;
