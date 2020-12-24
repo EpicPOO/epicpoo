@@ -147,6 +147,12 @@ int main()
 	H.setNumeCinematograf(numeCinematografMain);
 	cout << "Numele Cinematografului: " << H.getNumeCinematograf() << endl;
 	
+
+
+
+
+
+
 	//TESTE Andrei -> pentru sala.h
 	
 	cout <<"Teste pentru sala.h
