@@ -155,8 +155,6 @@ int main()
 
 	//TESTE Andrei -> pentru sala.h
 	
-	cout <<"Teste pentru sala.h
-
 	film f1;
 	cout << "Test constructor implicit:\n";
 	cout << f1 << "\n\n";
@@ -203,11 +201,6 @@ int main()
 	f6 = f6 + 1;
 	cout << "Test operator +: " << f6 << "\n\n";
 
-	//cout << "Test operator ++: " << f6++ << "\n" << f6 << "\n\n";
-
-	//film f7;
-	//cout << "Test operator pre ++: " << f7 << "\n" << ++f7 << "\n\n";
-
 	cout << "Testare cast explicit la int: " << (int)f6 << "\n\n";
 
 	string testMyName = f2();
@@ -224,6 +217,18 @@ int main()
 	cout << "Testare operator ==: ";
 	if (f2 == f3) cout << "functioneaza\n\n";
 	else cout << "nu functioneaza\n\n";
+
+
+	film f7;
+	cout << "Test operator ++: ";
+	if ((f7++).getVarstaMin() == 0) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
+	cout << "Test operator pre ++: ";
+	if ((++f7).getVarstaMin() == 2) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
+	film f9(nume, tip, varsta, nr, stringuri);
 
 	return 0;
 }
