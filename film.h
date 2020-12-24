@@ -315,12 +315,6 @@ bool operator<(film f1, film f2) //operator <, dupa varsta minima
 	return(f1.varstaMin < f2.varstaMin);
 }
 
-string numeFilm; //ca la sala
-char* tipFilm;  //ca la sala
-int varstaMin; //pentru a intra la film
-int nrRulari;//pt array ul program, avem nevoie de lungime
-string* program; //poate rula de mai multe ori, deci e nevoie de un array de stinguri
-
 bool operator==(film f1, film f2)
 {
 	if (f1.numeFilm != f2.numeFilm || f1.varstaMin != f2.varstaMin || f1.nrRulari != f2.nrRulari)
