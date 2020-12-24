@@ -11,7 +11,7 @@ using namespace std;
 //regula celor 3 -> done and tesded
 //>> << -> done and tested
 //+,-,* sau / done pt plus -> done si testat
-//++ sau -- cu cele 2 forme -> ? not working yet
+//++ sau -- cu cele 2 forme -> done and tested
 //cast explicit sau implicit -> done and tested
 // ! -> done and tested
 //< > =< sau >= -> done and tested
@@ -26,10 +26,9 @@ private:
 	int varstaMin; //pentru a intra la film
 	int nrRulari;//pt array ul program, avem nevoie de lungime
 	string* program; //poate rula de mai multe ori, deci e nevoie de un array de stinguri
-	static string retras; //toate vor avea nu, atribut pt a verifica daca filmele din grila au fost sau nu retrase
-
+	static int numarFilme; //folosit in constructori pentru a pune un id filmului (preincrementare)
 public:
-	film() : idFilm(1) //cstr implicit
+	film() : idFilm(++numarFilme) //cstr implicit
 	{
 		numeFilm = "";
 		tipFilm = nullptr;
@@ -37,7 +36,7 @@ public:
 		program = nullptr;
 	}
 
-	film(std::string numeFilm, const char* tipFilm, int varstaMin, int nrRulari, string* program) : idFilm(idFilm)
+	film(std::string numeFilm, const char* tipFilm, int varstaMin, int nrRulari, string* program) : idFilm(++numarFilme)
 	{
 		if (numeFilm != "") this->numeFilm = numeFilm;//validara numeFilm, string
 		else this->numeFilm = "";
@@ -257,7 +256,7 @@ public:
 	friend bool operator==(film, film);
 };
 
-string film::retras = "Nu";
+int film::numarFilme = 0;
 
 ostream& operator<<(ostream& out, film f) // operator afisare
 {
