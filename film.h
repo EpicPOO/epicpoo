@@ -5,7 +5,7 @@
 using namespace std;
 
 //minim un array de caractere -> done and tested
-//camp static? -> done !!!!!!!!!!!!!!!!!!!!!!!!!!!! to find a suitable static field
+//camp static? -> done
 //getteri setteri -> done and tested
 //vallidari la setteri -> done and tested
 //regula celor 3 -> done and tesded
@@ -33,6 +33,7 @@ public:
 		numeFilm = "";
 		tipFilm = nullptr;
 		varstaMin = 0;
+		nrRulari = 0;
 		program = nullptr;
 	}
 
