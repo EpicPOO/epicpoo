@@ -177,7 +177,7 @@ public:
 	sala operator+(int locSuplimentar) //supraincarcarea operator+
 	{
 		sala copie = *this;
-		copie.totalSala += locSuplimentar;
+		copie.totalSala += locSuplimentar;	
 		return copie;
 	}
 	int& operator[](int index) throw (exception) //supraincarcarea operator[]
@@ -266,7 +266,10 @@ istream& operator>>(istream& in, sala& s)
 	
 	cout << "Total locuri: ";		in >> s.totalSala;
 
-	if (s.totalSala < 1) cout << "Sala trebuie sa aiba minim 1 loc! Alege din nou: "; in >> s.totalSala;
+	if (s.totalSala < 1)
+	{
+		cout << "Sala trebuie sa aiba minim 1 loc! Alege din nou: "; in >> s.totalSala;
+	}
 	
 	cout << "Locuri rezervare: ";	in >> s.nrRezervate;
 	
