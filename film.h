@@ -280,6 +280,7 @@ istream& operator>>(istream& in, film& f) // operator citire
 
 	cout << "Tip film: ";
 	char buffer[20];
+	in.getline(buffer, 19);
 	if (f.tipFilm != nullptr) delete[] f.tipFilm;
 	f.tipFilm = new char[strlen(buffer) + 1];
 	strcpy_s(f.tipFilm, strlen(buffer) + 1, buffer);
@@ -301,6 +302,7 @@ istream& operator>>(istream& in, film& f) // operator citire
 	}
 
 	cout << "Program: ";
+	f.program = new string[f.nrRulari];
 	for (int i = 0; i < f.nrRulari; i++)
 	{
 		in >> ws;
