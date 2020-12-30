@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-	/*
+
 	//TESTARE  Buharu CLASA SALA
 	//test constructor implicit
 
@@ -317,7 +317,7 @@ int main()
 	cout << "Test operator --: ";
 	if ((a7--).getPret() == 0) cout << "functioneaza\n\n";
 	else cout << "nu functioneaza\n\n";
-	*/
+	
 
 
 
@@ -328,19 +328,19 @@ int main()
 	cout << "		Constructor Implicit" << endl << angajat1;
 	
 	//constructor cu parametrii
-	char nume[] = "Buharu";
+	char numeAngajat[] = "Buharu";
 	int telefon[] = { 0,7,6,4,9,8,0,5,1,4 };
 	string adresa = "Bucuresti, sector 3, blv. Unirii, nr 11, sc 1, ap 11";
 	string email = "buharu@yahoo.com";
 	float salariu = 2545.20;
-	int varsta = 20;
-	angajati angajat2(nume, telefon, adresa, email, salariu, varsta);
+	int varstaAngajat = 20;
+	angajati angajat2(numeAngajat, telefon, adresa, email, salariu, varstaAngajat);
 	cout << endl << "		Constructor cu parametrii" << endl << angajat2 << endl;
 
 	angajati angajat4;
 	angajat4 = angajat2;
 	cout << "		Operator =" << endl;
-	if (strcmp(angajat4.getNume(), nume) == 0) { cout << "Nume CORECT" << endl; }
+	if (strcmp(angajat4.getNume(), numeAngajat) == 0) { cout << "Nume CORECT" << endl; }
 	else { cout << "Nume INCORECT" << endl; }
 	bool testTelefon = true;
 	for (int i = 0; i < 10; i++)
@@ -351,18 +351,18 @@ int main()
 	if (angajat4.getAdresa() == adresa)		{	cout << "Adresa CORECT" << endl;		}	else { cout << "Adresa INCORECT" << endl; }
 	if (angajat4.getEmail() == email)		{	cout << "Email CORECT" << endl;			}	else { cout << "Email INCORECT" << endl; }
 	if (angajat4.getSalariu() == salariu)	{	cout << "Salariu CORECT" << endl;		}	else { cout << "Salariu INCORECT" << endl; }
-	if (angajat4.getVarsta() == varsta)		{	cout << "Varsta CORECT" << endl;		}	else { cout << "Varsta INCORECT" << endl;	}
+	if (angajat4.getVarsta() == varstaAngajat)		{	cout << "Varsta CORECT" << endl;		}	else { cout << "Varsta INCORECT" << endl;	}
 	
 	//testare getter si setter
 	cout << "		Testare getter si setter" << endl;
 	angajati angajat3;
-	angajat3.setNume(nume);
+	angajat3.setNume(numeAngajat);
 	angajat3.setTelefon(telefon);
 	angajat3.setAdresa(adresa);
 	angajat3.setEmail(email);
 	angajat3.setSalariu(salariu);
-	angajat3.setVarsta(varsta);
-	if (strcmp(angajat3.getNume(), nume) == 0)	{		cout << "Nume CORECT" << endl;	}	else	{		cout << "Nume INCORECT" << endl;	}
+	angajat3.setVarsta(varstaAngajat);
+	if (strcmp(angajat3.getNume(), numeAngajat) == 0)	{		cout << "Nume CORECT" << endl;	}	else	{		cout << "Nume INCORECT" << endl;	}
 	bool testTelefon1 = true;
 	for (int i = 0; i < 10; i++)
 	{
@@ -372,7 +372,7 @@ int main()
 	if (angajat3.getAdresa() == adresa)		{		cout << "Adresa CORECT" << endl;		}	else	{		cout << "Adresa INCORECT" << endl;	}
 	if (angajat3.getEmail() == email)		{		cout << "Email CORECT" << endl;			}	else	{		cout << "Email INCORECT" << endl;	}
 	if (angajat3.getSalariu() == salariu)	{		cout << "Salariu CORECT" << endl;		}	else	{		cout << "Salariu INCORECT" << endl; }
-	if (angajat3.getVarsta() == varsta)		{		cout << "Varsta CORECT" << endl;		}	else	{		cout << "Varsta INCORECT" << endl;	}
+	if (angajat3.getVarsta() == varstaAngajat)		{		cout << "Varsta CORECT" << endl;		}	else	{		cout << "Varsta INCORECT" << endl;	}
 	
 	//operatorul+
 	cout << "		Operatorul + si -" << endl;
@@ -432,9 +432,9 @@ int main()
 		cout << "Operator de cast explicit INCORECT" << endl;
 	}
 	bool testOperatorCast = true;
-	for (int i = 0; i < strlen(nume) + 1; i++)
+	for (int i = 0; i < strlen(numeAngajat) + 1; i++)
 	{
-		if (angajat3()[i] != nume[i])
+		if (angajat3()[i] != numeAngajat[i])
 		{
 			testOperatorCast = false; cout << "Operator de cast implicit INCORECT" << endl; break;
 		}
