@@ -280,6 +280,7 @@ istream& operator>>(istream& in, aliment& a) // operator citire
 
 	cout << "Categorie: ";
 	char buffer[20];
+	in.getline(buffer, 19);
 	if (a.categorie != nullptr) delete[] a.categorie;
 	a.categorie = new char[strlen(buffer) + 1];
 	strcpy_s(a.categorie, strlen(buffer) + 1, buffer);
@@ -301,6 +302,7 @@ istream& operator>>(istream& in, aliment& a) // operator citire
 	}
 
 	cout << "Codul de bare: (enter dupa fiecare cifra)";
+	a.codBare = new int[a.lungimeCod];
 	for (int i = 0; i < a.lungimeCod; i++)
 		in >> a.codBare[i];
 
