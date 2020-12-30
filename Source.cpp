@@ -12,23 +12,16 @@ int main()
 
 	//TESTARE  Buharu CLASA SALA
 	//test constructor implicit
-
+	cout << "						Testare CLASA SALA" << endl;
 	sala A;
 	cout << "		CONSTRUCTOR IMPLICIT" << endl;
-	if (A.getNumeSala() == "") { cout << "Corect Numele Sala" << endl; }
-	else { cout << "Gresit Numele Sala" << endl; }
-	if (A.getTipSala() == nullptr) { cout << "Corect Tip Sala" << endl; }
-	else { cout << "Gresit Tip Sala" << endl; }
-	if (A.getTotalSala() == 0) { cout << "Corect Total Sala" << endl; }
-	else { cout << "Gresit Total Sala" << endl; }
-	if (A.getTotalLocuri() == nullptr) { cout << "Corect Total Locuri" << endl; }
-	else { cout << "Gresit Total Locuri" << endl; }
-	if (A.getNrLibere() == 0) { cout << "Corect Numar Locuri" << endl; }
-	else { cout << "Gresit Numar Locuri" << endl; }
-	if (A.getNrRezervate() == 0) { cout << "Corect Nr Rezervate" << endl; }
-	else { cout << "Gresit Numar Rezervate" << endl; }
-	if (A.getNrCumparate() == 0) { cout << "Corect Nr Cumparate" << endl; }
-	else { cout << "Gresit Numar Cumparate" << endl; }
+	if (A.getNumeSala() == "") { cout << "Corect Numele Sala" << endl; }			else { cout << "Gresit Numele Sala" << endl; }
+	if (A.getTipSala() == nullptr) { cout << "Corect Tip Sala" << endl; }			else { cout << "Gresit Tip Sala" << endl; }
+	if (A.getTotalSala() == 0) { cout << "Corect Total Sala" << endl; }				else { cout << "Gresit Total Sala" << endl; }
+	if (A.getTotalLocuri() == nullptr) { cout << "Corect Total Locuri" << endl; }	else { cout << "Gresit Total Locuri" << endl; }
+	if (A.getNrLibere() == 0) { cout << "Corect Numar Locuri" << endl; }			else { cout << "Gresit Numar Locuri" << endl; }
+	if (A.getNrRezervate() == 0) { cout << "Corect Nr Rezervate" << endl; }			else { cout << "Gresit Numar Rezervate" << endl; }
+	if (A.getNrCumparate() == 0) { cout << "Corect Nr Cumparate" << endl; }			else { cout << "Gresit Numar Cumparate" << endl; }
 
 	//test counstructor cu parametri
 	cout << "		CONSTRUCTOR CU PARAMETRI" << endl;
@@ -72,12 +65,9 @@ int main()
 	char tipSalaMain[] = "2D";
 	sala B("B", tipSalaMain, totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
 
-	if (B.getNumeSala() == "B") { cout << "Corect Numele Sala" << endl; }
-	else { cout << "Gresit Numele Sala" << endl; }
-	if (B.getTipSala() == "2D") { cout << "Corect Tip Sala" << endl; }
-	else { cout << "Gresit Tip Sala" << endl; }
-	if (B.getTotalSala() == totalSalaMain) { cout << "Corect Total Sala" << endl; }
-	else { cout << "Gresit Total Sala" << endl; }
+	if (B.getNumeSala() == "B") { cout << "Corect Numele Sala" << endl; }			else { cout << "Gresit Numele Sala" << endl; }
+	if (B.getTipSala() == "2D") { cout << "Corect Tip Sala" << endl; }				else { cout << "Gresit Tip Sala" << endl; }
+	if (B.getTotalSala() == totalSalaMain) { cout << "Corect Total Sala" << endl; }	else { cout << "Gresit Total Sala" << endl; }
 	for (int i = 0; i < nrLocuriOcupate; i++)
 	{
 		if (B.getTotalLocuri()[i] == locuriAlese[i])
@@ -86,12 +76,9 @@ int main()
 		}
 		else { cout << "Gresit Total Locuri" << endl; }
 	}
-	if (B.getNrLibere() == (totalSalaMain - nrLocuriOcupate)) { cout << "Corect Numar Locuri" << endl; }
-	else { cout << "Gresit Numar Locuri" << endl; }
-	if (B.getNrRezervate() == nrRezervateMain) { cout << "Corect Nr Rezervate" << endl; }
-	else { cout << "Gresit Numar Rezervate" << endl; }
-	if (B.getNrCumparate() == nrCumparateMain) { cout << "Corect Nr Cumparate" << endl; }
-	else { cout << "Gresit Numar Cumparate" << endl; }
+	if (B.getNrLibere() == (totalSalaMain - nrLocuriOcupate)) { cout << "Corect Numar Locuri" << endl; }	else { cout << "Gresit Numar Locuri" << endl; }
+	if (B.getNrRezervate() == nrRezervateMain) { cout << "Corect Nr Rezervate" << endl; }	else { cout << "Gresit Numar Rezervate" << endl; }
+	if (B.getNrCumparate() == nrCumparateMain) { cout << "Corect Nr Cumparate" << endl; }	else { cout << "Gresit Numar Cumparate" << endl; }
 
 	cout << "		CONSTRUCTOR DE COPIERE SI OPERATORUL =" << endl;
 	sala C("C", tipSalaMain, totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
@@ -99,12 +86,9 @@ int main()
 	sala D = C;
 	sala E;
 	sala F = E = D;
-	if (F.getNumeSala() == "C") { cout << "Corect Numele Sala" << endl; }
-	else { cout << "Gresit Numele Sala" << endl; }
-	if (F.getTipSala() == "3D") { cout << "Corect Tip Sala" << endl; }
-	else { cout << "Gresit Tip Sala" << endl; }
-	if (F.getTotalSala() == totalSalaMain) { cout << "Corect Total Sala" << endl; }
-	else { cout << "Gresit Total Sala" << endl; }
+	if (F.getNumeSala() == "C") { cout << "Corect Numele Sala" << endl; }			else { cout << "Gresit Numele Sala" << endl; }
+	if (F.getTipSala() == "3D") { cout << "Corect Tip Sala" << endl; }				else { cout << "Gresit Tip Sala" << endl; }
+	if (F.getTotalSala() == totalSalaMain) { cout << "Corect Total Sala" << endl; }	else { cout << "Gresit Total Sala" << endl; }
 	for (int i = 0; i < nrLocuriOcupate; i++)
 	{
 		if (F.getTotalLocuri()[i] == locuriAlese[i])
@@ -113,12 +97,9 @@ int main()
 		}
 		else { cout << "Gresit Total Locuri" << endl; }
 	}
-	if (F.getNrLibere() == (totalSalaMain - nrLocuriOcupate)) { cout << "Corect Numar Locuri" << endl; }
-	else { cout << "Gresit Numar Locuri" << endl; }
-	if (F.getNrRezervate() == nrRezervateMain) { cout << "Corect Nr Rezervate" << endl; }
-	else { cout << "Gresit Numar Rezervate" << endl; }
-	if (F.getNrCumparate() == nrCumparateMain) { cout << "Corect Nr Cumparate" << endl; }
-	else { cout << "Gresit Numar Cumparate" << endl; }
+	if (F.getNrLibere() == (totalSalaMain - nrLocuriOcupate)) { cout << "Corect Numar Locuri" << endl; }	else { cout << "Gresit Numar Locuri" << endl; }
+	if (F.getNrRezervate() == nrRezervateMain) { cout << "Corect Nr Rezervate" << endl; }	else { cout << "Gresit Numar Rezervate" << endl; }
+	if (F.getNrCumparate() == nrCumparateMain) { cout << "Corect Nr Cumparate" << endl; }	else { cout << "Gresit Numar Cumparate" << endl; }
 
 	cout << "		SUPRAINCARCAREA OPERATORULUI<<" << endl;
 	cout << A;
@@ -167,10 +148,10 @@ int main()
 
 
 
-
+	
 
 	//TESTE Andrei -> pentru film.h
-
+	cout << "						Testare CLASA FILM" << endl;
 	film f1;
 	cout << "Test constructor implicit:\n";
 	cout << f1 << "\n\n";
@@ -245,10 +226,17 @@ int main()
 	else cout << "nu functioneaza\n\n";
 
 	film f9(nume, tip, varsta, nr, stringuri);
+	
+	cout << "Test operator >>: \n";
+	film f10;
+	cin >> f10;
+	cout << f10;
+
+
 
 
 	//TESTE Andrei -> pentru aliment.h
-
+	cout << "						Testare CLASA ALIMENT" << endl;
 	aliment a1;
 	cout << "Test constructor implicit:\n";
 	cout << a1 << "\n\n";
@@ -318,11 +306,16 @@ int main()
 	if ((a7--).getPret() == 0) cout << "functioneaza\n\n";
 	else cout << "nu functioneaza\n\n";
 	
+	cout << "Test operator >>: \n";
+	aliment a8;
+	cin >> a8;
+	cout << a8;
 
 
 
 
-	//TESTARE Buharu Vlad clasa anagajati
+	//TESTARE Buharu Vlad clasa angajati
+	cout << "						Testare CLASA Angajati" << endl;
 	//constructor implicit
 	angajati angajat1;
 	cout << "		Constructor Implicit" << endl << angajat1;
@@ -340,7 +333,7 @@ int main()
 	angajati angajat4;
 	angajat4 = angajat2;
 	cout << "		Operator =" << endl;
-	if (strcmp(angajat4.getNume(), numeAngajat) == 0) { cout << "Nume CORECT" << endl; }
+	if (strcmp(angajat4.getNume(), numeAngajat) == 0) { cout << "Nume Angajat CORECT" << endl; }
 	else { cout << "Nume INCORECT" << endl; }
 	bool testTelefon = true;
 	for (int i = 0; i < 10; i++)
@@ -362,7 +355,7 @@ int main()
 	angajat3.setEmail(email);
 	angajat3.setSalariu(salariu);
 	angajat3.setVarsta(varstaAngajat);
-	if (strcmp(angajat3.getNume(), numeAngajat) == 0)	{		cout << "Nume CORECT" << endl;	}	else	{		cout << "Nume INCORECT" << endl;	}
+	if (strcmp(angajat3.getNume(), numeAngajat) == 0)	{		cout << "Nume Angajat CORECT" << endl;	}	else	{		cout << "Nume Angajat INCORECT" << endl;	}
 	bool testTelefon1 = true;
 	for (int i = 0; i < 10; i++)
 	{
@@ -423,7 +416,7 @@ int main()
 	cout << "angajat4   " << endl << angajat4 << endl;
 
 	//operator de cast explicit
-	if ((int)angajat3 == varsta)
+	if ((int)angajat3 == varstaAngajat)
 	{
 		cout << "Operator de cast explicit CORECT" << endl;
 	}
@@ -441,8 +434,8 @@ int main()
 	}
 	if (testOperatorCast == true)	{		cout << "Operator de cast implicit CORECT" << endl;}
 
-	/*cout << "		Operatorul citire de la tastatura" << endl;
-	cin >> angajat1;*/
+	cout << "		Operatorul citire de la tastatura" << endl;
+	cin >> angajat1;
 	angajat4.setVarsta(20);
 	cout << "		Operatorul ==" << endl;
 	if (angajat2 == angajat4)
