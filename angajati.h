@@ -385,7 +385,7 @@ ostream& operator<<(ostream& out, angajati a)
 {
 	if (a.nume != nullptr)
 	{
-		out << "Nume: ";
+		out << "Nume Angajat: ";
 		for (int i = 0; i < strlen(a.nume) + 1; i++)
 		{
 			out << a.nume[i];
@@ -393,7 +393,7 @@ ostream& operator<<(ostream& out, angajati a)
 	}
 	else
 	{
-		out << "Nume: " << "";
+		out << "Nume Angajat: " << "";
 	}
 	out << endl;
 	if (a.telefon != nullptr)
@@ -419,7 +419,7 @@ ostream& operator<<(ostream& out, angajati a)
 
 istream& operator>>(istream& in, angajati& a)
 {
-	cout << "Nume: "; 
+	cout << "Nume Angajat: "; 
 	char bufferNume[100];
 	in >> ws;
 	in.getline(bufferNume, 99);
