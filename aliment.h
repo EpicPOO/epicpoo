@@ -127,7 +127,7 @@ public:
 
 		if (codBare != a.codBare)
 		{
-			if (categorie != nullptr) delete[] categorie;
+			if (codBare != nullptr) delete[] codBare;
 			if (a.codBare != nullptr && a.lungimeCod > 0)
 			{
 				lungimeCod = a.lungimeCod;
