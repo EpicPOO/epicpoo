@@ -4,6 +4,7 @@
 #include "film.h"
 #include "aliment.h"
 #include "angajati.h"
+#include "bilet.h"
 
 using namespace std;
 
@@ -451,7 +452,85 @@ int main()
 		cout << "Varsta angajat4: " << angajat4.getVarsta() << endl;
 	}
 
+	//Teste Andrei -> bilet.h
 
+	cout << "						Testare CLASA bilet" << endl;
+	bilet b1;
+	cout << "Test constructor implicit:\n";
+	cout << b1 << "\n\n";
+
+
+	string numeBil = "Avengers";
+	char oraBilet[] = "14.10.2020 15:30";
+	int lgBil = 5;
+	int locuri[] = { 0, 1 , 4 , 7, 7 };
+
+	bilet b2(numeBil, oraBilet, lgBil, locuri, 24.5);
+	cout << "Test constructor cu parametri:\n" << b2 << "\n\n";
+
+	bilet b3;
+	b3.setNumeBilet(numeBil);
+	b3.setOraBilet(oraBilet);
+	b3.setNrLocuri(lgBil);
+	b3.setPretTotal(24.5);
+	b3.setLocuriBilet(locuri, lgBil);
+
+	cout << "Test setteri: \n" << b3 << "\n\n";
+
+	bool ttt = true;
+
+	if (b3.getNumeBilet() == numeBil && b3.getOraBilet()[0] == oraBilet[0] && b3.getOraBilet()[1] == oraBilet[1]
+		&& b3.getPretTotal() == 24.5 && b3.getNrLocuri() == lgBil) {
+		for (int i = 0; i < lgBil; i++)
+			if (b3.getLocuriBilet()[i] != locuri[i]) { ttt = false; break; }
+	}
+	else ttt = false;
+	if (ttt == true)
+		cout << "Getteri corecti" << "\n\n";
+	else cout << "Getteri incorecti" << "\n\n";
+
+	bilet b4(b1);
+	bilet b5 = b1;
+	bilet b6;
+	b6 = b1;
+
+	cout << "Test constructor de copiere:\n" << b4 << endl << b5 << "\n\n";
+
+	cout << "Test operator = :\n" << b6 << "\n\n";
+
+	b6 = b6 - 1.0;
+	cout << "Test operator -: " << b6 << "\n\n";
+
+	cout << "Testare cast explicit la int: " << (int)b3 << "\n\n";
+
+	string testMyBil = b2();
+	cout << "Testare cast implicit la string: " << testMyBil << "\n\n";
+
+	cout << "Testare operator !: ";
+	if (!b2) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
+	cout << "Testare operator <: ";
+	if (b1 < b2) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
+	cout << "Testare operator ==: ";
+	if (b2 == b3) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
+
+	bilet b7;
+	cout << "Test operator ++: ";
+	if ((b7++).getNrLocuri() == 0) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+	cout << "Test preincrementare: ";
+	if ((++b7).getNrLocuri() == 2) cout << "functioneaza\n\n";
+	else cout << "nu functioneaza\n\n";
+
+	cout << "Teste operator >>, <<: \n";
+	bilet a8;
+	cin >> a8;
+	cout << a8;
 
 	return 0;
 }
