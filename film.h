@@ -128,7 +128,7 @@ public:
 
 		if (program != f.program)
 		{//la fel ca la tipFilm
-			if (program != nullptr) delete[] program; //stergere tipFilm daca are ceva in el
+			if (program != nullptr) delete[] program; //stergere program daca are ceva in el
 			if (f.program != nullptr && f.nrRulari > 0)//validare la array ul de stringuri + marime
 			{
 				nrRulari = f.nrRulari;
