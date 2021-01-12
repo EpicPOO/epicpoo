@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include<fstream>
 
 using namespace std;
 
@@ -258,12 +259,77 @@ public:
 	friend istream& operator>>(istream&, bilet&);
 	friend bool operator<(bilet, bilet);
 	friend bool operator==(bilet, bilet);
+
+	/*
+const int idBilet = 0;
+string numeBilet; //ca la sala
+char* oraBilet;
+int nrLocuri;
+int* locuriBilet;
+float pretTotal;
+static int numarBilete; //folosit in constructori pentru a pune un id biletului (preincrementare)
+*/
+	void inchidereFisier(ifstream f)
+	{
+		f.close();
+	}
+
+	ifstream deschidereFisier(string numeFisier)
+	{
+		ifstream f(numeFisier, ios::binary);
+		return f;
+	}
+	void serializare()
+	{
+		ofstream f("bilete.bin", ios::app);
+		f.write((char*)&idBilet, sizeof(idBilet));
+		int lengthNume = numeBilet.length() + 1;
+		f.write((char*)&lengthNume, sizeof(lengthNume)); //dimensiunea biletului
+		f.write(numeBilet.c_str(), lengthNume); // scriere numeBilet
+		int lengthOra = strlen(oraBilet) + 1; //modificati sa fie doar o variabila pentru o mai buna gestionare a memoriei
+		f.write((char*)&lengthOra, sizeof(lengthOra)); // dimensiunea orei
+		f.write(oraBilet, lengthOra); //scriere ora
+		f.write((char*)&nrLocuri, sizeof(nrLocuri)); //scriere nrLocuri
+		for (int i = 0; i < nrLocuri; i++)
+		{
+			f.write((char*)&locuriBilet[i], sizeof(locuriBilet[i]));
+		}
+		f.write((char*)&pretTotal, sizeof(pretTotal));
+		f.close();
+	}
+
+	void deserializare()
+	{
+		ifstream f("bilete.bin", ios::binary);
+		f.read((char*)&idBilet, sizeof(idBilet));
+		int length = 0;
+		f.read((char*)&length, sizeof(length));
+		char* aux = new char[length];
+		f.read(aux, length);
+		setNumeBilet(aux); //am citit numeBilet
+		length = 0;
+		f.read((char*)&length, sizeof(length));
+		delete[] aux;
+		aux = new char[length];
+		f.read(aux, length);
+		setOraBilet(aux);
+		f.read((char*)&nrLocuri, sizeof(nrLocuri)); //nrLocuri
+		int* copie = new int[nrLocuri];
+		for (int i = 0; i < nrLocuri; i++)
+		{
+			f.read((char*)&copie[i], sizeof(copie[i]));
+		}
+		setLocuriBilet(copie, nrLocuri); //LocuriBilet
+		f.read((char*)&pretTotal, sizeof(pretTotal));
+		f.close();
+	}
 };
 
 int bilet::numarBilete = 0;
 
 ostream& operator<<(ostream& out, bilet b) // operator afisare
 {
+	out << "ID bilet: " << b.idBilet << endl;
 	out << "Nume bilet/film: " << b.numeBilet << endl;
 	out << "Tip bilet: " << b.oraBilet << endl;
 	out << "Pretul total: " << b.pretTotal << endl;
@@ -326,3 +392,30 @@ bool operator==(bilet f1, bilet f2)
 			return false;
 	return true;
 }
+
+
+void adaugaBilet(bilet nou)
+{
+	nou.serializare();
+}
+
+//void gasesteBilet(int id)
+//{
+//	bilet b;
+//	bool cd = false;
+//	b.deschidereFisier("bilete.bin");
+//	ifstream f("bilete.bin", ios::binary);
+//
+//	while (cd == false)
+//	{
+//		b.deserializare();
+//	}
+//
+//}
+//
+//void citireBilet(bilet b)
+//{
+//		
+//}
+
+
