@@ -8,8 +8,6 @@
 
 using namespace std;
 
-//FINAL FAZA I
-
 int main()
 {
 
@@ -456,96 +454,114 @@ int main()
 
 	//Teste Andrei -> bilet.h
 
-	cout << "						Testare CLASA bilet" << endl;
-	bilet b1;
-	cout << "Test constructor implicit:\n";
-	cout << b1 << "\n\n";
+	//cout << "						Testare CLASA bilet" << endl;
+	//bilet b1;
+	//cout << "Test constructor implicit:\n";
+	//cout << b1 << "\n\n";
 
 
-	string numeBil = "Avengers";
-	char oraBilet[] = "14.10.2020 15:30";
-	int lgBil = 5;
-	int locuri[] = { 0, 1 , 4 , 7, 7 };
+	//string numeBil = "Avengers";
+	//char oraBilet[] = "14.10.2020 15:30";
+	//int lgBil = 5;
+	//int locuri[] = { 0, 1 , 4 , 7, 7 };
 
-	bilet b2(numeBil, oraBilet, lgBil, locuri, 24.5);
-	cout << "Test constructor cu parametri:\n" << b2 << "\n\n";
+	//bilet b2(numeBil, oraBilet, lgBil, locuri, 24.5);
+	//cout << "Test constructor cu parametri:\n" << b2 << "\n\n";
 
-	bilet b3;
-	b3.setNumeBilet(numeBil);
-	b3.setOraBilet(oraBilet);
-	b3.setNrLocuri(lgBil);
-	b3.setPretTotal(24.5);
-	b3.setLocuriBilet(locuri, lgBil);
+	//bilet b3;
+	//b3.setNumeBilet(numeBil);
+	//b3.setOraBilet(oraBilet);
+	//b3.setNrLocuri(lgBil);
+	//b3.setPretTotal(24.5);
+	//b3.setLocuriBilet(locuri, lgBil);
 
-	cout << "Test setteri: \n" << b3 << "\n\n";
+	//cout << "Test setteri: \n" << b3 << "\n\n";
 
-	bool ttt = true;
+	//bool ttt = true;
 
-	if (b3.getNumeBilet() == numeBil && b3.getOraBilet()[0] == oraBilet[0] && b3.getOraBilet()[1] == oraBilet[1]
-		&& b3.getPretTotal() == 24.5 && b3.getNrLocuri() == lgBil) {
-		for (int i = 0; i < lgBil; i++)
-			if (b3.getLocuriBilet()[i] != locuri[i]) { ttt = false; break; }
-	}
-	else ttt = false;
-	if (ttt == true)
-		cout << "Getteri corecti" << "\n\n";
-	else cout << "Getteri incorecti" << "\n\n";
+	//if (b3.getNumeBilet() == numeBil && b3.getOraBilet()[0] == oraBilet[0] && b3.getOraBilet()[1] == oraBilet[1]
+	//	&& b3.getPretTotal() == 24.5 && b3.getNrLocuri() == lgBil) {
+	//	for (int i = 0; i < lgBil; i++)
+	//		if (b3.getLocuriBilet()[i] != locuri[i]) { ttt = false; break; }
+	//}
+	//else ttt = false;
+	//if (ttt == true)
+	//	cout << "Getteri corecti" << "\n\n";
+	//else cout << "Getteri incorecti" << "\n\n";
 
-	bilet b4(b1);
-	bilet b5 = b1;
-	bilet b6;
-	b6 = b1;
+	//bilet b4(b1);
+	//bilet b5 = b1;
+	//bilet b6;
+	//b6 = b1;
 
-	cout << "Test constructor de copiere:\n" << b4 << endl << b5 << "\n\n";
+	//cout << "Test constructor de copiere:\n" << b4 << endl << b5 << "\n\n";
 
-	cout << "Test operator = :\n" << b6 << "\n\n";
+	//cout << "Test operator = :\n" << b6 << "\n\n";
 
-	b6 = b6 - 1.0;
-	cout << "Test operator -: " << b6 << "\n\n";
+	//b6 = b6 - 1.0;
+	//cout << "Test operator -: " << b6 << "\n\n";
 
-	cout << "Testare cast explicit la int: " << (int)b3 << "\n\n";
+	//cout << "Testare cast explicit la int: " << (int)b3 << "\n\n";
 
-	string testMyBil = b2();
-	cout << "Testare cast implicit la string: " << testMyBil << "\n\n";
+	//string testMyBil = b2();
+	//cout << "Testare cast implicit la string: " << testMyBil << "\n\n";
 
-	cout << "Testare operator !: ";
-	if (!b2) cout << "functioneaza\n\n";
-	else cout << "nu functioneaza\n\n";
+	//cout << "Testare operator !: ";
+	//if (!b2) cout << "functioneaza\n\n";
+	//else cout << "nu functioneaza\n\n";
 
-	cout << "Testare operator <: ";
-	if (b1 < b2) cout << "functioneaza\n\n";
-	else cout << "nu functioneaza\n\n";
+	//cout << "Testare operator <: ";
+	//if (b1 < b2) cout << "functioneaza\n\n";
+	//else cout << "nu functioneaza\n\n";
 
-	cout << "Testare operator ==: ";
-	if (b2 == b3) cout << "functioneaza\n\n";
-	else cout << "nu functioneaza\n\n";
-
-
-	bilet b7;
-	cout << "Test operator ++: ";
-	if ((b7++).getNrLocuri() == 0) cout << "functioneaza\n\n";
-	else cout << "nu functioneaza\n\n";
-	cout << "Test preincrementare: ";
-	if ((++b7).getNrLocuri() == 2) cout << "functioneaza\n\n";
-	else cout << "nu functioneaza\n\n";
-
-	cout << "Teste operator >>, <<: \n";
-	/*bilet b8;
-	cin >> b8;
-	cout << b8;*/
-	bilet b10;
-	cin >> b10;
-	b10.serializare();
-	cout << endl;
-	cout << endl << "primul obiect: " << endl <<  endl;
-	bilet b9;
-	b9.deserializare();
-	cout << b9;
-	cout << endl <<  endl << "al doilea obiect: " << endl << endl;
-	bilet b11;
-	b11.deserializare();
-	cout << b11;
+	//cout << "Testare operator ==: ";
+	//if (b2 == b3) cout << "functioneaza\n\n";
+	//else cout << "nu functioneaza\n\n";
 
 
+	//bilet b7;
+	//cout << "Test operator ++: ";
+	//if ((b7++).getNrLocuri() == 0) cout << "functioneaza\n\n";
+	//else cout << "nu functioneaza\n\n";
+	//cout << "Test preincrementare: ";
+	//if ((++b7).getNrLocuri() == 2) cout << "functioneaza\n\n";
+	//else cout << "nu functioneaza\n\n";
+
+	//cout << "Teste operator >>, <<: \n";
+	///*bilet b8;
+	//cin >> b8;
+	//cout << b8;*/
+	//bilet b10;
+	//b3.serializare();
+	////cin >> b10;
+	////b10.serializare();
+	//cout << endl;
+	//cout << endl << "primul obiect: " << endl <<  endl;
+	//bilet b9;
+	//b9.deserializare();
+	//cout << b9;
+	//cout << endl <<  endl << "al doilea obiect: " << endl << endl;
+	//bilet b11;
+	//b11.deserializare();
+	//cout << b11;
+
+	bilet b1, b2, b3, b4;
+	//cin >> b1 >> b2 >> b3 >> b4;
+	//adaugaBilet(b1, "bilete.bin");
+	//adaugaBilet(b2, "bilete.bin");
+	//adaugaBilet(b3, "bilete.bin");
+	//adaugaBilet(b4, "bilete.bin");
+	//bilet cb4 = gasesteBilet(4, "bilete.bin");
+	//bilet cb1 = gasesteBilet(1, "bilete.bin");
+	//bilet cb2 = gasesteBilet(2, "bilete.bin");
+	//bilet cb5 = gasesteBilet(5, "bilete.bin");
+	//cout << cb1 << endl << cb2 << endl << cb4 << endl << cb5;
+
+	//cout << "\n\nActualizare bilet 1 cu bilet 2:\n";
+	stergeBilet(2, "bilete.bin");
+	//bilet actualizat = gasesteBilet(1, "bilete.bin");
+	//cout << actualizat;
+	bilet gasit = gasesteBilet(3, "bilete.bin");
+	cout << gasit;
 	return 0;
 }

@@ -5,19 +5,7 @@
 
 using namespace std;
 
-//minim un array de caractere -> done and tested
-//minim un array de int -> done and tested
-//camp static? -> done and tested
-//getteri setteri -> done and tested
-//vallidari la setteri -> done and tested
-//regula celor 3 -> done and tested
-//>> << -> done and tested
-//+,-,* sau /  -> done for - and tested
-//++ sau -- cu cele 2 forme ->  done and tested
-//cast explicit sau implicit -> done and tested
-// ! -> done and tested
-//< > =< sau >= -> done for < and tested
-//==  -> done and tested
+//operatii CRUD -> done and tested
 
 class bilet
 {
@@ -157,6 +145,8 @@ public:
 
 	//getter + setteri cu validari
 
+	int getIdBilet() {	return idBilet; }
+
 	string getNumeBilet() { return numeBilet; }
 	void setNumeBilet(string numeBilet)
 	{
@@ -210,6 +200,8 @@ public:
 		else this->locuriBilet = nullptr;
 	}
 
+	int getNumarBilete() { return numarBilete; }
+
 	bilet operator-(float price)//scade un float din pret
 	{
 		bilet copie = *this;
@@ -259,6 +251,8 @@ public:
 	friend istream& operator>>(istream&, bilet&);
 	friend bool operator<(bilet, bilet);
 	friend bool operator==(bilet, bilet);
+	friend bilet gasesteBilet(int);
+	friend void writeInBin(bilet, int);
 
 	/*
 const int idBilet = 0;
@@ -279,9 +273,9 @@ static int numarBilete; //folosit in constructori pentru a pune un id biletului 
 		ifstream f(numeFisier, ios::binary);
 		return f;
 	}
-	void serializare()
+	void serializare(string fname)
 	{
-		ofstream f("bilete.bin", ios::app);
+		ofstream f(fname, ios::app);
 		f.write((char*)&idBilet, sizeof(idBilet));
 		int lengthNume = numeBilet.length() + 1;
 		f.write((char*)&lengthNume, sizeof(lengthNume)); //dimensiunea biletului
@@ -298,9 +292,10 @@ static int numarBilete; //folosit in constructori pentru a pune un id biletului 
 		f.close();
 	}
 
-	void deserializare()
+	streampos deserializare(streampos start, string fname)
 	{
-		ifstream f("bilete.bin", ios::binary);
+		ifstream f(fname, ios::binary);
+		f.seekg(start); // pornim de la pozitia primita ca argument
 		f.read((char*)&idBilet, sizeof(idBilet));
 		int length = 0;
 		f.read((char*)&length, sizeof(length));
@@ -321,8 +316,12 @@ static int numarBilete; //folosit in constructori pentru a pune un id biletului 
 		}
 		setLocuriBilet(copie, nrLocuri); //LocuriBilet
 		f.read((char*)&pretTotal, sizeof(pretTotal));
+		streampos pos = f.tellg();
 		f.close();
+		return pos;
 	}
+
+
 };
 
 int bilet::numarBilete = 0;
@@ -331,7 +330,7 @@ ostream& operator<<(ostream& out, bilet b) // operator afisare
 {
 	out << "ID bilet: " << b.idBilet << endl;
 	out << "Nume bilet/film: " << b.numeBilet << endl;
-	out << "Tip bilet: " << b.oraBilet << endl;
+	out << "Ora bilet: " << b.oraBilet << endl;
 	out << "Pretul total: " << b.pretTotal << endl;
 	out << "Cate locuri sunt pe bilet: " << b.nrLocuri << endl;
 	out << "Locurile de pe bilet: ";
@@ -347,7 +346,7 @@ istream& operator>>(istream& in, bilet& b) // operator citire
 	in >> ws;
 	getline(in, b.numeBilet);
 
-	cout << "Tip bilet: ";
+	cout << "Ora bilet: ";
 	char buffer[20];
 	in.getline(buffer, 19);
 	if (b.oraBilet != nullptr) delete[] b.oraBilet;
@@ -394,28 +393,58 @@ bool operator==(bilet f1, bilet f2)
 }
 
 
-void adaugaBilet(bilet nou)
+void adaugaBilet(bilet noul, string fname)
 {
-	nou.serializare();
+	noul.serializare(fname);
 }
 
-//void gasesteBilet(int id)
-//{
-//	bilet b;
-//	bool cd = false;
-//	b.deschidereFisier("bilete.bin");
-//	ifstream f("bilete.bin", ios::binary);
-//
-//	while (cd == false)
-//	{
-//		b.deserializare();
-//	}
-//
-//}
-//
-//void citireBilet(bilet b)
-//{
-//		
-//}
+bilet gasesteBilet(int id, string fname) // sau citire
+{
+	bilet b;
+	streampos pos = 0; // pornim de la pozitia 0
+	for (int i = 0; i < b.getNumarBilete(); i++)
+	{
+		pos = b.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+		if (id == b.getIdBilet())
+			return b;
+	}
+	b.setNumeBilet("Negasit");
+	return b;
+	
+}
+
+void actualizareBilet(int id, bilet nou, string fname)
+{
+	bilet b;
+	streampos pos = 0; //pornim de la pozitia 0
+	string copie = "temp.bin";
+	for (int i = 0; i < b.getNumarBilete(); i++)
+	{
+		pos = b.deserializare(pos, fname);
+		if (id != b.getIdBilet())// daca nu gasim idul, copiem in noul fisier
+			b.serializare(copie);
+		else nou.serializare(copie);
+	}
+	remove(fname.c_str());
+	rename(copie.c_str(), fname.c_str());
+}
+
+void stergeBilet(int id, string fname)
+{
+	bilet b;
+	int sterse = 0;
+	streampos pos = 0; //pornim de la pozitia 0
+	string copie = "temp.bin";
+	for (int i = 0; i < b.getNumarBilete(); i++)
+	{
+		pos = b.deserializare(pos, fname);
+		if (id != b.getIdBilet())// daca nu gasim idul, copiem in noul fisier
+			b.serializare(copie);
+		else sterse++;
+	}
+	remove(fname.c_str());
+	rename(copie.c_str(), fname.c_str());
+}
+
 
 
