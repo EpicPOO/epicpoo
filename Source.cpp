@@ -544,24 +544,47 @@ int main()
 	//bilet b11;
 	//b11.deserializare();
 	//cout << b11;
-
+	/*int totalBilete = 4;
 	bilet b1, b2, b3, b4;
-	//cin >> b1 >> b2 >> b3 >> b4;
-	//adaugaBilet(b1, "bilete.bin");
-	//adaugaBilet(b2, "bilete.bin");
-	//adaugaBilet(b3, "bilete.bin");
-	//adaugaBilet(b4, "bilete.bin");
-	//bilet cb4 = gasesteBilet(4, "bilete.bin");
-	//bilet cb1 = gasesteBilet(1, "bilete.bin");
-	//bilet cb2 = gasesteBilet(2, "bilete.bin");
-	//bilet cb5 = gasesteBilet(5, "bilete.bin");
-	//cout << cb1 << endl << cb2 << endl << cb4 << endl << cb5;
+	cin >> b1 >> b2 >> b3 >> b4;
+	adaugaBilet(b1, totalBilete, "bilete.bin");
+	adaugaBilet(b2, totalBilete, "bilete.bin");
+	adaugaBilet(b3, totalBilete, "bilete.bin");
+	adaugaBilet(b4, totalBilete, "bilete.bin");
+	bilet cb4 = gasesteBilet(4, totalBilete, "bilete.bin");
+	bilet cb1 = gasesteBilet(1, totalBilete, "bilete.bin");
+	bilet cb2 = gasesteBilet(2, totalBilete, "bilete.bin");
+	bilet cb5 = gasesteBilet(5, totalBilete, "bilete.bin");
+	cout << cb1 << endl << cb2 << endl << cb4 << endl << cb5;
 
-	//cout << "\n\nActualizare bilet 1 cu bilet 2:\n";
-	stergeBilet(2, "bilete.bin");
-	//bilet actualizat = gasesteBilet(1, "bilete.bin");
-	//cout << actualizat;
-	bilet gasit = gasesteBilet(3, "bilete.bin");
-	cout << gasit;
+	cout << "\n\nActualizare bilet 1 cu bilet 2:\n";
+	stergeBilet(2, totalBilete, "bilete.bin");
+	bilet actualizat = gasesteBilet(1, totalBilete, "bilete.bin");
+	cout << actualizat;
+	bilet gasit = gasesteBilet(3, totalBilete, "bilete.bin");
+	cout << gasit;*/
+	int totalSali = 3;
+	//sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate)
+	string numeSala = "Ion Creanga";
+	char tipSala[] = "3d";
+	int totalSala = 30;
+	int totalLocuri[] = { 1,2,3,4 };
+	int nrRezervate = 2;
+	int nrCumparate = 2;
+
+	sala s1(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+	sala s2(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+	sala s3(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+
+	adaugaSala(s1, totalSali, "sali.bin");
+	adaugaSala(s2, totalSali, "sali.bin");
+	adaugaSala(s3, totalSali, "sali.bin");
+	sala cs3 = gasesteSala(3, totalSali, "sali.bin");
+	sala cs2 = gasesteSala(2, totalSali, "sali.bin");
+	sala cs1 = gasesteSala(1, totalSali, "sali.bin");
+	cout << endl << "		Sala 1: " << endl << cs1 << endl << "		Sala 2: " << endl << cs2 << endl << "		Sala 3: " << cs3 << endl;
+
+
+
 	return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include<fstream>
 
 using namespace std;
 
@@ -165,7 +166,7 @@ public:
 	{
 		if (totalLocuri != nullptr && sumaLocuriOcupate > 0)
 		{
-			
+			this->totalLocuri = new int[sumaLocuriOcupate];
 			for (int i = 0; i < sumaLocuriOcupate; i++)
 			{
 				this->totalLocuri[i] = totalLocuri[i];
@@ -173,6 +174,10 @@ public:
 		}
 	}
 
+	int getIdSala()
+	{
+		return idSala;
+	}
 	//SUPRAINCARCAREA OPERATORILOR SI METODELE FRIEND
 	sala operator+(int locSuplimentar) //supraincarcarea operator+
 	{
@@ -226,12 +231,93 @@ public:
 	friend istream& operator>>(istream&, sala&);	// operatorul>>
 	friend bool operator<(sala, sala);				// operatorul<
 	friend bool operator==(sala, sala);				// operatorul==
+
+	//FAZA a II-a
+
+	friend sala gasesteSala(int, int&, string);
+	friend void writeInBin(sala, int);
+
+	void inchidereFisier(ifstream f)
+	{
+		f.close();
+	}
+
+	ifstream deschidereFisier(string numeFisier)
+	{
+		ifstream f(numeFisier, ios::binary);
+		return f;
+	}
+	/*
+	const int idSala = 0;
+	string numeSala; //A,B,C sau I.C.Carageale, M. Eminescu sau A2D, A3D, B2D, B3D //done
+	char* tipSala;// 2D, 3D, 4D, s.a. //done
+	int totalSala; // numarul total de locuri pe care le are Sala //done
+	int* totalLocuri; //vectorul in care se stocheaza locurile alese din sala (rezervate + cumparate) //done
+	int nrLibere; //numarul locurilor ramase 
+	int nrRezervate; // numarul locurilor rezervate //done
+	int nrCumparate; //numarul biletelor cumparate de la casa //done
+	static int numarSali;//pentru a preincrementa in idSala la constructori//done
+	*/
+	void serializare(string fname)
+	{
+		ofstream f(fname, ios::app);
+		f.write((char*)&idSala, sizeof(idSala));
+		int lengthNume = numeSala.length() + 1;
+		f.write((char*)&lengthNume, sizeof(lengthNume)); //dimensiunea numeSala
+		f.write(numeSala.c_str(), lengthNume); // scriere numeSala
+		int lengthTipSala = strlen(tipSala) + 1; //dimensiunea lui char* tipSala
+		f.write((char*)&lengthTipSala, sizeof(lengthTipSala)); // scrierea dimesiunii
+		f.write(tipSala, lengthTipSala); //scriere lui tipSala
+		f.write((char*)&totalSala, sizeof(totalSala)); //scriere total Locuri
+		f.write((char*)&nrRezervate, sizeof(nrRezervate));//scriere Locuri rezervate, nrRezervate
+		f.write((char*)&nrCumparate, sizeof(nrCumparate));//scriere Locuri cumparate, nrCumparate
+		int nrSala = nrCumparate + nrRezervate;
+		f.write((char*)&nrSala, sizeof(nrSala));
+		for (int i = 0; i < nrSala; i++)
+		{
+			f.write((char*)&totalLocuri[i], sizeof(totalLocuri[i]));
+		}
+		f.write((char*)&nrLibere, sizeof(nrLibere));//scriere Locuri libere, nrLibere
+		f.close();
+	}
+	streampos deserializare(streampos start, string fname)
+	{
+		ifstream f(fname, ios::binary);
+		f.seekg(start); // pornim de la pozitia primita ca argument
+		f.read((char*)&idSala, sizeof(idSala));
+		int length = 0;
+		f.read((char*)&length, sizeof(length));
+		char* aux = new char[length];
+		f.read(aux, length);
+		setNumeSala(aux); //am citit numeSala
+		length = 0;
+		f.read((char*)&length, sizeof(length));
+		delete[] aux;
+		aux = new char[length];
+		f.read(aux, length);
+		setTipSala(aux); //am citit tipSala
+		f.read((char*)&totalSala, sizeof(totalSala));//totalSala
+		f.read((char*)&nrRezervate, sizeof(nrRezervate)); //nrRezervate
+		f.read((char*)&nrCumparate, sizeof(nrCumparate)); //nrCumparate
+		int nrSala = nrCumparate + nrRezervate;
+		int* copie = new int[nrSala];
+		for (int i = 0; i < nrSala; i++)
+		{
+			f.read((char*)&copie[i], sizeof(copie[i]));
+		}
+		setTotalLocuri(copie, nrSala); //totalLocuri
+		f.read((char*)&nrLibere, sizeof(nrLibere)); //nrLibere
+		streampos pos = f.tellg();
+		f.close();
+		return pos;
+	}
 };
 // initializare atribut static
 int sala::numarSali = 0;
 // operatorul<<
 ostream& operator<<(ostream& out, sala s)
 {
+	out << "ID Sala: " << s.idSala << endl;
 	out << "Nume sala: " << s.numeSala << endl;
 	out << "Tip sala: " << s.tipSala << endl;
 	out << "Total locuri: " << s.totalSala << endl;
@@ -340,4 +426,61 @@ bool operator==(sala s1, sala s2)
 	{
 		return false;
 	}
+}
+
+void adaugaSala(sala noua, int& nrTotalSali, string fname)
+{
+	noua.serializare(fname);
+	nrTotalSali++;
+}
+
+sala gasesteSala(int id, int& nrTotalSali, string fname) // sau citire
+{
+	sala s;
+	streampos pos = 0; // pornim de la pozitia 0
+	for (int i = 0; i < nrTotalSali; i++)
+	{
+		pos = s.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+		if (id == s.getIdSala())
+			return s;
+	}
+	s.setNumeSala("Negasit");
+	return s;
+}
+
+void actualizareSala(int id, sala noua, int& nrTotalSali, string fname)
+{
+	sala s;
+	streampos pos = 0; //pornim de la pozitia 0
+	string copie = "temp.bin";
+	for (int i = 0; i < nrTotalSali; i++)
+	{
+		pos = s.deserializare(pos, fname);
+		if (id != s.getIdSala())// daca nu gasim idul, copiem in noul fisier
+			s.serializare(copie);
+		else noua.serializare(copie);
+	}
+	remove(fname.c_str());
+	rename(copie.c_str(), fname.c_str());
+}
+
+void stergeSala(int id, int& nrTotalSali, string fname)
+{
+	sala s;
+	int sterse = 0;
+	streampos pos = 0; //pornim de la pozitia 0
+	string copie = "temp.bin";
+	for (int i = 0; i < nrTotalSali; i++)
+	{
+		pos = s.deserializare(pos, fname);
+		if (id != s.getIdSala())// daca nu gasim idul, copiem in noul fisier
+			s.serializare(copie);
+		else
+		{
+			sterse++;
+			nrTotalSali--;
+		}
+	}
+	remove(fname.c_str());
+	rename(copie.c_str(), fname.c_str());
 }
