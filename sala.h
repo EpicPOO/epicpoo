@@ -272,7 +272,6 @@ public:
 		f.write((char*)&nrRezervate, sizeof(nrRezervate));//scriere Locuri rezervate, nrRezervate
 		f.write((char*)&nrCumparate, sizeof(nrCumparate));//scriere Locuri cumparate, nrCumparate
 		int nrSala = nrCumparate + nrRezervate;
-		f.write((char*)&nrSala, sizeof(nrSala));
 		for (int i = 0; i < nrSala; i++)
 		{
 			f.write((char*)&totalLocuri[i], sizeof(totalLocuri[i]));

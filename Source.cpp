@@ -563,6 +563,8 @@ int main()
 	cout << actualizat;
 	bilet gasit = gasesteBilet(3, totalBilete, "bilete.bin");
 	cout << gasit;*/
+
+// Testare FAza II Buharu
 	int totalSali = 3;
 	//sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate)
 	string numeSala = "Ion Creanga";
@@ -579,11 +581,13 @@ int main()
 	adaugaSala(s1, totalSali, "sali.bin");
 	adaugaSala(s2, totalSali, "sali.bin");
 	adaugaSala(s3, totalSali, "sali.bin");
+	stergeSala(2, totalSali, "sali.bin");
 	sala cs3 = gasesteSala(3, totalSali, "sali.bin");
+	actualizareSala(1, s2, totalSali, "sali.bin");
 	sala cs2 = gasesteSala(2, totalSali, "sali.bin");
 	sala cs1 = gasesteSala(1, totalSali, "sali.bin");
 	cout << endl << "		Sala 1: " << endl << cs1 << endl << "		Sala 2: " << endl << cs2 << endl << "		Sala 3: " << cs3 << endl;
-
+	
 
 
 	return 0;
