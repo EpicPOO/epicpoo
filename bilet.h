@@ -393,32 +393,32 @@ bool operator==(bilet f1, bilet f2)
 }
 
 
-void adaugaBilet(bilet noul, string fname)
+void adaugaBilet(bilet noul, int& nrTotalBilete, string fname)
 {
 	noul.serializare(fname);
+	nrTotalBilete++;
 }
 
-bilet gasesteBilet(int id, string fname) // sau citire
+bilet gasesteBilet(int id, int& nrTotalBilete, string fname) // sau citire
 {
 	bilet b;
 	streampos pos = 0; // pornim de la pozitia 0
-	for (int i = 0; i < b.getNumarBilete(); i++)
+	for (int i = 0; i < nrTotalBilete; i++)
 	{
 		pos = b.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
 		if (id == b.getIdBilet())
 			return b;
 	}
 	b.setNumeBilet("Negasit");
-	return b;
-	
+	return b;	
 }
 
-void actualizareBilet(int id, bilet nou, string fname)
+void actualizareBilet(int id, bilet nou, int& nrTotalBilete, string fname)
 {
 	bilet b;
 	streampos pos = 0; //pornim de la pozitia 0
 	string copie = "temp.bin";
-	for (int i = 0; i < b.getNumarBilete(); i++)
+	for (int i = 0; i < nrTotalBilete; i++)
 	{
 		pos = b.deserializare(pos, fname);
 		if (id != b.getIdBilet())// daca nu gasim idul, copiem in noul fisier
@@ -429,18 +429,22 @@ void actualizareBilet(int id, bilet nou, string fname)
 	rename(copie.c_str(), fname.c_str());
 }
 
-void stergeBilet(int id, string fname)
+void stergeBilet(int id, int& nrTotalBilete, string fname)
 {
 	bilet b;
 	int sterse = 0;
 	streampos pos = 0; //pornim de la pozitia 0
 	string copie = "temp.bin";
-	for (int i = 0; i < b.getNumarBilete(); i++)
+	for (int i = 0; i < nrTotalBilete; i++)
 	{
 		pos = b.deserializare(pos, fname);
 		if (id != b.getIdBilet())// daca nu gasim idul, copiem in noul fisier
 			b.serializare(copie);
-		else sterse++;
+		else
+		{
+			sterse++;
+			nrTotalBilete--;
+		}
 	}
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
