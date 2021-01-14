@@ -588,6 +588,59 @@ int main()
 	sala cs1 = gasesteSala(1, totalSali, "sali.bin");
 	cout << endl << "		Sala 1: " << endl << cs1 << endl << "		Sala 2: " << endl << cs2 << endl << "		Sala 3: " << cs3 << endl;
 	
+	//Teste functii globale - Andrei
+
+	adaugaZeroTotal(fname);
+
+	modificaAlimente(1, fname);
+	modificaAngajati(2, fname);
+	modificaBilete(3, fname);
+	modificaFilme(4, fname);
+	modificaSali(5, fname);
+
+	//integrare cu bilet
+	bilet b1, b2, b3, b4;
+	int nrTotalBilete = 0;
+	//cin >> b1 >> b2 >> b3 >> b4;
+	string finame = "bilete.bin";
+	nrTotalBilete = citesteTotalBilete(fname).back() - '0';
+	adaugaBilet(b1, nrTotalBilete, finame);
+	adaugaBilet(b2, nrTotalBilete, finame);
+	adaugaBilet(b3, nrTotalBilete, finame);
+	adaugaBilet(b4, nrTotalBilete, finame);
+
+	cout << "Inainte de stergere: " << nrTotalBilete << "\n";
+	stergeBilet(3, nrTotalBilete, finame);
+	b3 = gasesteBilet(3, nrTotalBilete, finame);
+
+	cout << b1 << "\n" << b2 << "\n" << b3 << "\n" << b4 << "\n" << "Dupa stergere: " << nrTotalBilete << "\n";
+	modificaBilete(nrTotalBilete, fname);
+
+	// integrare cu sala
+	string salibin = "sali.bin", numeSala1 = "Ion", numeSala2 = "Mirel", numeSala3 = "Gigel";
+	int nrTotalSali = citesteTotalSali(fname).back() - '0';
+	char tipSala[] = "3d";
+	int totalSala = 30;
+	int totalLocuri[] = { 1,2,3,4 };
+	int nrRezervate = 2;
+	int nrCumparate = 2;
+
+	sala s1(numeSala1, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+	sala s2(numeSala2, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+	sala s3(numeSala3, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+
+	adaugaSala(s1, nrTotalSali, salibin);
+	adaugaSala(s2, nrTotalSali, salibin);
+	adaugaSala(s3, nrTotalSali, salibin);
+
+	cout << "Nr total sali dupa adaugare: " << nrTotalSali;
+	stergeSala(2, nrTotalSali, salibin);
+	cout << "\n\nNr total sali dupa stergere: " << nrTotalSali;
+	sala cs3 = gasesteSala(3, nrTotalSali, salibin);
+	actualizareSala(1, s2, nrTotalSali, salibin);
+	cout << "\n\nNr total sali final: " << nrTotalSali;
+
+	cout << "\n\ns1:\n" << s1 << "\n\ns2:\n" << s2 << "\n\ns3:\n" << s3 << "\n\ncs3:\n" << cs3;
 
 
 	return 0;
