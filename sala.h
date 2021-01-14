@@ -463,7 +463,7 @@ void actualizareSala(int id, sala noua, int nrTotalSali, string fname)
 	rename(copie.c_str(), fname.c_str());
 }
 
-void stergeSala(int id, int nrTotalSali, string fname)
+void stergeSala(int id, int& nrTotalSali, string fname)
 {
 	sala s;
 	int sterse = 0;
