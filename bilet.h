@@ -254,15 +254,6 @@ public:
 	friend bilet gasesteBilet(int);
 	friend void writeInBin(bilet, int);
 
-	/*
-const int idBilet = 0;
-string numeBilet; //ca la sala
-char* oraBilet;
-int nrLocuri;
-int* locuriBilet;
-float pretTotal;
-static int numarBilete; //folosit in constructori pentru a pune un id biletului (preincrementare)
-*/
 	void inchidereFisier(ifstream f)
 	{
 		f.close();
@@ -273,10 +264,17 @@ static int numarBilete; //folosit in constructori pentru a pune un id biletului 
 		ifstream f(numeFisier, ios::binary);
 		return f;
 	}
+
+
 	void serializare(string fname)
 	{
+		serializare(fname, idBilet);
+	}
+
+	void serializare(string fname, int id)
+	{
 		ofstream f(fname, ios::app);
-		f.write((char*)&idBilet, sizeof(idBilet));
+		f.write((char*)&id, sizeof(id));
 		int lengthNume = numeBilet.length() + 1;
 		f.write((char*)&lengthNume, sizeof(lengthNume)); //dimensiunea biletului
 		f.write(numeBilet.c_str(), lengthNume); // scriere numeBilet
@@ -423,7 +421,7 @@ void actualizareBilet(int id, bilet nou, int nrTotalBilete, string fname)
 		pos = b.deserializare(pos, fname);
 		if (id != b.getIdBilet())// daca nu gasim idul, copiem in noul fisier
 			b.serializare(copie);
-		else nou.serializare(copie);
+		else nou.serializare(copie, id);
 	}
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());

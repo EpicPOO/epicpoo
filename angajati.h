@@ -410,8 +410,13 @@ public:
 	*/
 	void serializare(string fname)
 	{
+		serializare(fname, idAngajat);
+	}
+
+	void serializare(string fname, int id)
+	{
 		ofstream f(fname, ios::app);
-		f.write((char*)&idAngajat, sizeof(idAngajat)); //idAngajat
+		f.write((char*)&id, sizeof(id)); //idAngajat
 		int lengthNume = strlen(nume) + 1; //dimensiunea lui char* nume
 		f.write((char*)&lengthNume, sizeof(lengthNume)); // scrierea dimesiunii lui nume
 		f.write(nume, lengthNume); //scriere lui nume
@@ -429,6 +434,7 @@ public:
 		f.write((char*)&varsta, sizeof(varsta));//scriere varsta
 		f.close();
 	}
+
 	streampos deserializare(streampos start, string fname)
 	{
 		ifstream f(fname, ios::binary);
@@ -584,7 +590,7 @@ void actualizareAngajat(int id, angajati nou, int nrTotalAngajati, string fname)
 		pos = a.deserializare(pos, fname);
 		if (id != a.getIdAngajat())// daca nu gasim idul, copiem in noul fisier
 			a.serializare(copie);
-		else nou.serializare(copie);
+		else nou.serializare(copie, id);
 	}
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
