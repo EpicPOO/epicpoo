@@ -5,11 +5,14 @@
 #include "aliment.h"
 #include "angajati.h"
 #include "bilet.h"
+#include "helpersCRUD.h"
 
 using namespace std;
 
 int main()
 {
+
+	string fname = "total.txt";
 
 	////TESTARE  Buharu CLASA SALA
 	////test constructor implicit
@@ -322,17 +325,18 @@ int main()
 	//cout << "		Constructor Implicit" << endl << angajat1;
 	//
 	////constructor cu parametrii
-	//char numeAngajat[] = "Buharu";
-	//int telefon[] = { 0,7,6,4,9,8,0,5,1,4 };
-	//string adresa = "Bucuresti, sector 3, blv. Unirii, nr 11, sc 1, ap 11";
-	//string email = "buharu@yahoo.com";
-	//float salariu = 2545.20;
-	//int varstaAngajat = 20;
-	//angajati angajat2(numeAngajat, telefon, adresa, email, salariu, varstaAngajat);
+	char numeAngajat[] = "Buharu";
+	int telefon[] = { 0,7,6,4,9,8,0,5,1,4 };
+	string adresa = "Bucuresti, sector 3, blv. Unirii, nr 11, sc 1, ap 11";
+	string email = "buharu@yahoo.com";
+	float salariu = 2545.20;
+	int varstaAngajat = 20;
+	angajati angajat2(numeAngajat, telefon, adresa, email, salariu, varstaAngajat);
 	//cout << endl << "		Constructor cu parametrii" << endl << angajat2 << endl;
 
-	//angajati angajat4;
-	//angajat4 = angajat2;
+	angajati angajat4;
+	angajat4 = angajat2;
+	angajati angajat5(numeAngajat, telefon, adresa, email, salariu, varstaAngajat);
 	//cout << "		Operator =" << endl;
 	//if (strcmp(angajat4.getNume(), numeAngajat) == 0) { cout << "Nume Angajat CORECT" << endl; }
 	//else { cout << "Nume INCORECT" << endl; }
@@ -564,59 +568,77 @@ int main()
 	bilet gasit = gasesteBilet(3, totalBilete, "bilete.bin");
 	cout << gasit;*/
 
-// Testare FAza II Buharu
-	int totalSali = 3;
-	//sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate)
-	string numeSala = "Ion Creanga";
-	char tipSala[] = "3d";
-	int totalSala = 30;
-	int totalLocuri[] = { 1,2,3,4 };
-	int nrRezervate = 2;
-	int nrCumparate = 2;
+	// Testare FAza II Buharu
+		//int totalSali = 3;
+		////sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate)
+		//string numeSala = "Ion Creanga";
+		//char tipSala[] = "3d";
+		//int totalSala = 30;
+		//int totalLocuri[] = { 1,2,3,4 };
+		//int nrRezervate = 2;
+		//int nrCumparate = 2;
 
-	sala s1(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
-	sala s2(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
-	sala s3(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+		//sala s1(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+		//sala s2(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+		//sala s3(numeSala, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
 
-	adaugaSala(s1, totalSali, "sali.bin");
-	adaugaSala(s2, totalSali, "sali.bin");
-	adaugaSala(s3, totalSali, "sali.bin");
-	stergeSala(2, totalSali, "sali.bin");
-	sala cs3 = gasesteSala(3, totalSali, "sali.bin");
-	actualizareSala(1, s2, totalSali, "sali.bin");
-	sala cs2 = gasesteSala(2, totalSali, "sali.bin");
-	sala cs1 = gasesteSala(1, totalSali, "sali.bin");
-	cout << endl << "		Sala 1: " << endl << cs1 << endl << "		Sala 2: " << endl << cs2 << endl << "		Sala 3: " << cs3 << endl;
-	
-	//Teste functii globale - Andrei
+		//adaugaSala(s1, totalSali, "sali.bin");
+		//adaugaSala(s2, totalSali, "sali.bin");
+		//adaugaSala(s3, totalSali, "sali.bin");
+		//stergeSala(2, totalSali, "sali.bin");
+		//sala cs3 = gasesteSala(3, totalSali, "sali.bin");
+		//actualizareSala(1, s2, totalSali, "sali.bin");
+		//sala cs2 = gasesteSala(2, totalSali, "sali.bin");
+		//sala cs1 = gasesteSala(1, totalSali, "sali.bin");
+		//cout << endl << "		Sala 1: " << endl << cs1 << endl << "		Sala 2: " << endl << cs2 << endl << "		Sala 3: " << cs3 << endl;
+		//
 
-	adaugaZeroTotal(fname);
+	int nrAngajati = 3;
+	//angajat2.setNume((char*)"Vlad Buharu");
+	//adaugaAngajat(angajat2, nrAngajati, "angajati.bin");
+	//adaugaAngajat(angajat4, nrAngajati, "angajati.bin");
+	//adaugaAngajat(angajat5, nrAngajati, "angajati.bin");
 
-	modificaAlimente(1, fname);
-	modificaAngajati(2, fname);
-	modificaBilete(3, fname);
-	modificaFilme(4, fname);
-	modificaSali(5, fname);
+	angajat2.setNume((char*)"Vlad");
+	angajati a3 = gasesteAngajat(3, nrAngajati, "angajati.bin");
 
-	//integrare cu bilet
-	bilet b1, b2, b3, b4;
-	int nrTotalBilete = 0;
-	//cin >> b1 >> b2 >> b3 >> b4;
-	string finame = "bilete.bin";
-	nrTotalBilete = citesteTotalBilete(fname).back() - '0';
-	adaugaBilet(b1, nrTotalBilete, finame);
-	adaugaBilet(b2, nrTotalBilete, finame);
-	adaugaBilet(b3, nrTotalBilete, finame);
-	adaugaBilet(b4, nrTotalBilete, finame);
 
-	cout << "Inainte de stergere: " << nrTotalBilete << "\n";
-	stergeBilet(3, nrTotalBilete, finame);
-	b3 = gasesteBilet(3, nrTotalBilete, finame);
+	stergeAngajat(2, nrAngajati, "angajati.bin");
 
-	cout << b1 << "\n" << b2 << "\n" << b3 << "\n" << b4 << "\n" << "Dupa stergere: " << nrTotalBilete << "\n";
-	modificaBilete(nrTotalBilete, fname);
+	actualizareAngajat(1, angajat2, nrAngajati, "angajati.bin");
+	angajati a1 = gasesteAngajat(1, nrAngajati, "angajati.bin");
+	angajati a2 = gasesteAngajat(2, nrAngajati, "angajati.bin");
+	cout << "		Angajat 1: " << endl << a1 << endl << "		Angajat 2: " << endl << a2 << endl << "		Angajat 3: " << endl << a3 << endl;
 
-	// integrare cu sala
+	////Teste functii globale - Andrei
+
+	//adaugaZeroTotal(fname);
+
+	//modificaAlimente(2147483647, fname);
+	//modificaAngajati(2147483647, fname);
+	//modificaBilete(2147483647, fname);
+	//modificaFilme(2147483647, fname);
+	//modificaSali(2147483647, fname);
+
+	////integrare cu bilet
+	//bilet b1, b2, b3, b4;
+	//int nrTotalBilete = 0;
+	////cin >> b1 >> b2 >> b3 >> b4;
+	//string finame = "bilete.bin";
+	//nrTotalBilete = citesteTotalBilete(fname).back() - '0';
+	//adaugaBilet(b1, nrTotalBilete, finame);
+	//adaugaBilet(b2, nrTotalBilete, finame);
+	//adaugaBilet(b3, nrTotalBilete, finame);
+	//adaugaBilet(b4, nrTotalBilete, finame);
+
+	//cout << "Inainte de stergere: " << nrTotalBilete << "\n";
+	//stergeBilet(3, nrTotalBilete, finame);
+	//b3 = gasesteBilet(3, nrTotalBilete, finame);
+
+	//cout << b1 << "\n" << b2 << "\n" << b3 << "\n" << b4 << "\n" << "Dupa stergere: " << nrTotalBilete << "\n";
+	//modificaBilete(nrTotalBilete, fname);
+
+	//// integrare cu sala
 	string salibin = "sali.bin", numeSala1 = "Ion", numeSala2 = "Mirel", numeSala3 = "Gigel";
 	int nrTotalSali = citesteTotalSali(fname).back() - '0';
 	char tipSala[] = "3d";
@@ -637,11 +659,10 @@ int main()
 	stergeSala(2, nrTotalSali, salibin);
 	cout << "\n\nNr total sali dupa stergere: " << nrTotalSali;
 	sala cs3 = gasesteSala(3, nrTotalSali, salibin);
-	actualizareSala(1, s2, nrTotalSali, salibin);
+	actualizareSala(2, s2, nrTotalSali, salibin);
 	cout << "\n\nNr total sali final: " << nrTotalSali;
 
 	cout << "\n\ns1:\n" << s1 << "\n\ns2:\n" << s2 << "\n\ns3:\n" << s3 << "\n\ncs3:\n" << cs3;
-
 
 	return 0;
 }

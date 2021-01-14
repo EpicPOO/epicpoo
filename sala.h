@@ -466,7 +466,7 @@ void actualizareSala(int id, sala noua, int nrTotalSali, string fname)
 void stergeSala(int id, int& nrTotalSali, string fname)
 {
 	sala s;
-	int sterse = 0;
+	int sterse = nrTotalSali;
 	streampos pos = 0; //pornim de la pozitia 0
 	string copie = "temp.bin";
 	for (int i = 0; i < nrTotalSali; i++)
@@ -475,11 +475,9 @@ void stergeSala(int id, int& nrTotalSali, string fname)
 		if (id != s.getIdSala())// daca nu gasim idul, copiem in noul fisier
 			s.serializare(copie);
 		else
-		{
-			sterse++;
-			nrTotalSali--;
-		}
+			sterse--;
 	}
+	nrTotalSali = sterse;
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
 }

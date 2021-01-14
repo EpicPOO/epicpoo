@@ -399,7 +399,7 @@ void adaugaBilet(bilet noul, int& nrTotalBilete, string fname)
 	nrTotalBilete++;
 }
 
-bilet gasesteBilet(int id, int& nrTotalBilete, string fname) // sau citire
+bilet gasesteBilet(int id, int nrTotalBilete, string fname) // sau citire
 {
 	bilet b;
 	streampos pos = 0; // pornim de la pozitia 0
@@ -413,7 +413,7 @@ bilet gasesteBilet(int id, int& nrTotalBilete, string fname) // sau citire
 	return b;	
 }
 
-void actualizareBilet(int id, bilet nou, int& nrTotalBilete, string fname)
+void actualizareBilet(int id, bilet nou, int nrTotalBilete, string fname)
 {
 	bilet b;
 	streampos pos = 0; //pornim de la pozitia 0
@@ -432,7 +432,7 @@ void actualizareBilet(int id, bilet nou, int& nrTotalBilete, string fname)
 void stergeBilet(int id, int& nrTotalBilete, string fname)
 {
 	bilet b;
-	int sterse = 0;
+	int sterse = nrTotalBilete;
 	streampos pos = 0; //pornim de la pozitia 0
 	string copie = "temp.bin";
 	for (int i = 0; i < nrTotalBilete; i++)
@@ -441,11 +441,9 @@ void stergeBilet(int id, int& nrTotalBilete, string fname)
 		if (id != b.getIdBilet())// daca nu gasim idul, copiem in noul fisier
 			b.serializare(copie);
 		else
-		{
-			sterse++;
-			nrTotalBilete--;
-		}
+			sterse--;//decrementam copia nr total
 	}
+	nrTotalBilete = sterse;
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
 }

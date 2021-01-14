@@ -560,7 +560,7 @@ void adaugaAngajat(angajati nou, int& nrTotalAngajati, string fname)
 	nrTotalAngajati++;
 }
 
-angajati gasesteAngajat(int id, int& nrTotalAngajati, string fname) // sau citire
+angajati gasesteAngajat(int id, int nrTotalAngajati, string fname) // sau citire
 {
 	angajati a;
 	streampos pos = 0; // pornim de la pozitia 0
@@ -574,7 +574,7 @@ angajati gasesteAngajat(int id, int& nrTotalAngajati, string fname) // sau citir
 	return a;
 }
 
-void actualizareAngajat(int id, angajati nou, int& nrTotalAngajati, string fname)
+void actualizareAngajat(int id, angajati nou, int nrTotalAngajati, string fname)
 {
 	angajati a;
 	streampos pos = 0; //pornim de la pozitia 0
@@ -594,7 +594,7 @@ void stergeAngajat(int id, int& nrTotalAngajati, string fname)
 {
 	angajati a;
 	angajati b;
-	int sterse = 0;
+	int sterse = nrTotalAngajati;
 	streampos pos = 0; //pornim de la pozitia 0
 	string copie = "temp.bin";
 	for (int i = 0; i < nrTotalAngajati; i++)
@@ -603,11 +603,9 @@ void stergeAngajat(int id, int& nrTotalAngajati, string fname)
 		if (id != a.getIdAngajat())// daca nu gasim idul, copiem in noul fisier
 			a.serializare(copie);
 		else
-		{
-			sterse++;
-			nrTotalAngajati--;
-		}
+			sterse--; // decrementam copia nr total
 	}
+	nrTotalAngajati = sterse;
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
 }
