@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include<fstream>
 
 using namespace std;
 
@@ -318,6 +319,11 @@ public:
 		}
 	}
 
+	int getIdAngajat()
+	{
+		return idAngajat;
+	}
+
 	//SUPRAINCARCAREA OPERATORILOR SI METODELE FRIEND
 	//operator+
 	angajati operator+(int procent) // ne ofera posibilitatea sa majoram salariu cu un anumit procent
@@ -377,12 +383,93 @@ public:
 	friend ostream& operator<<(ostream&, angajati);
 	friend istream& operator>>(istream&, angajati&);
 	friend bool operator<(angajati, angajati);
-	friend bool operator==(angajati, angajati);	
+	friend bool operator==(angajati, angajati);
+
+	//FAZA a II-a
+
+	friend angajati gasesteAngajat(int, int&, string);
+	friend void writeInBin(angajati, int);
+
+	void inchidereFisier(ifstream f)
+	{
+		f.close();
+	}
+
+	ifstream deschidereFisier(string numeFisier)
+	{
+		ifstream f(numeFisier, ios::binary);
+		return f;
+	}
+	/*
+	char* nume;
+	int* telefon;
+	string adresa;
+	string email;
+	float salariu;
+	int varsta;
+	*/
+	void serializare(string fname)
+	{
+		ofstream f(fname, ios::app);
+		f.write((char*)&idAngajat, sizeof(idAngajat)); //idAngajat
+		int lengthNume = strlen(nume) + 1; //dimensiunea lui char* nume
+		f.write((char*)&lengthNume, sizeof(lengthNume)); // scrierea dimesiunii lui nume
+		f.write(nume, lengthNume); //scriere lui nume
+		for (int i = 0; i < 10; i++)
+		{
+			f.write((char*)&telefon[i], sizeof(telefon[i]));
+		}
+		int lengthAdresa = adresa.length() + 1;
+		f.write((char*)&lengthAdresa, sizeof(lengthAdresa)); //dimensiunea adresa
+		f.write(adresa.c_str(), lengthAdresa); // scriere adresa
+		int lengthEmail = email.length() + 1;
+		f.write((char*)&lengthEmail, sizeof(lengthEmail)); //dimensiunea email
+		f.write(email.c_str(), lengthEmail); // scriere email
+		f.write((char*)&salariu, sizeof(salariu)); //scriere salariu
+		f.write((char*)&varsta, sizeof(varsta));//scriere varsta
+		f.close();
+	}
+	streampos deserializare(streampos start, string fname)
+	{
+		ifstream f(fname, ios::binary);
+		f.seekg(start); // pornim de la pozitia primita ca argument
+		f.read((char*)&idAngajat, sizeof(idAngajat));
+		int length = 0;
+		f.read((char*)&length, sizeof(length));
+		char* aux = new char[length];
+		f.read(aux, length);
+		setNume(aux); //am citit nume
+		int* copie = new int[10];
+		for (int i = 0; i < 10; i++)
+		{
+			f.read((char*)&copie[i], sizeof(copie[i]));
+		}
+		setTelefon(copie); // am citit telefon
+
+		length = 0;
+		f.read((char*)&length, sizeof(length));
+		delete[] aux;
+		aux = new char[length];
+		f.read(aux, length);
+		setAdresa(aux); //am citit Adresa
+		length = 0;
+		f.read((char*)&length, sizeof(length));
+		delete[] aux;
+		aux = new char[length];
+		f.read(aux, length);
+		setEmail(aux); //am citit Adresa
+		f.read((char*)&salariu, sizeof(salariu));//am citit salariu
+		f.read((char*)&varsta, sizeof(varsta)); //am citit varsta
+		streampos pos = f.tellg();
+		f.close();
+		return pos;
+	}
 };
 int angajati::nrAngajat = 0;
 
 ostream& operator<<(ostream& out, angajati a)
 {
+	out << "Id Angajat: " << a.idAngajat << endl;
 	if (a.nume != nullptr)
 	{
 		out << "Nume Angajat: ";
@@ -463,4 +550,64 @@ bool operator==(angajati a, angajati b)
 	if (strcmp(a.nume, b.nume) == 0)	{		nume = true;	}	else	{		nume = false;	}
 	if (a.varsta == b.varsta)			{		varsta = true;	}	else	{		varsta = false;	}
 	if (nume == varsta == true)			{		return true;	}	else	{		return false;	}
+}
+
+
+
+void adaugaAngajat(angajati nou, int& nrTotalAngajati, string fname)
+{
+	nou.serializare(fname);
+	nrTotalAngajati++;
+}
+
+angajati gasesteAngajat(int id, int& nrTotalAngajati, string fname) // sau citire
+{
+	angajati a;
+	streampos pos = 0; // pornim de la pozitia 0
+	for (int i = 0; i < nrTotalAngajati; i++)
+	{
+		pos = a.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+		if (id == a.getIdAngajat())
+			return a;
+	}
+	a.setNume((char*)"Negasit");
+	return a;
+}
+
+void actualizareAngajat(int id, angajati nou, int& nrTotalAngajati, string fname)
+{
+	angajati a;
+	streampos pos = 0; //pornim de la pozitia 0
+	string copie = "temp.bin";
+	for (int i = 0; i < nrTotalAngajati; i++)
+	{
+		pos = a.deserializare(pos, fname);
+		if (id != a.getIdAngajat())// daca nu gasim idul, copiem in noul fisier
+			a.serializare(copie);
+		else nou.serializare(copie);
+	}
+	remove(fname.c_str());
+	rename(copie.c_str(), fname.c_str());
+}
+
+void stergeAngajat(int id, int& nrTotalAngajati, string fname)
+{
+	angajati a;
+	angajati b;
+	int sterse = 0;
+	streampos pos = 0; //pornim de la pozitia 0
+	string copie = "temp.bin";
+	for (int i = 0; i < nrTotalAngajati; i++)
+	{
+		pos = a.deserializare(pos, fname);
+		if (id != a.getIdAngajat())// daca nu gasim idul, copiem in noul fisier
+			a.serializare(copie);
+		else
+		{
+			sterse++;
+			nrTotalAngajati--;
+		}
+	}
+	remove(fname.c_str());
+	rename(copie.c_str(), fname.c_str());
 }
