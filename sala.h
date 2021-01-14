@@ -433,7 +433,7 @@ void adaugaSala(sala noua, int& nrTotalSali, string fname)
 	nrTotalSali++;
 }
 
-sala gasesteSala(int id, int& nrTotalSali, string fname) // sau citire
+sala gasesteSala(int id, int nrTotalSali, string fname) // sau citire
 {
 	sala s;
 	streampos pos = 0; // pornim de la pozitia 0
@@ -447,7 +447,7 @@ sala gasesteSala(int id, int& nrTotalSali, string fname) // sau citire
 	return s;
 }
 
-void actualizareSala(int id, sala noua, int& nrTotalSali, string fname)
+void actualizareSala(int id, sala noua, int nrTotalSali, string fname)
 {
 	sala s;
 	streampos pos = 0; //pornim de la pozitia 0
@@ -463,7 +463,7 @@ void actualizareSala(int id, sala noua, int& nrTotalSali, string fname)
 	rename(copie.c_str(), fname.c_str());
 }
 
-void stergeSala(int id, int& nrTotalSali, string fname)
+void stergeSala(int id, int nrTotalSali, string fname)
 {
 	sala s;
 	int sterse = 0;
