@@ -453,3 +453,14 @@ void stergeAliment(int id, int& nrTotalAlimente, string fname) //Stefana: adauga
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
 }
+
+void afisareAlimente(int nrTotalAlimente, string fname)
+{
+	aliment a;
+	streampos pos = 0;
+	for (int i = 0; i < nrTotalAlimente; i++)
+	{
+		pos = a.deserializare(pos, fname);
+		cout << a << "\n";
+	}
+}
