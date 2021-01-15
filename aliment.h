@@ -1,6 +1,8 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include<fstream>
+
 
 using namespace std;
 
@@ -156,6 +158,8 @@ public:
 
 	//getter + setteri cu validari
 
+	int getIdAliment() { return idAliment; } //Stefana: adaugare getter idAliment
+
 	string getnumeAliment() { return numeAliment; }
 	void setnumeAliment(string numeAliment)
 	{
@@ -181,6 +185,10 @@ public:
 	}
 
 	int getLungimeCod() { return lungimeCod; }
+	void setNumeAliment(string numeAliment) //Stefana: adaugare numeAliment
+	{
+		this->numeAliment = numeAliment;
+	}
 	void setLungimeCod(int lungimeCod)
 	{
 		if (lungimeCod > 0) this->lungimeCod = lungimeCod;
@@ -257,10 +265,75 @@ public:
 	friend istream& operator>>(istream&, aliment&);
 	friend bool operator<(aliment, aliment);
 	friend bool operator==(aliment, aliment);
+
+	void inchidereFisier(ifstream f) //Stefana: adaugare functie inchidere fisier
+	{
+		f.close();
+	}
+
+	ifstream deschidereFisier(string numeFisier) //Stefana: adaugare functie deschidere fisier
+	{
+		ifstream f(numeFisier, ios::binary);
+		return f;
+	}
+
+	void serializare(string fname) //Stefana: adaugare serializare
+	{
+		serializare(fname, idAliment);
+	}
+
+	void serializare(string fname, int id) //Stefana: adaugare serializare
+	{
+		ofstream f(fname, ios::app);
+		f.write((char*)&id, sizeof(id));
+		int lengthNume = numeAliment.length() + 1;
+		f.write((char*)&lengthNume, sizeof(lengthNume)); //dimensiune nume aliment
+		f.write(numeAliment.c_str(), lengthNume); // scriere numeAliment
+		int lengthCategorie = strlen(getCategorie()) + 1; //modificati sa fie doar o variabila pentru o mai buna gestionare a memoriei
+		f.write((char*)&lengthCategorie, sizeof(lengthCategorie)); // dimensiunea categoriei
+		f.write(categorie, lengthCategorie); //scriere categorie
+		f.write((char*)&lungimeCod, sizeof(lungimeCod)); //scriere lungimeCod
+		for (int i = 0; i < lungimeCod; i++)
+		{
+			f.write((char*)&codBare[i], sizeof(codBare[i])); //scriere codBare
+		}
+		f.write((char*)&pret, sizeof(pret));
+		f.close();
+	}
+
+	streampos deserializare(streampos start, string fname) //Stefana: adaugare deserializare
+	{
+		ifstream f(fname, ios::binary);
+		f.seekg(start); // pornim de la pozitia primita ca argument
+		f.read((char*)&idAliment, sizeof(idAliment));
+		int length = 0;
+		f.read((char*)&length, sizeof(length));
+		char* aux = new char[length];
+		f.read(aux, length);
+		setNumeAliment(aux); //am citit numeAliment
+		length = 0;
+		f.read((char*)&length, sizeof(length));
+		delete[] aux;
+		aux = new char[length];
+		f.read(aux, length);
+		setCategorie(aux);
+		f.read((char*)&lungimeCod, sizeof(lungimeCod)); //lungime cod bare
+		int* copie = new int[lungimeCod];
+		for (int i = 0; i < lungimeCod; i++)
+		{
+			f.read((char*)&copie[i], sizeof(copie[i]));
+		}
+		setCodBare(copie, lungimeCod); //lungime cod
+		f.read((char*)&pret, sizeof(pret));
+		streampos pos = f.tellg();
+		f.close();
+		return pos;
+	}
 };
 
 ostream& operator<<(ostream& out, aliment a) // operator afisare
 {
+	out << "ID aliment: " << a.idAliment << endl; //Stefana: adaugare idAliment in operator<<
 	out << "Nume aliment: " << a.numeAliment << endl;
 	out << "Categorie: " << a.categorie << endl;
 	out << "Pret: " << a.pret << endl;
@@ -325,3 +398,58 @@ bool operator==(aliment a1, aliment a2)
 } 
 
 int aliment::numarAlimente = 0;
+
+void adaugaAliment(aliment noul, int& nrTotalAlimente, string fname) //Stefana: adaugare functie adauga aliment
+{
+	noul.serializare(fname,++nrTotalAlimente);
+
+}
+
+aliment gasesteAliment(int id, int nrTotalAlimente, string fname) // sau citire //Stefana: adaugare functie gaseste aliment
+{
+	aliment a;
+	streampos pos = 0; // pornim de la pozitia 0
+	for (int i = 0; i < nrTotalAlimente; i++)
+	{
+		pos = a.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+		if (id == a.getIdAliment())
+			return a;
+	}
+	a.setNumeAliment("Negasit");
+	return a;
+}
+
+void actualizareAliment(int id, aliment nou, int nrTotalAlimente, string fname) //Stefana: adaugare functie actualizare aliment
+{
+	aliment a;
+	streampos pos = 0; //pornim de la pozitia 0
+	string copie = "temp.bin";
+	for (int i = 0; i < nrTotalAlimente; i++)
+	{
+		pos = a.deserializare(pos, fname);
+		if (id != a.getIdAliment())// daca nu gasim idul, copiem in noul fisier
+			a.serializare(copie);
+		else nou.serializare(copie, id);
+	}
+	remove(fname.c_str());
+	rename(copie.c_str(), fname.c_str());
+}
+
+void stergeAliment(int id, int& nrTotalAlimente, string fname) //Stefana: adaugare functie stergere aliment
+{
+	aliment a;
+	int sterse = nrTotalAlimente;
+	streampos pos = 0; //pornim de la pozitia 0
+	string copie = "temp.bin";
+	for (int i = 0; i < nrTotalAlimente; i++)
+	{
+		pos = a.deserializare(pos, fname);
+		if (id != a.getIdAliment())// daca nu gasim idul, copiem in noul fisier
+			a.serializare(copie);
+		else
+			sterse--;//decrementam copia nr total
+	}
+	nrTotalAlimente = sterse;
+	remove(fname.c_str());
+	rename(copie.c_str(), fname.c_str());
+}

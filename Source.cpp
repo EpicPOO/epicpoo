@@ -669,7 +669,7 @@ int main()
 
 	modificaSali(nrTotalSali, fname);
 
-	//teste clasa film Faza II Buharu
+	teste clasa film Faza II Buharu
 
 	string stringuri[2];
 	string fisierFilme = "filme.bin";
@@ -702,7 +702,33 @@ int main()
 	modificaFilme(nrTotalFilme, fname);
 
 
+	//Stefana: teste pentru alimente
 
+	//aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente)
+	/*aliment a1;
+	cin >> a1;
+	cout << a1 << endl;
+	aliment a2;
+	cin >> a2;
+	cout << a2 << endl;*/
+	string nrTotalAlimente =citesteTotalAlimente(fname).substr(citesteTotalAlimente(fname).find(": ") + 2, citesteTotalAlimente(fname).length() - citesteTotalAlimente(fname).find(": ") - 2);
+	int nr = stoi(nrTotalAlimente, nullptr, 10);
+	int lCodB = 3;
+	int* codB = new int[lCodB];
+	codB[0] = 1; codB[1] = 2; codB[2] = 3;
+	aliment a1("Bere", (const char*)"bauturi", lCodB, codB,10.0f);
+	adaugaAliment(a1, nr, "Alimente.bin"); 
+	modificaAlimente(nr, fname);
 
+	aliment a2("Popcorn", (const char*)"gustari", lCodB, codB, 10.0f);
+	adaugaAliment(a2, nr, "Alimente.bin");
+	modificaAlimente(nr, fname);
+	cout << gasesteAliment(2, nr, "Alimente.bin");
+	stergeAliment(1, nr, "Alimente.bin");
+	modificaAlimente(nr, fname);
+	cout << gasesteAliment(1, nr, "Alimente.bin") << endl;
+	cout << gasesteAliment(2, nr, "Alimente.bin") << endl;
+	actualizareAliment(2, a1, nr, "Alimente.bin");
+	cout << gasesteAliment(2, nr, "Alimente.bin") << endl;
 	return 0;
 }
