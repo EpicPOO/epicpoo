@@ -562,8 +562,7 @@ bool operator==(angajati a, angajati b)
 
 void adaugaAngajat(angajati nou, int& nrTotalAngajati, string fname)
 {
-	nou.serializare(fname);
-	nrTotalAngajati++;
+	nou.serializare(fname, ++nrTotalAngajati);
 }
 
 angajati gasesteAngajat(int id, int nrTotalAngajati, string fname) // sau citire
@@ -599,7 +598,6 @@ void actualizareAngajat(int id, angajati nou, int nrTotalAngajati, string fname)
 void stergeAngajat(int id, int& nrTotalAngajati, string fname)
 {
 	angajati a;
-	angajati b;
 	int sterse = nrTotalAngajati;
 	streampos pos = 0; //pornim de la pozitia 0
 	string copie = "temp.bin";
@@ -614,4 +612,15 @@ void stergeAngajat(int id, int& nrTotalAngajati, string fname)
 	nrTotalAngajati = sterse;
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
+}
+
+void afisareAngajati(int nrTotalAngajati, string fname)
+{
+	angajati a;
+	streampos pos = 0;
+	for (int i = 0; i < nrTotalAngajati; i++)
+	{
+		pos = a.deserializare(pos, fname);
+		cout << a << "\n";
+	}
 }
