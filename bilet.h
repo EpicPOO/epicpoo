@@ -393,8 +393,7 @@ bool operator==(bilet f1, bilet f2)
 
 void adaugaBilet(bilet noul, int& nrTotalBilete, string fname)
 {
-	noul.serializare(fname);
-	nrTotalBilete++;
+	noul.serializare(fname, ++nrTotalBilete);
 }
 
 bilet gasesteBilet(int id, int nrTotalBilete, string fname) // sau citire
@@ -447,4 +446,13 @@ void stergeBilet(int id, int& nrTotalBilete, string fname)
 }
 
 
-
+void afisareBilete(int nrTotalBilete, string fname)
+{
+	bilet b;
+	streampos pos = 0;
+	for (int i = 0; i < nrTotalBilete; i++)
+	{
+		pos = b.deserializare(pos, fname);
+		cout << b << "\n";
+	}
+}
