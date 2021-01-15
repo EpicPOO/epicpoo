@@ -86,13 +86,35 @@ string citesteTotalSali(string fname)
 	return citeste(5, fname);
 }
 
-int citesteTotalInt(string linie,string fname)
+int citesteTotalAlimenteInt(string fname)
 {
-	int totalInt = 0;
-	for (int i = 0; i < linie.length(); i++)
-		if (linie[i] - '0' >= 0 && linie[i] - '0' <= 9)
-			totalInt = totalInt * 10 + (linie[i] - '0');
-	return totalInt;
+	string numar = citesteTotalAlimente(fname).substr(citesteTotalAlimente(fname).find(": ") + 2, citesteTotalAlimente(fname).length() - citesteTotalAlimente(fname).find(": ") - 2);
+	return stoi(numar, nullptr, 10);
+}
+
+int citesteTotalAngajatiInt(string fname)
+{
+	string numar = citesteTotalAngajati(fname).substr(citesteTotalAngajati(fname).find(": ") + 2, citesteTotalAngajati(fname).length() - citesteTotalAngajati(fname).find(": ") - 2);
+	return stoi(numar, nullptr, 10);
+}
+
+int citesteTotalBileteInt(string fname)
+{
+	string numar = citesteTotalBilete(fname).substr(citesteTotalBilete(fname).find(": ") + 2, citesteTotalBilete(fname).length() - citesteTotalBilete(fname).find(": ") - 2);
+	return stoi(numar, nullptr, 10);
+}
+
+
+int citesteTotalFilmeInt(string fname)
+{
+	string numar = citesteTotalFilme(fname).substr(citesteTotalFilme(fname).find(": ") + 2, citesteTotalFilme(fname).length() - citesteTotalFilme(fname).find(": ") - 2);
+	return stoi(numar, nullptr, 10);
+}
+
+int citesteTotalSaliInt(string fname)
+{
+	string numar = citesteTotalSali(fname).substr(citesteTotalSali(fname).find(": ") + 2, citesteTotalSali(fname).length() - citesteTotalSali(fname).find(": ") - 2);
+	return stoi(numar, nullptr, 10);
 }
 
 void modifica(string obiect, int noulTotal, string fname) // functie modificare, facuta foarte raw, direct -> FUNCTIONEAZA DOAR PENTRU UN TOTAL < 10
@@ -101,94 +123,46 @@ void modifica(string obiect, int noulTotal, string fname) // functie modificare,
 	if (obiect == "alimente")
 	{
 		adaugaTotalAlimente(noulTotal, copie); // adaugam noul total
-		adaugaTotalAngajati(citesteTotalInt(citesteTotalAngajati(fname), fname), copie); //adaugam totalul de int citit de pe linia respectiva
-		adaugaTotalBilete(citesteTotalInt(citesteTotalBilete(fname), fname), copie);
-		adaugaTotalFilme(citesteTotalInt(citesteTotalFilme(fname), fname), copie);
-		adaugaTotalSali(citesteTotalInt(citesteTotalSali(fname), fname), copie);
+		adaugaTotalAngajati(citesteTotalAngajatiInt(fname), copie);
+		adaugaTotalBilete(citesteTotalBileteInt(fname), copie);
+		adaugaTotalFilme(citesteTotalFilmeInt(fname), copie);
+		adaugaTotalSali(citesteTotalSaliInt(fname), copie);
 	}
 	else if (obiect == "angajati")
 	{
-		adaugaTotalAlimente(citesteTotalInt(citesteTotalAlimente(fname), fname), copie);
+		adaugaTotalAlimente(citesteTotalAlimenteInt(fname), copie); // adaugam noul total
 		adaugaTotalAngajati(noulTotal, copie);
-		adaugaTotalBilete(citesteTotalInt(citesteTotalBilete(fname), fname), copie);
-		adaugaTotalFilme(citesteTotalInt(citesteTotalFilme(fname), fname), copie);
-		adaugaTotalSali(citesteTotalInt(citesteTotalSali(fname), fname), copie);
+		adaugaTotalBilete(citesteTotalBileteInt(fname), copie);
+		adaugaTotalFilme(citesteTotalFilmeInt(fname), copie);
+		adaugaTotalSali(citesteTotalSaliInt(fname), copie);
 	}
 	else if (obiect == "bilete")
 	{
-		adaugaTotalAlimente(citesteTotalInt(citesteTotalAlimente(fname), fname), copie);
-		adaugaTotalAngajati(citesteTotalInt(citesteTotalAngajati(fname), fname), copie);
+		adaugaTotalAlimente(citesteTotalAlimenteInt(fname), copie); // adaugam noul total
+		adaugaTotalAngajati(citesteTotalAngajatiInt(fname), copie);
 		adaugaTotalBilete(noulTotal, copie);
-		adaugaTotalFilme(citesteTotalInt(citesteTotalFilme(fname), fname), copie);
-		adaugaTotalSali(citesteTotalInt(citesteTotalSali(fname), fname), copie);
+		adaugaTotalFilme(citesteTotalFilmeInt(fname), copie);
+		adaugaTotalSali(citesteTotalSaliInt(fname), copie);
 	}
 	else if (obiect == "filme")
 	{
-		adaugaTotalAlimente(citesteTotalInt(citesteTotalAlimente(fname), fname), copie);
-		adaugaTotalAngajati(citesteTotalInt(citesteTotalAngajati(fname), fname), copie);
-		adaugaTotalBilete(citesteTotalInt(citesteTotalBilete(fname), fname), copie);
+		adaugaTotalAlimente(citesteTotalAlimenteInt(fname), copie); // adaugam noul total
+		adaugaTotalAngajati(citesteTotalAngajatiInt(fname), copie);
+		adaugaTotalBilete(citesteTotalBileteInt(fname), copie);
 		adaugaTotalFilme(noulTotal, copie);
-		adaugaTotalSali(citesteTotalInt(citesteTotalSali(fname), fname), copie);
+		adaugaTotalSali(citesteTotalSaliInt(fname), copie);
 	}
 	else
 	{
-		adaugaTotalAlimente(citesteTotalInt(citesteTotalAlimente(fname), fname), copie);
-		adaugaTotalAngajati(citesteTotalInt(citesteTotalAngajati(fname), fname), copie);
-		adaugaTotalBilete(citesteTotalInt(citesteTotalBilete(fname), fname), copie);
-		adaugaTotalFilme(citesteTotalInt(citesteTotalFilme(fname), fname), copie);
+		adaugaTotalAlimente(citesteTotalAlimenteInt(fname), copie); // adaugam noul total
+		adaugaTotalAngajati(citesteTotalAngajatiInt(fname), copie);
+		adaugaTotalBilete(citesteTotalBileteInt(fname), copie);
+		adaugaTotalFilme(citesteTotalFilmeInt(fname), copie);
 		adaugaTotalSali(noulTotal, copie);
 	}
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
 }
-
-void modifica2(string obiect, int noulTotal, string fname) // functie modificare, facuta foarte raw, direct -> FUNCTIONEAZA DOAR PENTRU UN TOTAL < 10
-{
-	string copie = "copie.txt", buffer;
-	if (obiect == "alimente")
-	{
-		adaugaTotalAlimente(noulTotal, copie);
-		adaugaTotalAngajati(citesteTotalAngajati(fname).back() - '0', copie); //citesteetc(fname).back() -> intoarce ultimul caracter - '0' -> transforma in int
-		adaugaTotalBilete(citesteTotalBilete(fname).back() - '0', copie);
-		adaugaTotalFilme(citesteTotalFilme(fname).back() - '0', copie);
-		adaugaTotalSali(citesteTotalSali(fname).back() - '0', copie);
-	}
-	else if (obiect == "angajati")
-	{
-		adaugaTotalAlimente(citesteTotalAlimente(fname).back() - '0', copie);
-		adaugaTotalAngajati(noulTotal, copie);
-		adaugaTotalBilete(citesteTotalBilete(fname).back() - '0', copie);
-		adaugaTotalFilme(citesteTotalFilme(fname).back() - '0', copie);
-		adaugaTotalSali(citesteTotalSali(fname).back() - '0', copie);
-	}
-	else if (obiect == "bilete")
-	{
-		adaugaTotalAlimente(citesteTotalAlimente(fname).back() - '0', copie);
-		adaugaTotalAngajati(citesteTotalAngajati(fname).back() - '0', copie);
-		adaugaTotalBilete(noulTotal, copie);
-		adaugaTotalFilme(citesteTotalFilme(fname).back() - '0', copie);
-		adaugaTotalSali(citesteTotalSali(fname).back() - '0', copie);
-	}
-	else if (obiect == "filme")
-	{
-		adaugaTotalAlimente(citesteTotalAlimente(fname).back() - '0', copie);
-		adaugaTotalAngajati(citesteTotalAngajati(fname).back() - '0', copie);
-		adaugaTotalBilete(citesteTotalBilete(fname).back() - '0', copie);
-		adaugaTotalFilme(noulTotal, copie);
-		adaugaTotalSali(citesteTotalSali(fname).back() - '0', copie);
-	}
-	else
-	{
-		adaugaTotalAlimente(citesteTotalAlimente(fname).back() - '0', copie);
-		adaugaTotalAngajati(citesteTotalAngajati(fname).back() - '0', copie);
-		adaugaTotalBilete(citesteTotalBilete(fname).back() - '0', copie);
-		adaugaTotalFilme(citesteTotalFilme(fname).back() - '0', copie);
-		adaugaTotalSali(noulTotal, copie);
-	}
-	remove(fname.c_str());
-	rename(copie.c_str(), fname.c_str());
-}
-
 
 void modificaAlimente(int totalAlimente, string fname)
 {
