@@ -432,8 +432,7 @@ bool operator==(film f1, film f2)
 
 void adaugaFilm(film nou, int& nrTotalFilme, string fname)
 {
-	nou.serializare(fname);
-	nrTotalFilme++;
+	nou.serializare(fname, ++nrTotalFilme);
 }
 
 film gasesteFilm(int id, int nrTotalFilme, string fname) // sau citire
@@ -483,4 +482,15 @@ void stergeFilm(int id, int& nrTotalFilme, string fname)
 	nrTotalFilme = sterse;
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
+}
+
+void afisareFilme(int nrTotalFilme, string fname)
+{
+	film f;
+	streampos pos = 0;
+	for (int i = 0; i < nrTotalFilme; i++)
+	{
+		pos = f.deserializare(pos, fname);
+		cout << f << "\n";
+	}
 }
