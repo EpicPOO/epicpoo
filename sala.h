@@ -437,8 +437,7 @@ bool operator==(sala s1, sala s2)
 
 void adaugaSala(sala noua, int& nrTotalSali, string fname)
 {
-	noua.serializare(fname);
-	nrTotalSali++;
+	noua.serializare(fname, ++nrTotalSali);
 }
 
 sala gasesteSala(int id, int nrTotalSali, string fname) // sau citire
@@ -488,4 +487,15 @@ void stergeSala(int id, int& nrTotalSali, string fname)
 	nrTotalSali = sterse;
 	remove(fname.c_str());
 	rename(copie.c_str(), fname.c_str());
+}
+
+void afisareSali(int nrTotalSali, string fname)
+{
+	sala s;
+	streampos pos = 0;
+	for (int i = 0; i < nrTotalSali; i++)
+	{
+		pos = s.deserializare(pos, fname);
+		cout << s << "\n";
+	}
 }

@@ -612,7 +612,7 @@ int main()
 
 	////Teste functii globale - Andrei
 
-	adaugaZeroTotal(fname);
+	//adaugaZeroTotal(fname);
 
 	//modificaAlimente(2147483647, fname);
 	//modificaAngajati(2147483647, fname);
@@ -639,9 +639,10 @@ int main()
 	//modificaBilete(nrTotalBilete, fname);
 
 	//// integrare cu sala
-	adaugaZeroTotal(fname);
+	//adaugaZeroTotal(fname);
 	string salibin = "sali.bin", numeSala1 = "Ion", numeSala2 = "Mirel", numeSala3 = "Gigel";
-	int nrTotalSali = citesteTotalSali(fname).back() - '0';
+
+	int nrTotalSali = citesteTotalSaliInt(fname);
 	char tipSala[] = "3d";
 	int totalSala = 30;
 	int totalLocuri[] = { 1,2,3,4 };
@@ -657,78 +658,70 @@ int main()
 	adaugaSala(s2, nrTotalSali, salibin);
 	adaugaSala(s3, nrTotalSali, salibin);
 
-	cout << "Nr total sali dupa adaugare: " << nrTotalSali;
-	stergeSala(3, nrTotalSali, salibin);
-	cout << "\n\nNr total sali dupa stergere: " << nrTotalSali;
-	sala cs3 = gasesteSala(3, nrTotalSali, salibin);
-	actualizareSala(2, s4, nrTotalSali, salibin);
-	sala cs4 = gasesteSala(2, nrTotalSali, salibin);
-	cout << "\n\nNr total sali final: " << nrTotalSali;
-
-	cout << "\n\ns1:\n" << s1 << "\n\ns2:\n" << s2 << "\n\ns3:\n" << s3 << "\n\ncs3:\n" << cs3 << "\n\ncs4:\n" << cs4;
-
+	afisareSali(nrTotalSali, salibin);
 	modificaSali(nrTotalSali, fname);
 
-	teste clasa film Faza II Buharu
-
-	string stringuri[2];
-	string fisierFilme = "filme.bin";
-	stringuri[0] = "15.10 15:30 - 17:30";
-	stringuri[1] = "16.10 15:50 - 17:50";
-	string nume = "Avengers";
-	char tip[] = "3D";
-	int varsta = 14, nr = 2;
-	string numeNou = "The Priest";
-
-	int nrTotalFilme = citesteTotalFilme(fname).back() - '0';
-
-	film f2(nume, tip, varsta, nr, stringuri);
-	film f3(nume, tip, varsta, nr, stringuri);
-	film f4(nume, tip, varsta, nr, stringuri);
-
-	adaugaFilm(f2, nrTotalFilme, fisierFilme);
-	adaugaFilm(f3, nrTotalFilme, fisierFilme);
-	adaugaFilm(f4, nrTotalFilme, fisierFilme);
-	f3.setNumeFilm(numeNou);
-	film cf2 = gasesteFilm(1, nrTotalFilme, fisierFilme);
-	film cf3 = gasesteFilm(2, nrTotalFilme, fisierFilme);
-	film cf4 = gasesteFilm(3, nrTotalFilme, fisierFilme);
-	stergeFilm(1, nrTotalFilme, fisierFilme);
-	actualizareFilm(2, f3, nrTotalFilme, fisierFilme);
-
-	film cf5 = gasesteFilm(2, nrTotalFilme, fisierFilme);
-
-	cout << "\n\ns1:\n" << cf2 << "\n\ns2:\n" << cf3 << "\n\ns3:\n" << cf4 << "\n\ns4:\n" <<  cf5 << endl;
-	modificaFilme(nrTotalFilme, fname);
-
-
-	//Stefana: teste pentru alimente
-
-	//aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente)
-	/*aliment a1;
-	cin >> a1;
-	cout << a1 << endl;
-	aliment a2;
-	cin >> a2;
-	cout << a2 << endl;*/
-	string nrTotalAlimente =citesteTotalAlimente(fname).substr(citesteTotalAlimente(fname).find(": ") + 2, citesteTotalAlimente(fname).length() - citesteTotalAlimente(fname).find(": ") - 2);
-	int nr = stoi(nrTotalAlimente, nullptr, 10);
-	int lCodB = 3;
-	int* codB = new int[lCodB];
-	codB[0] = 1; codB[1] = 2; codB[2] = 3;
-	aliment a1("Bere", (const char*)"bauturi", lCodB, codB,10.0f);
-	adaugaAliment(a1, nr, "Alimente.bin"); 
-	modificaAlimente(nr, fname);
-
-	aliment a2("Popcorn", (const char*)"gustari", lCodB, codB, 10.0f);
-	adaugaAliment(a2, nr, "Alimente.bin");
-	modificaAlimente(nr, fname);
-	cout << gasesteAliment(2, nr, "Alimente.bin");
-	stergeAliment(1, nr, "Alimente.bin");
-	modificaAlimente(nr, fname);
-	cout << gasesteAliment(1, nr, "Alimente.bin") << endl;
-	cout << gasesteAliment(2, nr, "Alimente.bin") << endl;
-	actualizareAliment(2, a1, nr, "Alimente.bin");
-	cout << gasesteAliment(2, nr, "Alimente.bin") << endl;
-	return 0;
+//
+////	teste clasa film Faza II Buharu
+//
+//	string stringuri[2];
+//	string fisierFilme = "filme.bin";
+//	stringuri[0] = "15.10 15:30 - 17:30";
+//	stringuri[1] = "16.10 15:50 - 17:50";
+//	string nume = "Avengers";
+//	char tip[] = "3D";
+//	int varsta = 14, nr = 2;
+//	string numeNou = "The Priest";
+//
+//	int nrTotalFilme = citesteTotalFilme(fname).back() - '0';
+//
+//	film f2(nume, tip, varsta, nr, stringuri);
+//	film f3(nume, tip, varsta, nr, stringuri);
+//	film f4(nume, tip, varsta, nr, stringuri);
+//
+//	adaugaFilm(f2, nrTotalFilme, fisierFilme);
+//	adaugaFilm(f3, nrTotalFilme, fisierFilme);
+//	adaugaFilm(f4, nrTotalFilme, fisierFilme);
+//	f3.setNumeFilm(numeNou);
+//	film cf2 = gasesteFilm(1, nrTotalFilme, fisierFilme);
+//	film cf3 = gasesteFilm(2, nrTotalFilme, fisierFilme);
+//	film cf4 = gasesteFilm(3, nrTotalFilme, fisierFilme);
+//	stergeFilm(1, nrTotalFilme, fisierFilme);
+//	actualizareFilm(2, f3, nrTotalFilme, fisierFilme);
+//
+//	film cf5 = gasesteFilm(2, nrTotalFilme, fisierFilme);
+//
+//	cout << "\n\ns1:\n" << cf2 << "\n\ns2:\n" << cf3 << "\n\ns3:\n" << cf4 << "\n\ns4:\n" <<  cf5 << endl;
+//	modificaFilme(nrTotalFilme, fname);
+//
+//
+//	//Stefana: teste pentru alimente
+//
+//	//aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente)
+//	/*aliment a1;
+//	cin >> a1;
+//	cout << a1 << endl;
+//	aliment a2;
+//	cin >> a2;
+//	cout << a2 << endl;*/
+//	string nrTotalAlimente =citesteTotalAlimente(fname).substr(citesteTotalAlimente(fname).find(": ") + 2, citesteTotalAlimente(fname).length() - citesteTotalAlimente(fname).find(": ") - 2);
+//	int nr = stoi(nrTotalAlimente, nullptr, 10);
+//	int lCodB = 3;
+//	int* codB = new int[lCodB];
+//	codB[0] = 1; codB[1] = 2; codB[2] = 3;
+//	aliment a1("Bere", (const char*)"bauturi", lCodB, codB,10.0f);
+//	adaugaAliment(a1, nr, "Alimente.bin"); 
+//	modificaAlimente(nr, fname);
+//
+//	aliment a2("Popcorn", (const char*)"gustari", lCodB, codB, 10.0f);
+//	adaugaAliment(a2, nr, "Alimente.bin");
+//	modificaAlimente(nr, fname);
+//	cout << gasesteAliment(2, nr, "Alimente.bin");
+//	stergeAliment(1, nr, "Alimente.bin");
+//	modificaAlimente(nr, fname);
+//	cout << gasesteAliment(1, nr, "Alimente.bin") << endl;
+//	cout << gasesteAliment(2, nr, "Alimente.bin") << endl;
+//	actualizareAliment(2, a1, nr, "Alimente.bin");
+//	cout << gasesteAliment(2, nr, "Alimente.bin") << endl;
+//	return 0;
 }
