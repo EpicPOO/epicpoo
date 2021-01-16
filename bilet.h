@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include "helpersCRUD.h"
 
 using namespace std;
 
@@ -455,4 +456,58 @@ void afisareBilete(int nrTotalBilete, string fname)
 		pos = b.deserializare(pos, fname);
 		cout << b << "\n";
 	}
+}
+
+bilet adaugaBiletConsola() //Stefana: adaugare elemente din consola
+{
+	string buffer;
+	string numeBilet; //ca la sala
+	char* oraBilet;
+	string oraBiletStr;
+	int nrLocuri;
+	int* locuriBilet;
+	float pretTotal;
+
+	cout << "Introdu numele biletului: ";
+	cin >> ws;
+	getline(cin, numeBilet);
+	cout << endl;
+	cout << "Introdu ora biletului: ";
+	cin >> ws;
+	getline(cin, oraBiletStr);
+	cout << endl;
+	cout << "Numarul de locuri de pe bilet: ";
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0)
+	{
+		cout << "Numarul de locuri de pe bilet trebuie sa fie un numar intreg pozitiv. Te rog sa reintroduci numarul de locuri de pe bilet: " << endl;
+		getline(cin, buffer);
+	}
+	nrLocuri = stringToInt(buffer);
+	cout << endl;
+	locuriBilet = new int[nrLocuri];
+	for (int i = 0; i < nrLocuri; i++)
+	{
+		cout << "Introdu locul (" << i + 1 << "): ";
+		cin >> locuriBilet[i];
+	}
+	cout << endl;
+	cout << "Introdu pretul total al biletului: ";
+	cin >> ws;
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0)
+	{
+		cout << "Pretul introdus nu este valid. Te rog sa pretul total al biletului: " << endl;
+		getline(cin, buffer);
+	}
+	cout << endl;
+	pretTotal = stringToInt(buffer);
+	bilet b;
+	b.setLocuriBilet(locuriBilet, nrLocuri);
+	b.setNumeBilet(numeBilet);
+	b.setNrLocuri(nrLocuri);
+	b.setOraBilet((char*)oraBiletStr.c_str());
+	b.setPretTotal(pretTotal);
+	cout << endl << "Biletul a fost salvat!" << endl;
+	return b;
 }

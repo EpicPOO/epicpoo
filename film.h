@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include "helpersCRUD.h"
 
 using namespace std;
 
@@ -493,4 +494,57 @@ void afisareFilme(int nrTotalFilme, string fname)
 		pos = f.deserializare(pos, fname);
 		cout << f << "\n";
 	}
+}
+
+film adaugaFilmConsola() //Stefana: adaugare elemente din consola
+{
+	string buffer;
+	string numeFilm; //ca la sala
+	char* tipFilm;  //ca la sala
+	string tipFilmStr;
+	int varstaMin; //pentru a intra la film
+	int nrRulari;//pt array ul program, avem nevoie de lungime
+	string* program; //poate rula de mai multe ori, deci e nevoie de un array de stinguri
+
+	cout << "Introdu numele filmului: ";
+	cin >> ws;
+	getline(cin, numeFilm);
+	cout << endl;
+	cout << "Introdu tipul filmului: ";
+	cin >> ws;
+	getline(cin, tipFilmStr);
+	cout << endl;
+	cout << "Introdu varsta minima pentru a viziona acest film: ";
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0)
+	{
+		cout << "Varsta trebuie sa fie un numar intreg pozitiv. Te rog sa reintroduci varsta minima pentru a viziona acest film: " << endl;
+		getline(cin, buffer);
+	}
+	varstaMin = stringToInt(buffer);
+	cout << endl;
+	cout << "Numarul de rulari pentru acest film: ";
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0)
+	{
+		cout << "Numarul de rulari trebuie sa fie un numar intreg pozitiv. Te rog sa reintroduci numarul rulari: " << endl;
+		getline(cin, buffer);
+	}
+	nrRulari = stringToInt(buffer);
+	cout << endl;
+	program = new string[nrRulari];
+	for (int i = 0; i < nrRulari; i++)
+	{
+		cout << "Program film - introdu rularea (" << i + 1 << "): ";
+		cin >> program[i];
+	}
+	cout << endl;
+	film f;
+	f.setNrRulari(nrRulari);
+	f.setProgram(program,nrRulari);
+	f.setNumeFilm(numeFilm);
+	f.setTipFilm((char*)tipFilmStr.c_str());
+	f.setVarstaMin(varstaMin);
+	cout << endl << "Filmul a fost salvat!" << endl;
+	return f;
 }
