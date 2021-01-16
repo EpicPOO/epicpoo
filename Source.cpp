@@ -6,8 +6,12 @@
 #include "angajati.h"
 #include "bilet.h"
 #include "helpersCRUD.h"
-#include "meniuAliment.h"
+#include "meniuAliment.h"//de sters dupa ce terminam proiectul ca sunt incluse in meniu.h si merg de acolo
 #include "meniu.h"
+#include "meniuSala.h" //de sters dupa ce terminam proiectul ca sunt incluse in meniu.h si merg de acolo
+#include "meniuFilm.h"//de sters dupa ce terminam proiectul ca sunt incluse in meniu.h si merg de acolo
+#include "meniuBilet.h"//de sters dupa ce terminam proiectul ca sunt incluse in meniu.h si merg de acolo
+#include "meniuAngajat.h"//de sters dupa ce terminam proiectul ca sunt incluse in meniu.h si merg de acolo
 using namespace std;
 
 int main()
@@ -605,7 +609,7 @@ int main()
 
 	////Teste functii globale - Andrei
 
-	adaugaZeroTotal(fname);
+	//adaugaZeroTotal(fname);
 
 	//modificaAlimente(2147483647, fname);
 	//modificaAngajati(2147483647, fname);
@@ -728,25 +732,34 @@ int main()
 
 	//meniuAliment();
 
-	//Buharu test pentru functia testTipFisier
-	if (testTipFisier(fileAliment) == 0)
-	{
-		cout << "Nu exista fisierul" << endl;
-	}
-	else
-	{
-		cout << "Exista fisierul" << endl;
-	}
-	if (testTipFisier("Total.txt") == 0)
-	{
-		cout << "Nu exista fisierul" << endl;
-	}
-	else
-	{
-		cout << "Exista fisierul" << endl;
-	}
-	//Buharu test pentru meniu.h
+	////Buharu test pentru functia testTipFisier
+	//if (testTipFisier(fileAliment) == 0)
+	//{
+	//	cout << "Nu exista fisierul" << endl;
+	//}
+	//else
+	//{
+	//	cout << "Exista fisierul" << endl;
+	//}
+	//if (testTipFisier("Total.txt") == 0)
+	//{
+	//	cout << "Nu exista fisierul" << endl;
+	//}
+	//else
+	//{
+	//	cout << "Exista fisierul" << endl;
+	//}
+	////Buharu test pentru meniu.h
 	meniu();
+	//Buharu testare meniuSala.h
+	//meniuSala();
+	//Buharu testare meniuFilm.h
+	//meniuFilm();
+	//Buharu testare meniuBilet.h
+	//meniuBilet();
+	//Buharu testare meniuAngajat.h
+	//meniuAngajat();
+
 
 	return 0;
 

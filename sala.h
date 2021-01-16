@@ -545,6 +545,6 @@ sala adaugaSalaConsola() //Stefana: adaugare elemente din consola
 	s.setNrCumparate(0);
 	s.setNrRezervate(0);
 	s.setNrLibere(totalSala);
-	cout << endl << "Biletul a fost salvat!" << endl;
+	cout << endl << "Sala a fost salvata!" << endl;
 	return s;
 }

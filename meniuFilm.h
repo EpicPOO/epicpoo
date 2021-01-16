@@ -3,29 +3,29 @@
 #include <iostream>
 #include<string>
 #include "helpersCRUD.h"
-#include "aliment.h"
+#include "film.h"
 using namespace std;
 
-string optiuniAlimente = "1 - Afiseaza toate alimentele disponibile\n2 - Adauga un aliment\n3 - Cauta un aliment dupa id - ul unic\n4 - Actualizeaza un aliment\n5 - Sterge un aliment\n0 - Revino la meniul anterior\n";
-int nrOptiuni = 5; //nu include optiunea de returnare la meniul anterior (0)
-string fileAliment = "Aliment.bin";
+string optiuniFilme = "1 - Afiseaza toate filme disponibile\n2 - Adauga un film\n3 - Cauta un film dupa id - ul unic\n4 - Actualizeaza un film\n5 - Sterge un film\n0 - Revino la meniul anterior\n";
+int nrOptiuniFilme = 5; //nu include optiunea de returnare la meniul anterior (0)
+string fileFilm = "filme.bin";
 
-int ruleazaMeniu(string optiuniAlimente, int nrOptiuni)
+int ruleazaMeniuFilm(string optiuniFilme, int nrOptiuni)
 {
 	int optiune = 0;
-	cout << endl << optiuniAlimente;
+	cout << endl << optiuniFilme;
 	cin >> optiune;
 	while (optiune > nrOptiuni || optiune < 0)
 	{
 		cout << "Te rog introdu o optiune valida!" << endl;
-		cout << optiuniAlimente;
+		cout << optiuniFilme;
 		cin >> optiune;
 	}
 	return optiune;
 }
-int meniuAnterior()
+int meniuAnteriorFilm()
 {
-	cout<<endl << "Vrei sa revii la meniul anterior?" << endl << endl << "1 - Da" << endl << "0 - Nu" << endl;
+	cout << endl << "Vrei sa revii la meniul anterior?" << endl << endl << "1 - Da" << endl << "0 - Nu" << endl;
 	int tmp = 0;
 	do
 	{
@@ -34,30 +34,29 @@ int meniuAnterior()
 	} while (tmp != 0 && tmp != 1);
 }
 
-void meniuAliment()
+void meniuFilm()
 {
 	int optiune;
 	string buffer;
-	int nrAlim = citesteTotalAlimenteInt("Total.txt");
+	int nrFilm = citesteTotalFilmeInt("Total.txt");
 	do
 	{
-		optiune = ruleazaMeniu(optiuniAlimente, nrOptiuni);
+		optiune = ruleazaMeniuFilm(optiuniFilme, nrOptiuniFilme);
 		{
 			switch (optiune) {
 			case 0:
 				break;
 			case 1:
 			{
-				afisareAlimente(nrAlim, fileAliment);
-				if (meniuAnterior() != 1) optiune = 0;
+				afisareFilme(nrFilm, fileFilm);
+				if (meniuAnteriorFilm() != 1) optiune = 0;
 			}
-				break;
+			break;
 			case 2:
-				
-				adaugaAliment
-				(adaugaAlimentConsola(), nrAlim, fileAliment);
-				modificaAlimente(nrAlim,"Total.txt");
-				if (meniuAnterior() != 1) optiune = 0;
+
+				adaugaBilet(adaugaBiletConsola(), nrFilm, fileFilm);
+				modificaAlimente(nrFilm, "Total.txt");
+				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			case 3:
 				cout << "Introdu id-ul alimentului: ";
@@ -68,8 +67,8 @@ void meniuAliment()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				cout<<endl<<gasesteAliment(stringToInt(buffer), nrAlim, fileAliment);
-				if (meniuAnterior() != 1) optiune = 0;
+				cout << endl << gasesteFilm(stringToInt(buffer), nrFilm, fileFilm);
+				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			case 4:
 				cout << "Introdu id-ul alimentului pe care vrei sa il actualizezi: ";
@@ -81,10 +80,10 @@ void meniuAliment()
 					getline(cin, buffer);
 				}
 				cout << "Alimentul curent este: " << endl;
-				cout << gasesteAliment(stringToInt(buffer), nrAlim, fileAliment) << endl;
+				cout << gasesteFilm(stringToInt(buffer), nrFilm, fileFilm) << endl;
 				cout << "Introdu noile atribute pentru alimentul selectat: " << endl;
-				actualizareAliment(stringToInt(buffer), adaugaAlimentConsola(), nrAlim, fileAliment);
-				if (meniuAnterior() != 1) optiune = 0;
+				actualizareFilm(stringToInt(buffer), adaugaFilmConsola(), nrFilm, fileFilm);
+				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			case 5:
 				cout << "Introdu id-ul alimentului pe care vrei sa il stergi: ";
@@ -95,9 +94,9 @@ void meniuAliment()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				stergeAliment(stringToInt(buffer), nrAlim, fileAliment);
-				modificaAlimente(nrAlim, "Total.txt");
-				if (meniuAnterior() != 1) optiune = 0;
+				stergeFilm(stringToInt(buffer), nrFilm, fileFilm);
+				modificaAlimente(nrFilm, "Total.txt");
+				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			deafult:
 				break;

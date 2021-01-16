@@ -252,7 +252,7 @@ bool testareExistentaFisiere() //Buharu pentru a testa existenta fisierelor, fiz
 	{
 		aliment  =1;
 	}
-	if (testTipFisier("anagajati.bin") == 1)
+	if (testTipFisier("angajati.bin") == 1)
 	{
 		angajat = 1;
 	}

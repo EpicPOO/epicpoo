@@ -3,6 +3,11 @@
 #include <iostream>
 #include <string>
 #include "helpersCRUD.h"
+#include "meniuSala.h"
+#include "meniuAliment.h"
+#include "meniuFilm.h"
+#include "meniuBilet.h"
+#include "meniuAngajat.h"
 
 using namespace std;
 
@@ -40,18 +45,23 @@ void meniu()
 					{
 					case 1:
 						//film
+						meniuFilm();
 						break;
 					case 2:
+						meniuSala();
 						//sala
 						break;
 					case 3:
-						//bile
+						//bilete
+						meniuBilet();
 						break;
 					case 4:
 						//aliment
+						meniuAliment();
 						break;
 					case 5:
 						//angajat
+						meniuAngajat();
 						break;
 					case 6:
 						//intorce la meniul principal
