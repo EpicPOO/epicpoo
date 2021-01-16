@@ -88,33 +88,68 @@ string citesteTotalSali(string fname)
 
 int citesteTotalAlimenteInt(string fname)
 {
-	string numar = citesteTotalAlimente(fname).substr(citesteTotalAlimente(fname).find(": ") + 2, citesteTotalAlimente(fname).length() - citesteTotalAlimente(fname).find(": ") - 2);
-	return stoi(numar, nullptr, 10);
+	try
+	{
+		string numar = citesteTotalAlimente(fname).substr(citesteTotalAlimente(fname).find(": ") + 2, citesteTotalAlimente(fname).length() - citesteTotalAlimente(fname).find(": ") - 2);
+		return stoi(numar, nullptr, 10);
+	}
+	catch (const std::exception&)
+	{
+		return 0;
+	}
 }
 
 int citesteTotalAngajatiInt(string fname)
 {
-	string numar = citesteTotalAngajati(fname).substr(citesteTotalAngajati(fname).find(": ") + 2, citesteTotalAngajati(fname).length() - citesteTotalAngajati(fname).find(": ") - 2);
-	return stoi(numar, nullptr, 10);
+	try
+	{
+		string numar = citesteTotalAngajati(fname).substr(citesteTotalAngajati(fname).find(": ") + 2, citesteTotalAngajati(fname).length() - citesteTotalAngajati(fname).find(": ") - 2);
+		return stoi(numar, nullptr, 10);
+	}
+	catch (const std::exception&)
+	{
+		return 0;
+	}
 }
 
 int citesteTotalBileteInt(string fname)
 {
-	string numar = citesteTotalBilete(fname).substr(citesteTotalBilete(fname).find(": ") + 2, citesteTotalBilete(fname).length() - citesteTotalBilete(fname).find(": ") - 2);
-	return stoi(numar, nullptr, 10);
+	try
+	{
+		string numar = citesteTotalBilete(fname).substr(citesteTotalBilete(fname).find(": ") + 2, citesteTotalBilete(fname).length() - citesteTotalBilete(fname).find(": ") - 2);
+		return stoi(numar, nullptr, 10);
+	}
+	catch (const std::exception&)
+	{
+		return 0;
+	}
 }
 
 
 int citesteTotalFilmeInt(string fname)
 {
-	string numar = citesteTotalFilme(fname).substr(citesteTotalFilme(fname).find(": ") + 2, citesteTotalFilme(fname).length() - citesteTotalFilme(fname).find(": ") - 2);
-	return stoi(numar, nullptr, 10);
+	try
+	{
+		string numar = citesteTotalFilme(fname).substr(citesteTotalFilme(fname).find(": ") + 2, citesteTotalFilme(fname).length() - citesteTotalFilme(fname).find(": ") - 2);
+		return stoi(numar, nullptr, 10);
+	}
+	catch (const std::exception&)
+	{
+		return 0;
+	}
 }
 
 int citesteTotalSaliInt(string fname)
 {
-	string numar = citesteTotalSali(fname).substr(citesteTotalSali(fname).find(": ") + 2, citesteTotalSali(fname).length() - citesteTotalSali(fname).find(": ") - 2);
-	return stoi(numar, nullptr, 10);
+	try
+	{
+		string numar = citesteTotalSali(fname).substr(citesteTotalSali(fname).find(": ") + 2, citesteTotalSali(fname).length() - citesteTotalSali(fname).find(": ") - 2);
+		return stoi(numar, nullptr, 10);
+	}
+	catch (const std::exception&)
+	{
+		return 0;
+	}
 }
 
 void modifica(string obiect, int noulTotal, string fname) // functie modificare, facuta foarte raw, direct -> FUNCTIONEAZA DOAR PENTRU UN TOTAL < 10
