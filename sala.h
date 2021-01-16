@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include "helpersCRUD.h"
 
 using namespace std;
 
@@ -150,7 +151,8 @@ public:
 	void	setTotaSala(int totalSala)		{	if (totalSala != 0)	{	this->totalSala = totalSala;}	else	{	this->totalSala = 0;	}	}
 
 	int		getNrLibere()		{	return nrLibere;	} // nu avem nevoie de set pentru ca se face calculul in restul functilor
-														 // am ales sa fac asta pentru ca atunci cand introduci datele trebuia facut calculul 
+	void	setNrLibere(int nrLibere) { if (nrLibere > 0)	this->nrLibere = nrLibere;	else this->nrLibere = 0; }	//adaugat setter necesar pentru adaugaFilmConsola()
+														// am ales sa fac asta pentru ca atunci cand introduci datele trebuia facut calculul 
 														// de care cel care introducea astfel se face automat
 	int		getNrRezervate() {		return nrRezervate;	}
 	void	setNrRezervate(int nrRezervate) { if (nrRezervate > 0) { this->nrRezervate = nrRezervate; } else	{	this->nrRezervate = 0;	}	}
@@ -498,4 +500,51 @@ void afisareSali(int nrTotalSali, string fname)
 		pos = s.deserializare(pos, fname);
 		cout << s << "\n";
 	}
+}
+
+sala adaugaSalaConsola() //Stefana: adaugare elemente din consola
+{
+	string buffer;
+	string numeSala; //A,B,C sau I.C.Carageale, M. Eminescu sau A2D, A3D, B2D, B3D //done
+	char* tipSala;// 2D, 3D, 4D, s.a. //done
+	string tipSalaStr;
+	int totalSala; // numarul total de locuri pe care le are Sala //done
+	int* totalLocuri; //vectorul in care se stocheaza locurile alese din sala (rezervate + cumparate) //done
+	int nrLibere; //numarul locurilor ramase 
+	int nrRezervate; // numarul locurilor rezervate //done
+	int nrCumparate; //numarul biletelor cumparate de la casa //done
+
+	cout << "Introdu numele salii: ";
+	cin >> ws;
+	getline(cin, numeSala);
+	cout << endl;
+	cout << "Introdu tipul salii: ";
+	cin >> ws;
+	getline(cin, tipSalaStr);
+	cout << endl;
+	cout << "Introdu numarul de locuri din sala: ";
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0)
+	{
+		cout << "Numarul de locuri din sala trebuie sa fie un numar intreg pozitiv. Te rog sa reintroduci numarul de locuri pentru aceasta sala: " << endl;
+		getline(cin, buffer);
+	}
+	totalSala = stringToInt(buffer);
+	cout << endl;
+	totalLocuri = new int[totalSala]; //presupun 0 pentru locurile neocupate; de modificat daca e altfel
+	for (int i = 0; i < totalSala; i++)
+	{
+		totalLocuri[i] = 0;
+	}
+	cout << endl;
+	sala s;
+	s.setNumeSala(numeSala);
+	s.setTipSala((char*)tipSalaStr.c_str());
+	s.setTotaSala(totalSala);
+	s.setTotalLocuri(totalLocuri,0);
+	s.setNrCumparate(0);
+	s.setNrRezervate(0);
+	s.setNrLibere(totalSala);
+	cout << endl << "Biletul a fost salvat!" << endl;
+	return s;
 }

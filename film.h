@@ -545,5 +545,6 @@ film adaugaFilmConsola() //Stefana: adaugare elemente din consola
 	f.setNumeFilm(numeFilm);
 	f.setTipFilm((char*)tipFilmStr.c_str());
 	f.setVarstaMin(varstaMin);
+	cout << endl << "Filmul a fost salvat!" << endl;
 	return f;
 }
