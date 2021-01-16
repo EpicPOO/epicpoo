@@ -6,8 +6,8 @@
 #include "aliment.h"
 using namespace std;
 
-string optiuniAlimente = "1 - Afiseaza toate alimentele disponibile\n2 - Adauga un aliment\n3 - Cauta un aliment dupa id - ul unic\n4 - Sterge un aliment\n0 - Revino la meniul anterior\n";
-int nrOptiuni = 4; //nu include optiunea de returnare la meniul anterior (0)
+string optiuniAlimente = "1 - Afiseaza toate alimentele disponibile\n2 - Adauga un aliment\n3 - Cauta un aliment dupa id - ul unic\n4 - Actualizeaza un aliment\n5 - Sterge un aliment\n0 - Revino la meniul anterior\n";
+int nrOptiuni = 5; //nu include optiunea de returnare la meniul anterior (0)
 string fileAliment = "Aliment.bin";
 
 int ruleazaMeniu(string optiuniAlimente, int nrOptiuni)
@@ -71,6 +71,21 @@ void meniuAliment()
 				if (meniuAnterior() != 1) optiune = 0;
 				break;
 			case 4:
+				cout << "Introdu id-ul alimentului pe care vrei sa il actualizezi: ";
+				cin >> ws;
+				getline(cin, buffer);
+				while (stringToInt(buffer) == 0)
+				{
+					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+					getline(cin, buffer);
+				}
+				cout << "Alimentul curent este: " << endl;
+				cout << gasesteAliment(stringToInt(buffer), nrAlim, fileAliment) << endl;
+				cout << "Introdu noile atribute pentru alimentul selectat: " << endl;
+				actualizareAliment(stringToInt(buffer), adaugaAlimentConsola(), nrAlim, fileAliment);
+				if (meniuAnterior() != 1) optiune = 0;
+				break;
+			case 5:
 				cout << "Introdu id-ul alimentului pe care vrei sa il stergi: ";
 				cin >> ws;
 				getline(cin, buffer);
