@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include "helpersCRUD.h"
 
 using namespace std;
 
@@ -623,4 +624,74 @@ void afisareAngajati(int nrTotalAngajati, string fname)
 		pos = a.deserializare(pos, fname);
 		cout << a << "\n";
 	}
+}
+
+
+angajati adaugaAngajatConsola() //Stefana: adaugare elemente din consola
+{
+	string buffer;
+	string numeAngajat;
+	char* nume;
+	int* telefon;
+	string adresa;
+	string email;
+	float salariu;
+	int varsta;
+	
+	cout << "Introdu numele angajatului: ";
+	cin >> ws;
+	getline(cin, numeAngajat);
+	cout << endl;
+	cout << "Introdu numarul de telefon: ";
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0 && buffer.length()!=10)
+	{
+		cout << "Numarul de telefon trebuie sa contina 10 cifre. Te rog sa reintroduci numarul de telefon: " << endl;
+		getline(cin, buffer);
+	}
+	telefon = new int[10];
+	for (int i = 0; i < 10; i++)
+	{
+		telefon[i] = stringToInt(buffer.substr(i, 1));
+	}
+	cout << endl;
+	cout << "Introdu adresa angajatului: ";
+	cin >> ws;
+	getline(cin, buffer);
+	adresa = buffer;
+	cout << endl;
+	cout << "Introdu adresa de email a angajatului: ";
+	cin >> ws;
+	getline(cin, buffer);
+	email = buffer;
+	cout << endl;
+	cout << "Introdu salariul angajatului: ";
+	cin >> ws;
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0)
+	{
+		cout << "Salariul trebuie sa fie un numar pozitiv. Te rog sa reintroduci salariul: " << endl;
+		getline(cin, buffer);
+	}
+	salariu = stringToInt(buffer);
+	cout << endl;
+	cout << "Introdu varsta angajatului: ";
+	cin >> ws;
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0 && stringToInt(buffer)<16)
+	{
+		cout << "Varsta trebuie sa fie un numar pozitiv mai mare de 16. Te rog sa reintroduci varsta: " << endl;
+		getline(cin, buffer);
+	}
+	varsta = stringToInt(buffer);
+	cout << endl;
+	angajati a;
+	a.setNume((char*)numeAngajat.c_str());
+	a.setTelefon(telefon);
+	a.setAdresa(adresa);
+	a.setEmail(email);
+	a.setSalariu(salariu);
+	a.setVarsta(varsta);
+	cout << endl << "Alimentul a fost salvat!" << endl;
+	return a;
 }
