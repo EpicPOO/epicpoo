@@ -200,3 +200,97 @@ int stringToInt(string buffer) //Stefana: functie - testeaza daca bufferul e num
 	}
 	return nr;
 }
+ 
+bool testTipFisier(string buffer) // Buharu -  testare tip fisier: bin sau text
+{
+	string extensie = buffer.substr(buffer.find(".") + 1, buffer.length() - (buffer.find(".") + 1));
+	if (extensie == "bin")
+	{
+		ifstream f(buffer, ios::binary); //deschidere fisierb daca exista
+		if (!f) //testez daca se poate deschide fisierul
+		{
+			return 0;
+		}
+		else
+		{
+			cout << " extensia este: " << extensie << endl; // de sters la forma finala
+			return 1;
+		}
+
+	}
+	if (extensie == "txt")
+	{
+		ifstream f(buffer, ios::binary);
+		if (!f)  //testez daca se poate deschide fisierul
+		{
+			return 0;
+		}
+		else
+		{
+			cout << " extensia este: " << extensie << endl; // de sters la forma finala
+			return 1;
+		}
+	}
+}
+
+bool testareExistentaFisiere() //Buharu pentru a testa existenta fisierelor, fizic
+{
+	bool film = 0, sala = 0, bilet = 0, aliment = 0, angajat = 0, total = 0;
+	if (testTipFisier("filme.bin") == 1)
+	{
+		film = 1;
+	}
+	if (testTipFisier("sali.bin") == 1)
+	{
+		sala = 1;
+	}
+	if (testTipFisier("bilete.bin") == 1)
+	{
+		bilet = 1;
+	}
+	if (testTipFisier("alimente.bin") == 1)
+	{
+		aliment  =1;
+	}
+	if (testTipFisier("anagajati.bin") == 1)
+	{
+		angajat = 1;
+	}
+	if (testTipFisier("total.txt") == 1)
+	{
+		total = 1;
+	}
+	if (film == 1 && sala == 1 && bilet == 1 && aliment == 1 && angajat == 1 && total == 1)
+	{
+		return 1;
+	}
+	else
+	{
+		if (film == 0)
+		{
+			cout << "Baza de date nu contine filme.bin" << endl;
+		}
+		if (sala == 0)
+		{
+			cout << "Baza de date nu contine sali.bin" << endl;
+		}
+		if (bilet== 0)
+		{
+			cout << "Baza de date nu contine bilete.bin" << endl;
+		}
+		if (aliment == 0)
+		{
+			cout << "Baza de date nu contine alimente.bin" << endl;
+		}
+		if (angajat == 0)
+		{
+			cout << "Baza de date nu contine angajati.bin" << endl;
+		}
+		if (total == 0)
+		{
+			cout << "Baza de date nu contine total.bin" << endl;
+		}
+		return 0;
+
+	}
+}

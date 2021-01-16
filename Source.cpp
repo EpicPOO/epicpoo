@@ -7,6 +7,7 @@
 #include "bilet.h"
 #include "helpersCRUD.h"
 #include "meniuAliment.h"
+#include "meniu.h"
 using namespace std;
 
 int main()
@@ -604,7 +605,7 @@ int main()
 
 	////Teste functii globale - Andrei
 
-	//adaugaZeroTotal(fname);
+	adaugaZeroTotal(fname);
 
 	//modificaAlimente(2147483647, fname);
 	//modificaAngajati(2147483647, fname);
@@ -655,42 +656,42 @@ int main()
 
 //
 ////	teste clasa film Faza II Buharu
-//
-//	string stringuri[2];
-//	string fisierFilme = "filme.bin";
-//	stringuri[0] = "15.10 15:30 - 17:30";
-//	stringuri[1] = "16.10 15:50 - 17:50";
-//	string nume = "Avengers";
-//	char tip[] = "3D";
-//	int varsta = 14, nr = 2;
-//	string numeNou = "The Priest";
-//
-//	int nrTotalFilme = citesteTotalFilme(fname).back() - '0';
-//
-//	film f2(nume, tip, varsta, nr, stringuri);
-//	film f3(nume, tip, varsta, nr, stringuri);
-//	film f4(nume, tip, varsta, nr, stringuri);
-//
-//	adaugaFilm(f2, nrTotalFilme, fisierFilme);
-//	adaugaFilm(f3, nrTotalFilme, fisierFilme);
-//	adaugaFilm(f4, nrTotalFilme, fisierFilme);
-//	f3.setNumeFilm(numeNou);
-//	film cf2 = gasesteFilm(1, nrTotalFilme, fisierFilme);
-//	film cf3 = gasesteFilm(2, nrTotalFilme, fisierFilme);
-//	film cf4 = gasesteFilm(3, nrTotalFilme, fisierFilme);
-//	stergeFilm(1, nrTotalFilme, fisierFilme);
-//	actualizareFilm(2, f3, nrTotalFilme, fisierFilme);
-//
-//	film cf5 = gasesteFilm(2, nrTotalFilme, fisierFilme);
-//
-//	cout << "\n\ns1:\n" << cf2 << "\n\ns2:\n" << cf3 << "\n\ns3:\n" << cf4 << "\n\ns4:\n" <<  cf5 << endl;
-//	modificaFilme(nrTotalFilme, fname);
-//
-//
-//	//Stefana: teste pentru alimente
-//
-	//aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente)
-	/*aliment a1;
+
+	string stringuri[2];
+	string fisierFilme = "filme.bin";
+	stringuri[0] = "15.10 15:30 - 17:30";
+	stringuri[1] = "16.10 15:50 - 17:50";
+	string nume = "Avengers";
+	char tip[] = "3D";
+	int varsta = 14, nr = 2;
+	string numeNou = "The Priest";
+
+	int nrTotalFilme = citesteTotalFilme(fname).back() - '0';
+
+	film f2(nume, tip, varsta, nr, stringuri);
+	film f3(nume, tip, varsta, nr, stringuri);
+	film f4(nume, tip, varsta, nr, stringuri);
+
+	adaugaFilm(f2, nrTotalFilme, fisierFilme);
+	adaugaFilm(f3, nrTotalFilme, fisierFilme);
+	adaugaFilm(f4, nrTotalFilme, fisierFilme);
+	f3.setNumeFilm(numeNou);
+	film cf2 = gasesteFilm(1, nrTotalFilme, fisierFilme);
+	film cf3 = gasesteFilm(2, nrTotalFilme, fisierFilme);
+	film cf4 = gasesteFilm(3, nrTotalFilme, fisierFilme);
+	stergeFilm(1, nrTotalFilme, fisierFilme);
+	actualizareFilm(2, f3, nrTotalFilme, fisierFilme);
+
+	film cf5 = gasesteFilm(2, nrTotalFilme, fisierFilme);
+
+	cout << "\n\ns1:\n" << cf2 << "\n\ns2:\n" << cf3 << "\n\ns3:\n" << cf4 << "\n\ns4:\n" <<  cf5 << endl;
+	modificaFilme(nrTotalFilme, fname);
+
+
+	//Stefana: teste pentru alimente
+
+	/*aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente);
+	aliment a1;
 	cin >> a1;
 	cout << a1 << endl;
 	aliment a2;
@@ -702,7 +703,7 @@ int main()
 	char categA1[] = "Bauturi", categA2[] = "Snack", categA3[] = "Bauturi", categA4[] = "Snack";
 	int lgCodAll = 8;
 	int codB1[] = { 1,1,1,1,1,1,1,1 }, codB2[] = { 2,2,2,2,2,2,2,2 }, codB3[] = { 3,3,3,3,3,3,3,3 }, codB4[] = { 4,4,4,4,4,4,4,4,4 };
-	string fileAliment = "Aliment.bin";
+	string fileAliment = "alimente.bin";
 	float pA1 = 10.0f, pA2 = 15.5f, pA3 = 12.0f, pA4 = 21.2f;
 
 	//aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente)
@@ -716,7 +717,7 @@ int main()
 	adaugaAliment(a2, nrTotalAlimente, fileAliment);
 	adaugaAliment(a3, nrTotalAlimente, fileAliment);
 	adaugaAliment(a4, nrTotalAlimente, fileAliment);
-	modificaAlimente(nrTotalAlimente, fname);
+	//modificaAlimente(nrTotalAlimente, fname);
 	afisareAlimente(nrTotalAlimente, fileAliment);
 	//aliment gasesteAliment(int id, int nrTotalAlimente, string fname)
 	//meniuAliment();
@@ -724,7 +725,28 @@ int main()
 
 	//aliment a5=adaugaAlimentConsola();
 	//cout << a5 << endl;
-	meniuAliment();
+
+	//meniuAliment();
+
+	//Buharu test pentru functia testTipFisier
+	if (testTipFisier(fileAliment) == 0)
+	{
+		cout << "Nu exista fisierul" << endl;
+	}
+	else
+	{
+		cout << "Exista fisierul" << endl;
+	}
+	if (testTipFisier("Total.txt") == 0)
+	{
+		cout << "Nu exista fisierul" << endl;
+	}
+	else
+	{
+		cout << "Exista fisierul" << endl;
+	}
+	//Buharu test pentru meniu.h
+	meniu();
 
 	return 0;
 
