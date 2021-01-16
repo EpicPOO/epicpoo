@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include "helpersCRUD.h" //Stefana: adaugat pentru accesare functie stringToInt din header
 
 
 using namespace std;
@@ -463,4 +464,60 @@ void afisareAlimente(int nrTotalAlimente, string fname)
 		pos = a.deserializare(pos, fname);
 		cout << a << "\n";
 	}
+}
+
+
+aliment adaugaAlimentConsola() //Stefana: adaugare elemente din consola
+{
+	string buffer;
+	string numeAliment; //ca la aliment/sala
+	string categorieConsola;
+	char* categorie;
+	int lungimeCod; // avem nevoie de lungime
+	string codB;
+	int* codBare;
+	float pret;
+	static int numarAlimente;
+	cout << "Introdu numele alimentului: ";
+	cin >> ws;
+	getline(cin, numeAliment);
+	cout << endl;
+	cout << "Introdu categoria alimentului: ";
+	getline(cin, categorieConsola);
+	cout << endl;
+	cout << "Introdu lungimea codului de bare: ";
+	cin >> ws;
+	getline(cin,buffer);
+	while (stringToInt(buffer) == 0)
+	{
+		cout << "Lungimea codului de bare trebuie sa fie mai mare decat 0. Te rog sa reintroduci lungimea: " << endl;
+		getline(cin, buffer);
+	}
+	lungimeCod = stringToInt(buffer);
+	cout << endl;
+	int* cod = new int[lungimeCod];
+	for (int i = 0; i < lungimeCod; i++)
+	{
+		cout << "Introdu cifra " << i+1 << " a codului de bare: ";
+		cin >> cod[i];
+	}
+	cout << endl;
+	cout << "Introdu pretul alimentului: ";
+	cin >> ws;
+	getline(cin, buffer);
+	while (stringToInt(buffer) == 0)
+	{
+
+		cout << "Pretul trebuie sa fie un numar pozitiv. Te rog sa reintroduci pretul: " << endl;
+		getline(cin, buffer);
+	}
+	pret = stringToInt(buffer);
+	cout << endl;
+	aliment a;
+	a.setnumeAliment(numeAliment);
+	a.setCategorie((char*)categorieConsola.c_str());
+	a.setCodBare(cod, lungimeCod);
+	a.setPret(pret);
+	cout << endl << "Alimentul a fost salvat!" << endl;
+	return a;
 }

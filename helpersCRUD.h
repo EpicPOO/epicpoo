@@ -188,3 +188,15 @@ void modificaSali(int totalSali, string fname)
 {
 	modifica("sali", totalSali, fname);
 }
+
+int stringToInt(string buffer) //Stefana: functie - testeaza daca bufferul e numar. returneaza 0 daca nu e numar sau numarul
+{
+	int nr;
+	try {
+		nr = stoi(buffer, nullptr, 10);
+	}
+	catch (...) {
+		nr = 0;
+	}
+	return nr;
+}

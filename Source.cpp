@@ -6,7 +6,7 @@
 #include "angajati.h"
 #include "bilet.h"
 #include "helpersCRUD.h"
-
+#include "meniuAliment.h"
 using namespace std;
 
 int main()
@@ -145,14 +145,6 @@ int main()
 	//cout << "		Operatorul de CAST IMPLICIT si EXPLICIT" << endl;
 	//int locuriLibere = (int)A;
 	//cout << "Locuri libere sala " << A() << " " << locuriLibere << endl;
-
-
-
-
-
-
-
-	//
 
 	////TESTE Andrei -> pentru film.h
 	//cout << "						Testare CLASA FILM" << endl;
@@ -640,26 +632,26 @@ int main()
 
 	//// integrare cu sala
 	//adaugaZeroTotal(fname);
-	string salibin = "sali.bin", numeSala1 = "Ion", numeSala2 = "Mirel", numeSala3 = "Gigel";
+	//string salibin = "sali.bin", numeSala1 = "Ion", numeSala2 = "Mirel", numeSala3 = "Gigel";
 
-	int nrTotalSali = citesteTotalSaliInt(fname);
-	char tipSala[] = "3d";
-	int totalSala = 30;
-	int totalLocuri[] = { 1,2,3,4 };
-	int nrRezervate = 2;
-	int nrCumparate = 2;
+	//int nrTotalSali = citesteTotalSaliInt(fname);
+	//char tipSala[] = "3d";
+	//int totalSala = 30;
+	//int totalLocuri[] = { 1,2,3,4 };
+	//int nrRezervate = 2;
+	//int nrCumparate = 2;
 
-	sala s1(numeSala1, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
-	sala s2(numeSala2, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
-	sala s3(numeSala3, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
-	sala s4(numeSala3, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+	//sala s1(numeSala1, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+	//sala s2(numeSala2, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+	//sala s3(numeSala3, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
+	//sala s4(numeSala3, tipSala, totalSala, totalLocuri, nrRezervate, nrCumparate);
 
-	adaugaSala(s1, nrTotalSali, salibin);
-	adaugaSala(s2, nrTotalSali, salibin);
-	adaugaSala(s3, nrTotalSali, salibin);
+	//adaugaSala(s1, nrTotalSali, salibin);
+	//adaugaSala(s2, nrTotalSali, salibin);
+	//adaugaSala(s3, nrTotalSali, salibin);
 
-	afisareSali(nrTotalSali, salibin);
-	modificaSali(nrTotalSali, fname);
+	//afisareSali(nrTotalSali, salibin);
+	//modificaSali(nrTotalSali, fname);
 
 //
 ////	teste clasa film Faza II Buharu
@@ -697,31 +689,45 @@ int main()
 //
 //	//Stefana: teste pentru alimente
 //
-//	//aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente)
-//	/*aliment a1;
-//	cin >> a1;
-//	cout << a1 << endl;
-//	aliment a2;
-//	cin >> a2;
-//	cout << a2 << endl;*/
-//	string nrTotalAlimente =citesteTotalAlimente(fname).substr(citesteTotalAlimente(fname).find(": ") + 2, citesteTotalAlimente(fname).length() - citesteTotalAlimente(fname).find(": ") - 2);
-//	int nr = stoi(nrTotalAlimente, nullptr, 10);
-//	int lCodB = 3;
-//	int* codB = new int[lCodB];
-//	codB[0] = 1; codB[1] = 2; codB[2] = 3;
-//	aliment a1("Bere", (const char*)"bauturi", lCodB, codB,10.0f);
-//	adaugaAliment(a1, nr, "Alimente.bin"); 
-//	modificaAlimente(nr, fname);
-//
-//	aliment a2("Popcorn", (const char*)"gustari", lCodB, codB, 10.0f);
-//	adaugaAliment(a2, nr, "Alimente.bin");
-//	modificaAlimente(nr, fname);
-//	cout << gasesteAliment(2, nr, "Alimente.bin");
-//	stergeAliment(1, nr, "Alimente.bin");
-//	modificaAlimente(nr, fname);
-//	cout << gasesteAliment(1, nr, "Alimente.bin") << endl;
-//	cout << gasesteAliment(2, nr, "Alimente.bin") << endl;
-//	actualizareAliment(2, a1, nr, "Alimente.bin");
-//	cout << gasesteAliment(2, nr, "Alimente.bin") << endl;
-//	return 0;
+	//aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente)
+	/*aliment a1;
+	cin >> a1;
+	cout << a1 << endl;
+	aliment a2;
+	cin >> a2;
+	cout << a2 << endl;*/
+
+	//Stefana: Teste meniu alimente
+	string numeA1 = "Bere", numeA2 = "Popcorn", numeA3 = "CocaCola", numeA4 = "Alune";
+	char categA1[] = "Bauturi", categA2[] = "Snack", categA3[] = "Bauturi", categA4[] = "Snack";
+	int lgCodAll = 8;
+	int codB1[] = { 1,1,1,1,1,1,1,1 }, codB2[] = { 2,2,2,2,2,2,2,2 }, codB3[] = { 3,3,3,3,3,3,3,3 }, codB4[] = { 4,4,4,4,4,4,4,4,4 };
+	string fileAliment = "Aliment.bin";
+	float pA1 = 10.0f, pA2 = 15.5f, pA3 = 12.0f, pA4 = 21.2f;
+
+	//aliment(string numeAliment, const char* categorie, int lungimeCod, int* codBare, float pret) : idAliment(++numarAlimente)
+	aliment a1(numeA1, categA1, lgCodAll, codB1, pA1);
+	aliment a2(numeA2, categA2, lgCodAll, codB2, pA2);
+	aliment a3(numeA3, categA3, lgCodAll, codB3, pA3);
+	aliment a4(numeA4, categA4, lgCodAll, codB4, pA4);
+	//adaugaZeroTotal(fname);
+	int nrTotalAlimente = 0;
+	adaugaAliment(a1, nrTotalAlimente, fileAliment);
+	adaugaAliment(a2, nrTotalAlimente, fileAliment);
+	adaugaAliment(a3, nrTotalAlimente, fileAliment);
+	adaugaAliment(a4, nrTotalAlimente, fileAliment);
+	modificaAlimente(nrTotalAlimente, fname);
+	afisareAlimente(nrTotalAlimente, fileAliment);
+	//aliment gasesteAliment(int id, int nrTotalAlimente, string fname)
+	//meniuAliment();
+	cout << gasesteAliment(2, nrTotalAlimente, fileAliment) << endl;
+
+	//aliment a5=adaugaAlimentConsola();
+	//cout << a5 << endl;
+	meniuAliment();
+
+	return 0;
+
+
 }
+
