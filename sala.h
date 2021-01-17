@@ -316,8 +316,8 @@ public:
 		f.write((char*)&totalSala, sizeof(totalSala)); //scriere total Locuri
 		f.write((char*)&nrRezervate, sizeof(nrRezervate));//scriere Locuri rezervate, nrRezervate
 		f.write((char*)&nrCumparate, sizeof(nrCumparate));//scriere Locuri cumparate, nrCumparate
-		int nrSala = nrCumparate + nrRezervate;
-		for (int i = 0; i < nrSala; i++)
+		//int nrSala = nrCumparate + nrRezervate;
+		for (int i = 0; i < totalSala; i++) //refactoring
 		{
 			f.write((char*)&totalLocuri[i], sizeof(totalLocuri[i]));
 		}
@@ -344,13 +344,13 @@ public:
 		f.read((char*)&totalSala, sizeof(totalSala));//totalSala
 		f.read((char*)&nrRezervate, sizeof(nrRezervate)); //nrRezervate
 		f.read((char*)&nrCumparate, sizeof(nrCumparate)); //nrCumparate
-		int nrSala = nrCumparate + nrRezervate;
-		int* copie = new int[nrSala];
-		for (int i = 0; i < nrSala; i++)
+		//int nrSala = nrCumparate + nrRezervate;
+		int* copie = new int[totalSala];//refactoring
+		for (int i = 0; i < totalSala; i++)//refactoring
 		{
 			f.read((char*)&copie[i], sizeof(copie[i]));
 		}
-		setTotalLocuri(copie, nrSala); //totalLocuri
+		setTotalLocuri(copie, totalSala); //totalLocuri //refactoring
 		f.read((char*)&nrLibere, sizeof(nrLibere)); //nrLibere
 		streampos pos = f.tellg();
 		f.close();
