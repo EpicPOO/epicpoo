@@ -75,7 +75,7 @@ int main()
 	//sala B("B", tipSalaMain, totalSalaMain, locuriAlese, nrRezervateMain, nrCumparateMain);
 
 	//if (B.getNumeSala() == "B") { cout << "Corect Numele Sala" << endl; }			else { cout << "Gresit Numele Sala" << endl; }
-	//if (B.getTipSala() == "2D") { cout << "Corect Tip Sala" << endl; }				else { cout << "Gresit Tip Sala" << endl; }
+	//if (strcmp(B.getTipSala(), "2D") == 0) { cout << "Corect Tip Sala" << endl; }				else { cout << "Gresit Tip Sala" << endl; }
 	//if (B.getTotalSala() == totalSalaMain) { cout << "Corect Total Sala" << endl; }	else { cout << "Gresit Total Sala" << endl; }
 	//for (int i = 0; i < nrLocuriOcupate; i++)
 	//{
@@ -96,7 +96,7 @@ int main()
 	//sala E;
 	//sala F = E = D;
 	//if (F.getNumeSala() == "C") { cout << "Corect Numele Sala" << endl; }			else { cout << "Gresit Numele Sala" << endl; }
-	//if (F.getTipSala() == "3D") { cout << "Corect Tip Sala" << endl; }				else { cout << "Gresit Tip Sala" << endl; }
+	//if (strcmp(F.getTipSala(), "2D") == 0) { cout << "Corect Tip Sala" << endl; }				else { cout << "Gresit Tip Sala" << endl; }
 	//if (F.getTotalSala() == totalSalaMain) { cout << "Corect Total Sala" << endl; }	else { cout << "Gresit Total Sala" << endl; }
 	//for (int i = 0; i < nrLocuriOcupate; i++)
 	//{
@@ -129,7 +129,7 @@ int main()
 	//if (!A) { cout << "Sunt locuri ocupate!" << endl; }
 	//else { cout << "NU sunt locuri ocupate!" << endl; }
 
-	//cout << "		SUPRAINCARCAREA OPERATORULUI!" << endl;
+	//cout << "		SUPRAINCARCAREA OPERATORULUI<" << endl;
 	//if (A < B) { cout << "TRUE " << A.getTotalLocuri() << " < " << B.getTotalLocuri(); }
 	//else { cout << "FALSE " << A.getNrLibere() << " > " << B.getNrLibere(); }
 
@@ -141,8 +141,8 @@ int main()
 	//else { cout << "FALSE! Obiecte DIFERITE" << endl; }
 
 	//cout << "		SUPRAINCARCAREA OPERATORULUI++" << endl;
-	//cout << "Total locuri inainte de INCREMENTARE: " << A.getTotalSala() << endl;
-	//cout << "Total locuri  PRE-INCREMENTARE : " << A++ << endl;
+	//cout << "Total locuri inainte de INCREMENTARE: "<< A.getTotalSala() << endl;
+	//cout << "Total locuri  PRE-INCREMENTARE : " << endl << A++ << endl;
 	//cout << "Total locuri DUPA PRE-INCREMENTARE: " << A.getTotalSala() << endl;
 	//cout << "Total locuri POST-INCREMENTARE: " << ++A << endl;
 	//cout << "Total locuri DUPA POST-INCREMENTARE: " << A.getTotalSala() << endl;
@@ -609,7 +609,7 @@ int main()
 
 	////Teste functii globale - Andrei
 
-	//adaugaZeroTotal(fname);
+	adaugaZeroTotal(fname);
 
 	//modificaAlimente(2147483647, fname);
 	//modificaAngajati(2147483647, fname);
@@ -663,8 +663,8 @@ int main()
 
 	string stringuri[2];
 	string fisierFilme = "filme.bin";
-	stringuri[0] = "15.10 15:30 - 17:30";
-	stringuri[1] = "16.10 15:50 - 17:50";
+	stringuri[0] = "15.10 15:30  17:30";
+	stringuri[1] = "16.10 15:50  17:50";
 	string nume = "Avengers";
 	char tip[] = "3D";
 	int varsta = 14, nr = 2;
@@ -679,11 +679,15 @@ int main()
 	adaugaFilm(f2, nrTotalFilme, fisierFilme);
 	adaugaFilm(f3, nrTotalFilme, fisierFilme);
 	adaugaFilm(f4, nrTotalFilme, fisierFilme);
-	f3.setNumeFilm(numeNou);
+
+	modificaFilme(nrTotalFilme, "Total.txt");
+	afisareFilme(nrTotalFilme, fisierFilme);
+
 	film cf2 = gasesteFilm(1, nrTotalFilme, fisierFilme);
 	film cf3 = gasesteFilm(2, nrTotalFilme, fisierFilme);
 	film cf4 = gasesteFilm(3, nrTotalFilme, fisierFilme);
 	stergeFilm(1, nrTotalFilme, fisierFilme);
+	f3.setNumeFilm(numeNou);
 	actualizareFilm(2, f3, nrTotalFilme, fisierFilme);
 
 	film cf5 = gasesteFilm(2, nrTotalFilme, fisierFilme);

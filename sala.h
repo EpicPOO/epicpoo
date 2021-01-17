@@ -25,7 +25,7 @@ public:
 		numeSala = "";
 		tipSala = nullptr;
 		totalSala = 0; //
-		totalLocuri = nullptr;
+		totalLocuri = nullptr; 
 		nrLibere = 0;
 		nrRezervate = 0;
 		nrCumparate = 0;
@@ -47,19 +47,28 @@ public:
 		if (nrRezervate > 0)	{			this->nrRezervate = nrRezervate;	}	else	{			this->nrRezervate = 0;				}
 		if (nrCumparate > 0)	{			this->nrCumparate = nrCumparate;	}	else	{			this->nrCumparate = 0;				}
 
-		int sumaLocOcupate = nrRezervate + nrCumparate; // fac suma locurilor ocupate prin cumparare si rezervarea lor 
-														//ca s-o folosesc pentru a strabate vectorul in care stochez nr scaunelor alese de fiecare client
-		if (totalLocuri != nullptr)
+		if (totalLocuri != nullptr && totalSala > 0) 
 		{
-			this->totalLocuri = new int[sumaLocOcupate];
-			for (int i = 0; i < sumaLocOcupate; i++)
+			this->totalLocuri = new int[totalSala];
+			for (int i = 0; i < totalSala; i++)
 			{
 				this->totalLocuri[i] = totalLocuri[i];
 			}
 		}
 		else
 		{
-			this->totalLocuri = nullptr;
+			if (totalSala > 0)
+			{
+				this->totalLocuri = new int[totalSala];
+				for (int i = 0; i < totalSala; i++)
+				{
+					this->totalLocuri[i] = 0;
+				}
+			}
+			else
+			{
+				this->totalLocuri = nullptr;
+			}
 		}
 
 		this->nrLibere = totalSala - (nrCumparate + nrRezervate); // aflu cate locuri libere mai raman
@@ -80,18 +89,22 @@ public:
 		if (s.totalSala > 0)	{ this->totalSala = s.totalSala; }		else { this->totalSala = 0; }
 		if (s.nrRezervate > 0)	{ this->nrRezervate = s.nrRezervate; }	else { this->nrRezervate = 0; }
 		if (s.nrCumparate > 0)	{ this->nrCumparate = s.nrCumparate; }	else { this->nrCumparate = 0; }
-		int sumaLocOcupate = s.nrRezervate + s.nrCumparate;
+		
 		if (s.totalLocuri != nullptr)
 		{
-			this->totalLocuri = new int[sumaLocOcupate];
-			for (int i = 0; i < sumaLocOcupate; i++)
+			this->totalLocuri = new int[totalSala];
+			for (int i = 0; i < totalSala; i++)
 			{
 				this->totalLocuri[i] = s.totalLocuri[i];
 			}
 		}
 		else
 		{
-			this->totalLocuri = nullptr;
+			this->totalLocuri = new int[totalSala];
+			for (int i = 0; i < totalSala; i++)
+			{
+				this->totalLocuri[i] = 0;
+			}
 		}
 
 		this->nrLibere = s.totalSala - (s.nrCumparate + s.nrRezervate);
@@ -105,7 +118,7 @@ public:
 	{
 		if (totalLocuri != nullptr) { delete[] totalLocuri; }
 		if (s.numeSala != "")	{ this->numeSala = s.numeSala; }		else { this->numeSala = "Necunoscuta"; }
-		if (tipSala != nullptr)
+		if (s.tipSala != nullptr)
 		{
 			this->tipSala = new char[strlen(s.tipSala) + 1];
 			strcpy_s(this->tipSala, strlen(s.tipSala) + 1, s.tipSala);
@@ -118,11 +131,22 @@ public:
 		if (s.totalSala > 0)	{ this->totalSala = s.totalSala; }		else { this->totalSala = 0; }
 		if (s.nrRezervate > 0)	{ this->nrRezervate = s.nrRezervate; }	else { this->nrRezervate = 0; }
 		if (s.nrCumparate > 0)	{ this->nrCumparate = s.nrCumparate; }	else { this->nrCumparate = 0; }
-		int sumaLocOcupate = s.nrRezervate + s.nrCumparate;
-		this->totalLocuri = new int[sumaLocOcupate];
-		for (int i = 0; i < sumaLocOcupate; i++)
+	
+		if (s.totalLocuri != nullptr)
 		{
-			this->totalLocuri[i] = s.totalLocuri[i];
+			this->totalLocuri = new int[totalSala];
+			for (int i = 0; i < totalSala; i++)
+			{
+				this->totalLocuri[i] = s.totalLocuri[i];
+			}
+		}
+		else
+		{
+			this->totalLocuri = new int[totalSala];
+			for (int i = 0; i < totalSala; i++)
+			{
+				this->totalLocuri[i] = 0;
+			}
 		}
 		this->nrLibere = s.totalSala - (s.nrCumparate + s.nrRezervate);
 		return *this;
@@ -164,16 +188,30 @@ public:
 	{ 
 		return (int*)totalLocuri;
 	}
-	void	setTotalLocuri(int* totalLocuri, int sumaLocuriOcupate)
+	void	setTotalLocuri(int* totalLocuri, int totalSala)
 	{
-		if (totalLocuri != nullptr && sumaLocuriOcupate > 0)
+		if (totalLocuri != nullptr && totalSala > 0)
 		{
-			this->totalLocuri = new int[sumaLocuriOcupate];
-			for (int i = 0; i < sumaLocuriOcupate; i++)
+			this->totalLocuri = new int[totalSala];
+			for (int i = 0; i < totalSala; i++)
 			{
 				this->totalLocuri[i] = totalLocuri[i];
 			}
 		}
+		else if (totalSala > 0)
+		{
+		
+			this->totalLocuri = new int[totalSala];
+			for (int i = 0; i < totalSala; i++)
+			{
+				this->totalLocuri[i] = 0;
+			}
+		}
+		else
+		{
+			this->totalLocuri = nullptr;
+		}
+
 	}
 
 	int getIdSala()
@@ -189,7 +227,7 @@ public:
 	}
 	int& operator[](int index) throw (exception) //supraincarcarea operator[]
 	{
-		if (index >= 0 && index < (this->nrCumparate + this->nrRezervate) && this->totalLocuri != nullptr)
+		if (index >= 0 && index < this->totalSala && this->totalLocuri != nullptr)
 		{
 			return totalLocuri[index];
 		}
@@ -286,8 +324,6 @@ public:
 		f.write((char*)&nrLibere, sizeof(nrLibere));//scriere Locuri libere, nrLibere
 		f.close();
 	}
-
-
 
 	streampos deserializare(streampos start, string fname)
 	{
