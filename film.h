@@ -292,7 +292,7 @@ public:
 
 	void serializare(string fname, int id)
 	{
-		ofstream f(fname, ios::app);
+		ofstream f(fname, ios::app | ios::binary);
 		f.write((char*)&id, sizeof(id)); //idFilm
 
 		int lengthNume = numeFilm.length() + 1;

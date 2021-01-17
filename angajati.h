@@ -416,7 +416,7 @@ public:
 
 	void serializare(string fname, int id)
 	{
-		ofstream f(fname, ios::app);
+		ofstream f(fname, ios::app | ios::binary);
 		f.write((char*)&id, sizeof(id)); //idAngajat
 		int lengthNume = strlen(nume) + 1; //dimensiunea lui char* nume
 		f.write((char*)&lengthNume, sizeof(lengthNume)); // scrierea dimesiunii lui nume

@@ -285,7 +285,7 @@ public:
 
 	void serializare(string fname, int id) //Stefana: adaugare serializare
 	{
-		ofstream f(fname, ios::app);
+		ofstream f(fname, ios::app | ios::binary);
 		f.write((char*)&id, sizeof(id));
 		int lengthNume = numeAliment.length() + 1;
 		f.write((char*)&lengthNume, sizeof(lengthNume)); //dimensiune nume aliment
