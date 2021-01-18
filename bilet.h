@@ -501,7 +501,7 @@ bilet adaugaBiletConsola() //Stefana: adaugare elemente din consola
 		getline(cin, buffer);
 	}
 	cout << endl;
-	pretTotal = stringToInt(buffer);
+	pretTotal = stof(buffer); //pret in float
 	bilet b;
 	b.setLocuriBilet(locuriBilet, nrLocuri);
 	b.setNumeBilet(numeBilet);
@@ -510,4 +510,31 @@ bilet adaugaBiletConsola() //Stefana: adaugare elemente din consola
 	b.setPretTotal(pretTotal);
 	cout << endl << "Biletul a fost salvat!" << endl;
 	return b;
+}
+
+void adaugaBiletTxt(int id, int nrTotalBilete, string fnameBilet)
+{
+	bilet b = gasesteBilet(id, nrTotalBilete, fnameBilet);
+	string fname = "Bilet" +to_string(nrTotalBilete) + ".txt";
+	if (testTipFisier(fname) == 0)
+	{
+		ofstream co;
+		co.open(fname, std::ios_base::app);
+
+		co << "ID bilet: " << nrTotalBilete << endl;
+		co << "Nume bilet: " << b.getNumeBilet() << endl;
+		co << "Ora bilet: " << (string)b.getOraBilet() << endl;
+		co << "Numar locuri: " << b.getNrLocuri() << endl;
+		int nrLocuri = b.getNrLocuri();
+		int* locuriBilet = new int[nrLocuri];
+		locuriBilet = b.getLocuriBilet();
+		co << "Locuri bilet: ";
+		for (int i = 0; i < nrLocuri - 1; i++)
+		{
+			co << locuriBilet[i] << ", ";
+		}
+		co << locuriBilet[nrLocuri - 1] << endl;
+		co << "Pret bilet: " << b.getPretTotal();
+	}
+	else cout << "Biletul " << b.getIdBilet() << " exista deja!";
 }

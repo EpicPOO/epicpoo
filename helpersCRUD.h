@@ -235,6 +235,31 @@ int stringToInt(string buffer) //Stefana: functie - testeaza daca bufferul e num
 	}
 	return nr;
 }
+int stringToInt(string buffer,string tip) //Stefana: functie - testeaza daca bufferul e numar. returneaza 0 daca nu e numar sau numarul
+{
+	int nr;
+	if (tip == ">0")
+	{
+
+		try {
+			nr = stoi(buffer, nullptr, 10);
+		}
+		catch (...) {
+			nr = 0;
+		}
+		return nr;
+	}
+	if (tip == ">=0")
+	{
+		try {
+			nr = stoi(buffer, nullptr, 10);
+		}
+		catch (...) {
+			nr = -1;
+		}
+		return nr;
+	}
+}
  
 bool testTipFisier(string buffer) // Buharu -  testare tip fisier: bin sau text
 {
@@ -248,7 +273,7 @@ bool testTipFisier(string buffer) // Buharu -  testare tip fisier: bin sau text
 		}
 		else
 		{
-			cout << " extensia este: " << extensie << endl; // de sters la forma finala
+			//cout << " extensia este: " << extensie << endl; // de sters la forma finala
 			return 1;
 		}
 
@@ -262,7 +287,7 @@ bool testTipFisier(string buffer) // Buharu -  testare tip fisier: bin sau text
 		}
 		else
 		{
-			cout << " extensia este: " << extensie << endl; // de sters la forma finala
+			//cout << " extensia este: " << extensie << endl; // de sters la forma finala
 			return 1;
 		}
 	}

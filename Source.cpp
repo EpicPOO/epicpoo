@@ -12,6 +12,7 @@
 #include "meniuFilm.h"//de sters dupa ce terminam proiectul ca sunt incluse in meniu.h si merg de acolo
 #include "meniuBilet.h"//de sters dupa ce terminam proiectul ca sunt incluse in meniu.h si merg de acolo
 #include "meniuAngajat.h"//de sters dupa ce terminam proiectul ca sunt incluse in meniu.h si merg de acolo
+#include "emitereBilet.h"
 using namespace std;
 
 int main()
@@ -22,15 +23,105 @@ int main()
 	{
 		adaugaZeroTotal(fname);
 	}
-	//sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate) :idSala(++numarSali)
+	//cout << stringToInt("Gresit", ">=0") << endl;
+	////sala(string numeSala, char* tipSala, int totalSala, int* totalLocuri, int nrRezervate, int nrCumparate) :idSala(++numarSali)
+	//int nrTotalSali = citesteTotalSaliInt(fname);
+	//int nr = 10;
+	//int* locuri = new int[nr];
+	//for (int i = 0; i < 10; i++) locuri[i] = 0;
+	//sala s1((string)"Ion Creanga",(char*)"3d", nr,locuri,0,0);
+	//adaugaSala(s1, nrTotalSali, "Sali.bin");
+	//modificaSali(nrTotalSali, fname);
+	//afisareSali(nrTotalSali, "Sali.bin");
+	//int id = selectieSala();
+	//cout<<endl<<gasesteSala(id, nrTotalSali, "Sali.bin");
+	//int nrLocuriBilet = selectieNrLocuri(gasesteSala(id, nrTotalSali, "Sali.bin"));
+	//int* locuriSelectate = new int[nrLocuriBilet];
+	//locuriSelectate = selectieLocuri(gasesteSala(id, nrTotalSali, "Sali.bin"), nrLocuriBilet);
+	//cout << "Locurile selectate sunt: ";
+	//for (int i = 0; i < nrLocuriBilet; i++)
+	//{
+	//	cout << locuriSelectate[i] << ", ";
+	//}
+	//cout << "." << endl;
+	//afisareSali(nrTotalSali, "Sali.bin");
+
+	//string numeBil = "Avengers";
+	//char oraBilet[] = "14.10.2020 15:30";
+	//int lgBil = 5;
+	//int locuri2[] = { 0, 1 , 4 , 7, 7 };
+	//int nrBilete = citesteTotalBileteInt(fname);
+	//bilet b1(numeBil, oraBilet, lgBil, locuri2, 24.5);
+	//bilet b2(numeBil, oraBilet, lgBil, locuri2, 24.5);
+	//adaugaBilet(b1, nrBilete, "Bilete.bin");
+	//adaugaBilet(b2, nrBilete, "Bilete.bin");
+	//modificaBilete(nrBilete,fname);
+	//afisareBilete(nrBilete, "Bilete.bin");
+	//adaugaBiletTxt(2, nrBilete, "Bilete.bin");
+	//bilet b3 = gasesteBilet(6, nrBilete, "Bilete.bin");
+	//cout << endl << b3;
+		string stringuri[2];
+	stringuri[0] = "15.10 15:30 - 17:30";
+	stringuri[1] = "16.10 15:50 - 17:50";
+	string nume = "Avengers";
+	char tip[] = "3D";
+	int varsta = 14, nr2 = 2;
+
+	film f2(nume, tip, varsta, nr2, stringuri);
+	//cout << "Test constructor cu parametri:\n" << f2 << "\n\n";
+	int nrFilme = citesteTotalFilmeInt("Total.txt");
+
+	film f3 = f2;
+	adaugaFilm(f2, nrFilme, "Filme.bin");
+	adaugaFilm(f3, nrFilme, "Filme.bin");
+	adaugaFilm(f3, nrFilme, "Filme.bin");
+	modificaFilme(nrFilme, fname);
+	afisareFilme(nrFilme, "Filme.bin");
+	cout << endl << endl;
 	int nrTotalSali = citesteTotalSaliInt(fname);
-	int nr = 10;
-	int* locuri = new int[nr];
+	int nr1 = 10;
+	int* locuri = new int[nr1];
 	for (int i = 0; i < 10; i++) locuri[i] = 0;
-	sala s1((string)"Ion Creanga",(char*)"3d", nr,locuri,0,0);
+	sala s1((string)"Ion Creanga",(char*)"3d", nr1,locuri,0,0);
+	adaugaSala(s1, nrTotalSali, "Sali.bin");
+	adaugaSala(s1, nrTotalSali, "Sali.bin");
 	adaugaSala(s1, nrTotalSali, "Sali.bin");
 	modificaSali(nrTotalSali, fname);
 	afisareSali(nrTotalSali, "Sali.bin");
+	film f4;
+	f4 = gasesteFilm(2, nrFilme, "Filme.bin");
+	//cout << f4 << endl;
+
+	//int idSala = selectieSala();
+	//cout << endl << gasesteSala(idSala, nrTotalSali, "Sali.bin") << endl;
+	//int nrLocuri = selectieNrLocuri(gasesteSala(idSala, nrTotalSali, "Sali.bin"));
+	//int* locuriAlese = new int[nrLocuri];
+	//locuriAlese =selectieLocuri(gasesteSala(idSala, nrTotalSali, "Sali.bin"), nrLocuri);
+	//for (int i = 0; i < nrLocuri; i++)
+	//{
+	//	cout << locuriAlese[i] << ", ";
+	//}
+	int idFilm = selectiefilm(); 
+	film filmTest = gasesteFilm(idFilm, nrFilme, "Filme.bin");
+	
+	//cout << endl << gasesteFilm(idFilm, nrFilme, "Filme.bin") << endl;
+	/*int selectieProgr = selectieProgramFilm(filmTest);
+	cout << selectieProgr << endl;
+	int nrRulari = filmTest.getNrRulari();
+	string* program = new string[nrRulari];
+	program = filmTest.getProgram();
+	string programAles = program[selectieProgr];
+	char* prog = new char[programAles.length()+1];
+	prog = (char*)programAles.c_str();*/
+
+	/*cout<<gasesteFilm(115, nrFilme, "Filme.bin");*/
+	emitereBilet();
+	int nrBilete = citesteTotalBileteInt("Total.txt");
+	
+	afisareBilete(nrBilete, "Bilete.bin");
+	string test = "16.10 15:50 - 17:50";
+
+
 
 	////TESTARE  Buharu CLASA SALA
 	////test constructor implicit
