@@ -15,6 +15,16 @@ using namespace std;
 string optiuniUtilizatore = "1 - Film\n2 - Sala\n3 - Bilete\n4 - Aliment\n5 - Angajat\n0 - Revino la meniul anterior\n";
 int nrOptiuniUtilizator = 5; //nu include optiunea de returnare la meniul anterior (0)
 
+template <typename T>
+T banner()
+{
+	T t;
+	cout << "Bun venit!\n";
+	t = gasesteFilm(citesteTotalFilmeInt("Total.txt"), citesteTotalFilmeInt("Total.txt"), "Filme.bin");
+	return t;
+}
+
+
 
 int ruleazaMeniuUtilizator(string optiuniUtilizator, int nrOptiuniUtilizator)
 {
@@ -111,8 +121,15 @@ void meniu()
 		
 		int alegereCategorie = 0;
 		int alegereSubmeniu1 = 0;
+		string numeF = banner<film>().getNumeFilm();
+		if (testTipFisier(fileFilm) == 1)
+			if (numeF != "Negasit")
+			{
+				cout << "Ultimul film adaugat in cinematograf este: " << numeF << "\n";
+			}
 		do
 		{
+
 			cout << "Alegeti!" << endl << "1. Client" << endl;
 			cout << "2. Utilizator" << endl;
 			cin >> alegereCategorie;

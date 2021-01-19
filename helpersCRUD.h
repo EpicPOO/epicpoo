@@ -7,6 +7,7 @@
 
 using namespace std;
 
+
 void adauga(string obiect, int total, string fname) // functie "template care va fi apelata de catre celalalte functii specifice
 {
 	ofstream co;
