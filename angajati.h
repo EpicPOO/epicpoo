@@ -475,6 +475,23 @@ public:
 };
 int angajati::nrAngajat = 0;
 
+int getLastIdAngajat(string fname)
+{
+	int idFilm = 0;
+	if (testTipFisier(fname) == 1)
+	{
+		film f;
+		streampos pos = 0; // pornim de la pozitia 0
+		for (int i = 0; i <= citesteTotalFilmeInt("Total.txt"); i++)
+		{
+			pos = f.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+			idFilm = f.getIdFilm();
+		}
+		return idFilm;
+	}
+	else return 1;
+}
+
 ostream& operator<<(ostream& out, angajati a)
 {
 	out << "Id Angajat: " << a.idAngajat << endl;
@@ -564,7 +581,8 @@ bool operator==(angajati a, angajati b)
 
 void adaugaAngajat(angajati nou, int& nrTotalAngajati, string fname)
 {
-	nou.serializare(fname, ++nrTotalAngajati);
+	nrTotalAngajati++;
+	nou.serializare(fname, getLastIdAngajat(fname)+1);
 }
 
 angajati gasesteAngajat(int id, int nrTotalAngajati, string fname) // sau citire
@@ -693,6 +711,6 @@ angajati adaugaAngajatConsola() //Stefana: adaugare elemente din consola
 	a.setEmail(email);
 	a.setSalariu(salariu);
 	a.setVarsta(varsta);
-	cout << endl << "Alimentul a fost salvat!" << endl;
+	cout << endl << "Angajatul a fost salvat!" << endl;
 	return a;
 }
