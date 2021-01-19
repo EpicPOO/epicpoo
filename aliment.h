@@ -4,7 +4,7 @@
 #include<fstream>
 #include "helpersCRUD.h" //Stefana: adaugat pentru accesare functie stringToInt din header
 #include "binar.h"
-
+#include<vector>
 using namespace std;
 
 class aliment : public binar
@@ -14,7 +14,7 @@ private:
 	string numeAliment; //ca la aliment/sala
 	char* categorie;
 	int lungimeCod; // avem nevoie de lungime
-	int* codBare;
+	vector<int>codBare;//int* codBare;
 	float pret;
 	static int numarAlimente;
 public:
@@ -24,7 +24,7 @@ public:
 		numeAliment = "";
 		categorie = nullptr;
 		lungimeCod = 0;
-		codBare = nullptr;
+		//codBare = nullptr;
 		pret = 0.0;
 	}
 
@@ -47,14 +47,14 @@ public:
 		if (codBare != nullptr && lungimeCod > 0)
 		{
 			this->lungimeCod = lungimeCod;
-			this->codBare = new int[lungimeCod];
+			//this->codBare = new int[lungimeCod];
 			for (int i = 0; i < lungimeCod; i++)
-				this->codBare[i] = codBare[i];
+				this->codBare.push_back(codBare[i]);//this->codBare[i] = codBare[i];
 		}
 		else
 		{
 			this->lungimeCod = 0;
-			this->codBare = nullptr;
+			this->codBare.clear();//this->codBare = nullptr;
 		}
 
 		if (pret >= 0) this->pret = pret;
@@ -77,17 +77,17 @@ public:
 			strcpy_s(categorie, strlen("necunoscuta") + 1, "necunoscuta");
 		}
 
-		if (a.codBare != nullptr && a.lungimeCod > 0)
+		if (a.codBare.size() != 0 && a.lungimeCod > 0)//if (a.codBare != nullptr && a.lungimeCod > 0)
 		{
 			lungimeCod = a.lungimeCod;
-			codBare = new int[a.lungimeCod];
+			//codBare = new int[a.lungimeCod];
 			for (int i = 0; i < a.lungimeCod; i++)
-				codBare[i] = a.codBare[i];
+				codBare.push_back(a.codBare[i]); //codBare[i] = a.codBare[i];
 		}
 		else
 		{
 			lungimeCod = 0;
-			codBare = nullptr;
+			codBare.clear(); //codBare = nullptr;
 		}
 
 		if (a.pret > 0) pret = a.pret;
@@ -117,18 +117,18 @@ public:
 
 		if (codBare != a.codBare)
 		{
-			if (codBare != nullptr) delete[] codBare;
-			if (a.codBare != nullptr && a.lungimeCod > 0)
+			if (codBare.size() != 0) codBare.clear();//if (codBare != nullptr) delete[] codBare;
+			if (a.codBare.size() != 0 && a.lungimeCod > 0)//if (a.codBare != nullptr && a.lungimeCod > 0)
 			{
 				lungimeCod = a.lungimeCod;
-				codBare = new int[a.lungimeCod];
+				//codBare = new int[a.lungimeCod];
 				for (int i = 0; i < a.lungimeCod; i++)
-					codBare[i] = a.codBare[i];
+					codBare.push_back(a.codBare[i]); //codBare[i] = a.codBare[i];
 			}
 			else
 			{
 				lungimeCod = 0;
-				codBare = nullptr;
+				//codBare = nullptr;
 			}
 		}
 
@@ -141,7 +141,7 @@ public:
 	~aliment() //destructor
 	{
 		if (categorie != nullptr) delete[] categorie;
-		if (codBare != nullptr) delete[] codBare;
+		//if (codBare != nullptr) delete[] codBare;
 	}
 
 	//getter + setteri cu validari
@@ -183,19 +183,19 @@ public:
 		else lungimeCod = 0;
 	}
 
-	int* getCodBare() { return codBare; }
+	vector<int> getCodBare() { return codBare; }//int* getCodBare() { return codBare; }
 	void setCodBare(int* codBare, int lungimeCod)
 	{
 		setLungimeCod(lungimeCod);
 
-		if (this->codBare != nullptr) delete[] this->codBare;
+		if (this->codBare.size() != 0) this->codBare.clear();//if (this->codBare != nullptr) delete[] this->codBare;
 		if (codBare != nullptr)
 		{
-			this->codBare = new int[lungimeCod];
+			this->codBare.clear();//this->codBare = new int[lungimeCod];
 			for (int i = 0; i < lungimeCod; i++)
-				this->codBare[i] = codBare[i];
+				this->codBare.push_back(codBare[i]);//this->codBare[i] = codBare[i];
 		}
-		else this->codBare = nullptr;
+		else this->codBare.clear();//else this->codBare = nullptr;
 	}
 
 	float getPret() { return pret; }
@@ -214,14 +214,14 @@ public:
 
 	int& operator[](int index) throw (exception) //supraincarcare operator[] pt int
 	{
-		if ((index >= 0 && index < sizeof(codBare) && codBare != nullptr))
+		if ((index >= 0 && index < codBare.size() && codBare.size() != 0))//if ((index >= 0 && index < sizeof(codBare) && codBare != nullptr))
 			return codBare[index];
 		else throw exception("Index invalid");
 	}
 
 	bool operator!() //supraincarcare operator ! -> daca avem codBare
 	{
-		return codBare != nullptr;
+		return codBare.size() != 0; //return codBare != nullptr;
 	}
 
 	aliment operator--() // decrementeaza pretul
@@ -327,7 +327,7 @@ ostream& operator<<(ostream& out, aliment a) // operator afisare
 	out << "Pret: " << a.pret << endl;
 	out << "Lungimea codului de bare: " << a.lungimeCod << endl;
 	out << "Cod de bare: ";
-	if (a.codBare != nullptr)
+	if (a.codBare.size() != 0)//if (a.codBare != nullptr)
 		for (int i = 0; i < a.lungimeCod; i++)
 			out << a.codBare[i];
 	return out;
@@ -363,10 +363,14 @@ istream& operator>>(istream& in, aliment& a) // operator citire
 	}
 
 	cout << "Codul de bare: (enter dupa fiecare cifra)";
-	a.codBare = new int[a.lungimeCod];
+	int* codBare = new int[a.lungimeCod]; //modif refact stl
 	for (int i = 0; i < a.lungimeCod; i++)
-		in >> a.codBare[i];
-
+		in >> codBare[i];
+	for (int i = 0; i < a.lungimeCod; i++)
+	{
+		a.codBare.clear();
+		a.codBare.push_back(codBare[i]);
+	}
 	return in;
 }
 

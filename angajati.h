@@ -4,7 +4,7 @@
 #include<fstream>
 #include "helpersCRUD.h"
 #include "binar.h"
-
+#include <vector>
 using namespace std;
 
 class angajati : public binar
@@ -12,7 +12,7 @@ class angajati : public binar
 private:
 	const int idAngajat = 0;
 	char* nume;
-	int* telefon;
+	vector<int> telefon; //int* telefon;
 	string adresa;
 	string email;
 	float salariu;
@@ -24,7 +24,7 @@ public:
 	angajati() :idAngajat(++nrAngajat)
 	{
 		nume = nullptr;
-		telefon = nullptr;
+		//telefon = nullptr;
 		adresa = "";
 		email = "";
 		salariu = 0;
@@ -47,17 +47,17 @@ public:
 		}
 		if (telefon != nullptr)
 		{
-			this->telefon = new int[10];
+			//this->telefon = new int[10];
 			{
 				for (int i = 0; i < 10; i++)
 				{
-					this->telefon[i] = telefon[i];
+					this->telefon.push_back(telefon[i]); //this->telefon[i] = telefon[i];
 				}
 			}
 		}
 		else
 		{
-			this->telefon = nullptr;
+			//this->telefon = nullptr;
 		}
 		if (adresa != "")
 		{
@@ -106,19 +106,19 @@ public:
 		{
 			this->nume = nullptr;
 		}
-		if (a.telefon != nullptr)
+		if (a.telefon.size() != 0) //if (a.telefon != nullptr)
 		{
-			this->telefon = new int[10];
+			//this->telefon = new int[10];
 			{
 				for (int i = 0; i < 10; i++)
 				{
-					this->telefon[i] = a.telefon[i];
+					this->telefon.push_back(a.telefon[i]); //this->telefon[i] = a.telefon[i];
 				}
 			}
 		}
 		else
 		{
-			this->telefon = nullptr;
+			this->telefon.clear(); //this->telefon = nullptr;
 		}
 		if (a.adresa != "")
 		{
@@ -159,10 +159,10 @@ public:
 		{
 			delete[]  nume;
 		}
-		if (telefon != nullptr)
-		{
-			delete[]  telefon;
-		}
+		//if (telefon != nullptr)
+		//{
+		//	delete[]  telefon;
+		//}
 	}
 	angajati operator=(angajati a)
 	{
@@ -170,9 +170,9 @@ public:
 		{
 			delete[]  nume;
 		}
-		if (telefon != nullptr)
+		if (telefon.size() != 0)//if (telefon != nullptr)
 		{
-			delete[]  telefon;
+			telefon.clear();//delete[]  telefon;
 		}
 		if (a.nume != nullptr)
 		{
@@ -186,19 +186,19 @@ public:
 		{
 			this->nume = nullptr;
 		}
-		if (a.telefon != nullptr)
+		if (a.telefon.size() != 0)//if (a.telefon != nullptr)
 		{
-			this->telefon = new int[10];
+			this->telefon.clear();//this->telefon = new int[10];
 			{
 				for (int i = 0; i < 10; i++)
 				{
-					this->telefon[i] = a.telefon[i];
+					this->telefon.push_back(a.telefon[i]);//this->telefon[i] = a.telefon[i];
 				}
 			}
 		}
 		else
 		{
-			this->telefon = nullptr;
+			this->telefon.clear();//this->telefon = nullptr;
 		}
 		if (a.adresa != "")
 		{
@@ -250,22 +250,22 @@ public:
 		}
 	}
 
-	int* getTelefon() { return telefon; }
+	vector<int> getTelefon() { return telefon; }//int* getTelefon() { return telefon; }
 	void setTelefon(int* telefon)
 	{
 		if (telefon != nullptr)
 		{
-			this->telefon = new int[10];
+			this->telefon.clear();//this->telefon = new int[10];
 			{
 				for (int i = 0; i < 10; i++)
 				{
-					this->telefon[i] = telefon[i];
+					this->telefon.push_back(telefon[i]);//this->telefon[i] = telefon[i];
 				}
 			}
 		}
 		else
 		{
-			this->telefon = nullptr;
+			this->telefon.clear();//this->telefon = nullptr;
 		}
 	}
 
@@ -344,7 +344,7 @@ public:
 	//operator[]
 	int& operator[](int index) throw (exception) // aflam o cifra anume din nr. de telefon. (de ex. daca avem un numar de telefon si nu stim al cui este il cautam cu index)
 	{
-		if (index >= 0 && index < sizeof(telefon) && telefon != nullptr)
+		if (index >= 0 && index < telefon.size() && telefon.size() != 0)//if (index >= 0 && index < sizeof(telefon) && telefon != nullptr)
 		{
 			return telefon[index];
 		}
@@ -491,7 +491,7 @@ ostream& operator<<(ostream& out, angajati a)
 		out << "Nume Angajat: " << "";
 	}
 	out << endl;
-	if (a.telefon != nullptr)
+	if (a.telefon.size() != 0)//if (a.telefon != nullptr)
 	{
 		out << "Telefon: ";
 		for (int i = 0; i < 10; i++)
@@ -525,16 +525,16 @@ istream& operator>>(istream& in, angajati& a)
 	a.nume = new char[strlen(bufferNume) + 1];
 	strcpy_s(a.nume, strlen(bufferNume) + 1, bufferNume);
 	cout << "Telefon: ";
-	if (a.telefon != nullptr)
+	if (a.telefon.size() != 0)//if (a.telefon != nullptr)
 	{
-		delete[] a.telefon;
+		a.telefon.clear();//delete[] a.telefon;
 	}
 	char bufferTelefon[12];
 	in.getline(bufferTelefon, 11);
-	a.telefon = new int[11];
+	//a.telefon = new int[11];
 	for (int i = 0; i < 11; i++)
 	{
-		a.telefon[i] = bufferTelefon[i];
+		a.telefon.push_back(bufferTelefon[i]); //a.telefon[i] = bufferTelefon[i];
 	}
 	cout << "Adresa: ";	in >> ws;	getline(in, a.adresa);
 	cout << "Email: ";	in >> ws;	getline(in, a.email);
