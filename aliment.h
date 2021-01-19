@@ -392,9 +392,27 @@ bool operator==(aliment a1, aliment a2)
 
 int aliment::numarAlimente = 0;
 
+int getLastIdAliment(string fname)
+{
+	int idAlim = 0;
+	if (testTipFisier(fname) == 1)
+	{
+		aliment a;
+		streampos pos = 0; // pornim de la pozitia 0
+		for (int i = 0; i <= citesteTotalAlimenteInt("Total.txt"); i++)
+		{
+			pos = a.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+			idAlim = a.getIdAliment();
+		}
+		return idAlim;
+	}
+	else return 0;
+}
+
 void adaugaAliment(aliment noul, int& nrTotalAlimente, string fname) //Stefana: adaugare functie adauga aliment
 {
-	noul.serializare(fname,++nrTotalAlimente);
+	nrTotalAlimente++;
+	noul.serializare(fname, getLastIdAliment(fname) + 1);
 
 }
 
