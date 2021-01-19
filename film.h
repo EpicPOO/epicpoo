@@ -3,8 +3,9 @@
 #include<string>
 #include "helpersCRUD.h"
 #include "binar.h"
-
+#include<vector>
 using namespace std;
+
 
 class film : public binar
 {
@@ -14,7 +15,7 @@ private:
 	char* tipFilm;  //ca la sala
 	int varstaMin; //pentru a intra la film
 	int nrRulari;//pt array ul program, avem nevoie de lungime
-	string* program; //poate rula de mai multe ori, deci e nevoie de un array de stinguri
+	vector<string>program;//string* program; //poate rula de mai multe ori, deci e nevoie de un array de stinguri
 	static int numarFilme; //folosit in constructori pentru a pune un id filmului (preincrementare)
 public:
 	film() : idFilm(++numarFilme) //cstr implicit
@@ -23,7 +24,7 @@ public:
 		tipFilm = nullptr;
 		varstaMin = 0;
 		nrRulari = 0;
-		program = nullptr;
+		//program = nullptr;
 	}
 
 	film(std::string numeFilm, const char* tipFilm, int varstaMin, int nrRulari, string* program) : idFilm(++numarFilme)
@@ -48,14 +49,19 @@ public:
 		if (program != nullptr && nrRulari > 0 ) 
 		{
 			this->nrRulari = nrRulari;
-			this->program = new string[nrRulari];
+			this->program.clear(); //adaugat refact stl
+			//this->program = new string[nrRulari];
 			for (int i = 0; i < nrRulari; i++)
-				this->program[i] = program[i];
+
+			{
+				
+				this->program.push_back(program[i]);//this->program[i] = program[i];
+			}
 		}
 		else 
 		{
 			this->nrRulari = 0;
-			this->program = nullptr;
+			this->program.clear();//this->program = nullptr;
 		}
 	}
 
@@ -78,17 +84,21 @@ public:
 		if (f.varstaMin > 0) varstaMin = f.varstaMin;//validare varstaMin, int
 		else varstaMin = 0;
 
-		if (f.program != nullptr && f.nrRulari > 0)//validare la array ul de stringuri + marime
+		if (f.program.size() != 0 && f.nrRulari > 0)//if (f.program != nullptr && f.nrRulari > 0)//validare la array ul de stringuri + marime
 		{
 			nrRulari = f.nrRulari;
-			program = new string[f.nrRulari];
+			//program = new string[f.nrRulari];
+			program.clear(); //adaugat refact stl
 			for (int i = 0; i < f.nrRulari; i++)
-				program[i] = f.program[i];
+			{
+				
+				program.push_back(f.program[i]); //program[i] = f.program[i];
+			}
 		}
 		else
 		{
 			nrRulari = 0;
-			program = nullptr;
+			program.clear(); //program = nullptr;
 		}
 	}
 
@@ -117,18 +127,18 @@ public:
 
 		if (program != f.program)
 		{//la fel ca la tipFilm
-			if (program != nullptr) delete[] program; //stergere program daca are ceva in el
-			if (f.program != nullptr && f.nrRulari > 0)//validare la array ul de stringuri + marime
+			if (program.size() != 0) program.clear();//if (program != nullptr) delete[] program; //stergere program daca are ceva in el
+			if (f.program.size() != 0 && f.nrRulari > 0)//if (f.program != nullptr && f.nrRulari > 0)//validare la array ul de stringuri + marime
 			{
 				nrRulari = f.nrRulari;
-				program = new string[f.nrRulari];
+				//program = new string[f.nrRulari];
 				for (int i = 0; i < f.nrRulari; i++)
-					program[i] = f.program[i];
+					program.push_back(f.program[i]); //program[i] = f.program[i];
 			}
 			else
 			{
 				nrRulari = 0;
-				program = nullptr;
+				program.clear(); //program = nullptr;
 			}
 		}
 		return *this;
@@ -137,7 +147,7 @@ public:
 	~film() //destructor
 	{
 		if (tipFilm != nullptr) delete[] tipFilm;
-		if (program != nullptr) delete[] program;
+		//if (program != nullptr) delete[] program;
 	}
 
 	//getter + setteri cu validari
@@ -180,19 +190,28 @@ public:
 		else nrRulari = 0;
 	}
 
-	string* getProgram() { return program; }
+	string* getProgram() //tot setterul modificat (am uitat sa comentez)
+	{ 
+		string* programCopie = new string[nrRulari];
+		for (int i = 0; i < nrRulari; i++)
+		{
+			programCopie[i] = program[i];
+		}
+		return programCopie;
+	}
 	void setProgram(string* program, int nrRulari)
 	{
 		setNrRulari(nrRulari);
 
-		if (this->program != nullptr) delete[] this->program;
+		if (this->program.size() != 0) this->program.clear();//if (this->program != nullptr) delete[] this->program;
 		if (program != nullptr)
 		{
-			this->program = new string[nrRulari];
+			//this->program = new string[nrRulari];
+			this->program.clear();
 			for (int i = 0; i < nrRulari; i++)
-			this->program[i] = program[i];
+				this->program.push_back(program[i]);//this->program[i] = program[i];
 		}
-		else this->program = nullptr;
+		else this->program.clear();//else this->program = nullptr;
 	}
 
 	int getIdFilm()
@@ -216,7 +235,7 @@ public:
 
 	bool operator!() //supraincarcare operator ! -> daca avem program
 	{
-		return program != nullptr;
+		return program.size() != 0;//return program != nullptr;
 	}
 
 	film operator++() // incrementeaza varsta minima
@@ -356,7 +375,7 @@ ostream& operator<<(ostream& out, film f) // operator afisare
 	out << "Varsta minima pentru acces: " << f.varstaMin << endl;
 	out << "Cate rulari va avea filmul: " << f.nrRulari << endl;
 	out << "Program: ";
-	if (f.program != nullptr)
+	if(f.program.size()!=0) //if (f.program != nullptr)
 		for (int i = 0; i < f.nrRulari; i++)
 			out << f.program[i] << " | ";
 	return out;
@@ -392,13 +411,14 @@ istream& operator>>(istream& in, film& f) // operator citire
 	}
 
 	cout << "Program: ";
-	f.program = new string[f.nrRulari];
+	 
+	string* programCopie = new string[f.nrRulari];//f.program = new string[f.nrRulari];
 	for (int i = 0; i < f.nrRulari; i++)
 	{
 		in >> ws;
-		getline(in, f.program[i]);
+		getline(in, programCopie[i]);
 	}
-
+	f.setProgram(programCopie, f.nrRulari); //de testat
 	return in;
 }
 
