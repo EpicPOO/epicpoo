@@ -536,7 +536,8 @@ film adaugaFilmConsola() //Stefana: adaugare elemente din consola
 	for (int i = 0; i < nrRulari; i++)
 	{
 		cout << "Program film - introdu rularea (" << i + 1 << "): ";
-		cin >> program[i];
+		cin >> ws;
+		getline(cin, program[i]);
 	}
 	cout << endl;
 	film f;
