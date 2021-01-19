@@ -42,7 +42,7 @@ int selectieProgramFilm(film f) //indexul stringului din program ales //done, te
 	int nrRulari = f.getNrRulari();
 	string* program = new string[nrRulari];
 	program = f.getProgram();
-	cout << "Programul pentru disponibil pentru filmul " << f.getNumeFilm() << " este: ";
+	cout << "Programul disponibil pentru filmul " << f.getNumeFilm() << " este: ";
 	for (int i = 0; i < nrRulari; i++)
 	{
 		cout << i + 1 << " - " << program[i] << endl;
@@ -52,7 +52,7 @@ int selectieProgramFilm(film f) //indexul stringului din program ales //done, te
 	getline(cin, buffer);
 	while (stringToInt(buffer) == 0 || stringToInt(buffer)>nrRulari)
 	{
-		cout << "Optiunea introdusa nu este valid. Alege optiunea: ";
+		cout << "Optiunea introdusa nu este valida. Alege optiunea: ";
 		cin >> ws;
 		getline(cin, buffer);
 	}
