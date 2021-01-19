@@ -9,7 +9,7 @@
 #include "meniuBilet.h"
 #include "meniuAngajat.h"
 #include "emitereBilet.h"
-//FINAL FAZA 2
+
 using namespace std;
 
 string optiuniUtilizatore = "1 - Film\n2 - Sala\n3 - Bilete\n4 - Aliment\n5 - Angajat\n0 - Revino la meniul anterior\n";
@@ -188,68 +188,5 @@ void meniu()
 			}
 			}
 		} while (alegereCategorie != 1 || alegereCategorie != 2);
-
-		/*
-		cout << endl << "1. Client" << endl;
-		cout << "2. Utilizator" << endl;
-		int alegereCategorie = 0;
-		int alegereSubmeniu1 = 0;
-		cin >> alegereCategorie;
-		do
-		{
-			switch (alegereCategorie)
-			{
-			case 1:
-				break;
-			case 2:
-			{
-				cout << endl << "1. Film" << endl;
-				cout << "2. Sala" << endl;
-				cout << "3. Bilet" << endl;
-				cout << "4. Aliment" << endl;
-				cout << "5. Angajat" << endl;
-				cout << "6. Inapoi" << endl;
-				cin >> alegereSubmeniu1;
-				do
-				{
-					switch (alegereSubmeniu1)
-					{
-					case 1:	//film
-						meniuFilm();
-						break;
-					case 2: //sala
-						meniuSala();
-						break;
-					case 3://bilete
-						meniuBilet();
-						break;
-					case 4:
-						//aliment
-						meniuAliment();
-						break;
-					case 5:
-						//angajat
-						meniuAngajat();
-						break;
-					case 6:
-						//intorce la meniul principal
-						meniu();
-						break;
-					default:
-						cout << "Ati ales o categorie gresita! Incercati din nou!" << endl;
-						cin >> alegereSubmeniu1;
-						break;
-					}
-				} while (alegereSubmeniu1 >= 1 || alegereSubmeniu1 <= 6);
-				break;
-			}
-			default:
-				cout << "Ati ales o categorie gresita! Incercati din nou!" << endl;
-				cin >> alegereCategorie;
-				break;
-			}
-		}
-	}
-	*/
 }
 

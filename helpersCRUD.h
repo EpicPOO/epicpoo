@@ -3,10 +3,7 @@
 #include<string>
 #include<fstream>
 
-//all done
-
 using namespace std;
-
 
 void adauga(string obiect, int total, string fname) // functie "template care va fi apelata de catre celalalte functii specifice
 {
@@ -153,7 +150,7 @@ int citesteTotalSaliInt(string fname)
 	}
 }
 
-void modifica(string obiect, int noulTotal, string fname) // functie modificare, facuta foarte raw, direct -> FUNCTIONEAZA DOAR PENTRU UN TOTAL < 10
+void modifica(string obiect, int noulTotal, string fname) // functie modificare, facuta foarte raw
 {
 	string copie = "copie.txt", buffer;
 	if (obiect == "alimente")
@@ -225,7 +222,7 @@ void modificaSali(int totalSali, string fname)
 	modifica("sali", totalSali, fname);
 }
 
-int stringToInt(string buffer) //Stefana: functie - testeaza daca bufferul e numar. returneaza 0 daca nu e numar sau numarul
+int stringToInt(string buffer) //functie - testeaza daca bufferul e numar. returneaza 0 daca nu e numar sau numarul
 {
 	int nr;
 	try {
@@ -236,7 +233,7 @@ int stringToInt(string buffer) //Stefana: functie - testeaza daca bufferul e num
 	}
 	return nr;
 }
-int stringToInt(string buffer,string tip) //Stefana: functie - testeaza daca bufferul e numar. returneaza 0 daca nu e numar sau numarul
+int stringToInt(string buffer,string tip) //functie - testeaza daca bufferul e numar. returneaza 0 daca nu e numar sau numarul
 {
 	int nr;
 	if (tip == ">0")
@@ -262,7 +259,7 @@ int stringToInt(string buffer,string tip) //Stefana: functie - testeaza daca buf
 	}
 }
  
-bool testTipFisier(string buffer) // Buharu -  testare tip fisier: bin sau text
+bool testTipFisier(string buffer) // testare tip fisier: bin sau text
 {
 	string extensie = buffer.substr(buffer.find(".") + 1, buffer.length() - (buffer.find(".") + 1));
 	if (extensie == "bin")
@@ -294,7 +291,7 @@ bool testTipFisier(string buffer) // Buharu -  testare tip fisier: bin sau text
 	}
 }
 
-bool testareExistentaFisiere() //Buharu pentru a testa existenta fisierelor, fizic 
+bool testareExistentaFisiere() //pentru a testa existenta fisierelor, fizic 
 {
 	bool film = 0, sala = 0, bilet = 0, aliment = 0, angajat = 0, total = 0;
 	if (testTipFisier("filme.bin") == 1)
