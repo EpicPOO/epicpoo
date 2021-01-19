@@ -8,7 +8,7 @@ using namespace std;
 
 string optiuniAlimente = "1 - Afiseaza toate alimentele disponibile\n2 - Adauga un aliment\n3 - Cauta un aliment dupa id - ul unic\n4 - Actualizeaza un aliment\n5 - Sterge un aliment\n0 - Revino la meniul anterior\n";
 int nrOptiuni = 5; //nu include optiunea de returnare la meniul anterior (0)
-string fileAliment = "Aliment.bin";
+string fileAliment = "Alimente.bin";
 
 int ruleazaMeniu(string optiuniAlimente, int nrOptiuni)
 {
