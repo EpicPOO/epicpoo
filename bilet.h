@@ -331,7 +331,7 @@ int getLastIdBilet(string fname)
 	{
 		bilet b;
 		streampos pos = 0; // pornim de la pozitia 0
-		for (int i = 0; i <= citesteTotalAlimenteInt("Total.txt"); i++)
+		for (int i = 0; i <= citesteTotalBileteInt("Total.txt"); i++)
 		{
 			pos = b.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
 			idBilet = b.getIdBilet();
