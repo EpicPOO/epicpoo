@@ -3,12 +3,11 @@
 #include<string>
 #include<fstream>
 #include "helpersCRUD.h"
+#include "binar.h"
 
 using namespace std;
 
-//operatii CRUD -> done and tested
-
-class bilet
+class bilet : public binar
 {
 private:
 	const int idBilet = 0;

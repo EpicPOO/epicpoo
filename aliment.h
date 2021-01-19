@@ -3,24 +3,11 @@
 #include<string>
 #include<fstream>
 #include "helpersCRUD.h" //Stefana: adaugat pentru accesare functie stringToInt din header
-
+#include "binar.h"
 
 using namespace std;
 
-//minim un array de caractere si int -> done and 
-//camp static done and tested
-//getteri setteri -> done and tested
-//vallidari la setteri -> done and tested
-//regula celor 3 -> done and tested
-//>> << -> done and tested
-//+,-,* sau / -> done and tested
-//++ sau -- cu cele 2 forme -> done and tested
-//cast explicit sau implicit -> done and tested
-// ! -> done and tested
-//< > =< sau >= -> done and tested
-//==  -> done and tested
-
-class aliment
+class aliment : public binar
 {
 private:
 	const int idAliment = 0;

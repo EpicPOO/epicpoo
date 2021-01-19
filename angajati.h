@@ -3,10 +3,11 @@
 #include<string>
 #include<fstream>
 #include "helpersCRUD.h"
+#include "binar.h"
 
 using namespace std;
 
-class angajati
+class angajati : public binar
 {
 private:
 	const int idAngajat = 0;
