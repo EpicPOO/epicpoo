@@ -160,48 +160,66 @@ int* selectieLocuri(sala s, int nrLocuri) //returneaza vectorul de locuri alese 
 
 void emitereBilet()
 {
-
-	bilet b;
 	string fileTotal = "Total.txt";
 	string fileBilet = "Bilete.bin";
 	string fileSala = "Sali.bin";
 	string fileFilme = "Filme.bin";
-	int nrTotalFilme = citesteTotalFilmeInt(fileTotal);
-	int nrBilete = citesteTotalBileteInt(fileTotal);
-	int nrTotalSali = citesteTotalSaliInt(fileTotal);
-	string buffer;
-
-	int idFilm = selectiefilm();
-	film f = gasesteFilm(idFilm, nrTotalFilme, fileFilme);
-	
-	int idSala = selectieSala();
-	sala s = gasesteSala(idSala, nrTotalSali, fileSala);
-	int oraBilet = selectieProgramFilm(f);
-	
-	
-	int nrLocuri = selectieNrLocuri(s);
-	int* locuri = new int[nrLocuri];
-	locuri = selectieLocuri(s, nrLocuri);
-	cout << "Introdu pretul biletului: ";
-	getline(cin, buffer);
-	while (stringToInt(buffer) == 0)
+	if (testTipFisier(fileSala) == 0)
 	{
-		cout << "Pretul introdus nu este valid. Te rog sa pretul total al biletului: " << endl;
-		getline(cin, buffer);
+		cout << "Nu exista sali salvate in fisier.\n";
 	}
-	cout << endl;
-	int nrRulari = f.getNrRulari();
-	string* program = new string[nrRulari];
-	program = f.getProgram();
-	string oraSelectata = program[oraBilet];
-	
-	b.setNumeBilet(f.getNumeFilm());
-	b.setNrLocuri(nrLocuri);
-	b.setLocuriBilet(locuri, nrLocuri);
-	b.setOraBilet((char*)oraSelectata.c_str());
-	b.setPretTotal(stof(buffer)); //pret in float
 
-	adaugaBilet(b, nrBilete, fileBilet);
-	modificaBilete(nrBilete, fileTotal);
-	adaugaBiletTxt(b.getIdBilet(), nrBilete, fileBilet);
+	if (testTipFisier(fileFilm) == 0)
+	{
+		cout << "Nu exista filme salvate in fisier.\n";
+	}
+	if(testTipFisier(fileSala) == 0 || testTipFisier(fileFilm) == 0)
+	
+	{
+		cout << "Nu se poate emite bilet.\n";
+	}
+	else
+	{
+		bilet b;
+
+		int nrTotalFilme = citesteTotalFilmeInt(fileTotal);
+		int nrBilete = citesteTotalBileteInt(fileTotal);
+		int nrTotalSali = citesteTotalSaliInt(fileTotal);
+		string buffer;
+
+		int idFilm = selectiefilm();
+		film f = gasesteFilm(idFilm, nrTotalFilme, fileFilme);
+
+		int idSala = selectieSala();
+		sala s = gasesteSala(idSala, nrTotalSali, fileSala);
+		int oraBilet = selectieProgramFilm(f);
+
+
+		int nrLocuri = selectieNrLocuri(s);
+		int* locuri = new int[nrLocuri];
+		locuri = selectieLocuri(s, nrLocuri);
+		cout << "Introdu pretul biletului: ";
+		getline(cin, buffer);
+		while (stringToInt(buffer) == 0)
+		{
+			cout << "Pretul introdus nu este valid. Te rog sa pretul total al biletului: " << endl;
+			getline(cin, buffer);
+		}
+		cout << endl;
+		int nrRulari = f.getNrRulari();
+		string* program = new string[nrRulari];
+		program = f.getProgram();
+		string oraSelectata = program[oraBilet];
+
+		b.setNumeBilet(f.getNumeFilm());
+		b.setNrLocuri(nrLocuri);
+		b.setLocuriBilet(locuri, nrLocuri);
+		b.setOraBilet((char*)oraSelectata.c_str());
+		b.setPretTotal(stof(buffer)); //pret in float
+
+		adaugaBilet(b, nrBilete, fileBilet);
+		modificaBilete(nrBilete, fileTotal);
+		adaugaBiletTxt(b.getIdBilet(), nrBilete, fileBilet);
+	}
+	
 }

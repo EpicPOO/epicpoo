@@ -48,7 +48,11 @@ void meniuSala()
 				break;
 			case 1:
 			{
-				afisareSali(nrSala, fileSali);
+				if (testTipFisier(fileSali) == 1)
+				{
+					afisareSali(nrSala, fileSali);
+				}
+				else cout << "Nu exista sali salvate.\n";
 				if (meniuAnteriorSala() != 1) optiune = 0;
 			}
 			break;
@@ -59,7 +63,7 @@ void meniuSala()
 				if (meniuAnteriorSala() != 1) optiune = 0;
 				break;
 			case 3:
-				cout << "Introdu id-ul alimentului: ";
+				cout << "Introdu id-ul salii: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -67,11 +71,12 @@ void meniuSala()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				cout << endl << gasesteSala(stringToInt(buffer), nrSala, fileSali);
+				if (gasesteSala(stringToInt(buffer), nrSala, fileSali).getNumeSala() == "Negasit") cout << endl << "Sala nu a fost gasit.";
+				else cout << endl << gasesteSala(stringToInt(buffer), nrSala, fileSali);
 				if (meniuAnteriorSala() != 1) optiune = 0;
 				break;
 			case 4:
-				cout << "Introdu id-ul alimentului pe care vrei sa il actualizezi: ";
+				cout << "Introdu id-ul salii pe care vrei sa il actualizezi: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -79,14 +84,18 @@ void meniuSala()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				cout << "Alimentul curent este: " << endl;
-				cout << gasesteSala(stringToInt(buffer), nrSala, fileSali) << endl;
-				cout << "Introdu noile atribute pentru alimentul selectat: " << endl;
-				actualizareSala(stringToInt(buffer), adaugaSalaConsola(), nrSala, fileSali);
+				if (gasesteSala(stringToInt(buffer), nrSala, fileSali).getNumeSala() == "Negasit") cout << endl << "Sala nu a fost gasit.";
+				else
+				{
+					cout << "Sala curenta este: " << endl;
+					cout << gasesteSala(stringToInt(buffer), nrSala, fileSali) << endl;
+					cout << "Introdu noile atribute pentru sala selectata: " << endl;
+					actualizareSala(stringToInt(buffer), adaugaSalaConsola(), nrSala, fileSali);
+				}
 				if (meniuAnteriorSala() != 1) optiune = 0;
 				break;
 			case 5:
-				cout << "Introdu id-ul alimentului pe care vrei sa il stergi: ";
+				cout << "Introdu id-ul salii pe care vrei sa o stergi: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -94,8 +103,12 @@ void meniuSala()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				stergeSala(stringToInt(buffer), nrSala, fileSali);
-				modificaAlimente(nrSala, "Total.txt");
+				if (gasesteSala(stringToInt(buffer), nrSala, fileSali).getNumeSala() == "Negasit") cout << endl << "Sala nu a fost gasit.";
+				else
+				{
+					stergeSala(stringToInt(buffer), nrSala, fileSali);
+					modificaSali(nrSala, "Total.txt");
+				}
 				if (meniuAnteriorSala() != 1) optiune = 0;
 				break;
 			deafult:

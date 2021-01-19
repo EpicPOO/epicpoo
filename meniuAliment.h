@@ -36,72 +36,86 @@ int meniuAnterior()
 
 void meniuAliment()
 {
-	int optiune;
-	string buffer;
 	int nrAlim = citesteTotalAlimenteInt("Total.txt");
-	do
-	{
-		optiune = ruleazaMeniu(optiuniAlimente, nrOptiuni);
+		int optiune;
+		string buffer;
+		
+		do
 		{
-			switch (optiune) {
-			case 0:
-				break;
-			case 1:
+			optiune = ruleazaMeniu(optiuniAlimente, nrOptiuni);
 			{
-				afisareAlimente(nrAlim, fileAliment);
-				if (meniuAnterior() != 1) optiune = 0;
+				switch (optiune) {
+				case 0:
+					break;
+				case 1:
+				{
+					if (testTipFisier(fileAliment) == 1)
+					{
+						afisareAlimente(nrAlim, fileAliment);
+					}
+					else cout << "Nu exista alimente salvate.\n";
+					if (meniuAnterior() != 1) optiune = 0;
+				}
+				break;
+				case 2:
+
+					adaugaAliment(adaugaAlimentConsola(), nrAlim, fileAliment);
+					modificaAlimente(nrAlim, "Total.txt");
+					if (meniuAnterior() != 1) optiune = 0;
+					break;
+				case 3:
+					cout << "Introdu id-ul alimentului: ";
+					cin >> ws;
+					getline(cin, buffer);
+					while (stringToInt(buffer) == 0)
+					{
+						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+						getline(cin, buffer);
+					}
+					if (gasesteAliment(stringToInt(buffer), nrAlim, fileAliment).getnumeAliment() == "Negasit") cout << endl<< "Alimentul nu a fost gasit.";
+					else cout << endl << gasesteAliment(stringToInt(buffer), nrAlim, fileAliment);
+					if (meniuAnterior() != 1) optiune = 0;
+					break;
+				case 4:
+					cout << "Introdu id-ul alimentului pe care vrei sa il actualizezi: ";
+					cin >> ws;
+					getline(cin, buffer);
+					while (stringToInt(buffer) == 0)
+					{
+						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+						getline(cin, buffer);
+					}
+					if(gasesteAliment(stringToInt(buffer), nrAlim, fileAliment).getnumeAliment()=="Negasit")cout << endl << "Alimentul nu a fost gasit.";
+					else
+					{
+						cout << "Alimentul curent este: " << endl;
+						cout << gasesteAliment(stringToInt(buffer), nrAlim, fileAliment) << endl;
+						cout << "Introdu noile atribute pentru alimentul selectat: " << endl;
+						actualizareAliment(stringToInt(buffer), adaugaAlimentConsola(), nrAlim, fileAliment);
+					}
+					if (meniuAnterior() != 1) optiune = 0;
+					break;
+				case 5:
+					cout << "Introdu id-ul alimentului pe care vrei sa il stergi: ";
+					cin >> ws;
+					getline(cin, buffer);
+					while (stringToInt(buffer) == 0)
+					{
+						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+						getline(cin, buffer);
+					}
+					if (gasesteAliment(stringToInt(buffer), nrAlim, fileAliment).getnumeAliment() == "Negasit")cout << endl << "Alimentul nu a fost gasit.";
+					else
+					{
+						stergeAliment(stringToInt(buffer), nrAlim, fileAliment);
+						modificaAlimente(nrAlim, "Total.txt");
+					}
+					if (meniuAnterior() != 1) optiune = 0;
+					break;
+				deafult:
+					break;
+				}
 			}
-				break;
-			case 2:
-				
-				adaugaAliment
-				(adaugaAlimentConsola(), nrAlim, fileAliment);
-				modificaAlimente(nrAlim,"Total.txt");
-				if (meniuAnterior() != 1) optiune = 0;
-				break;
-			case 3:
-				cout << "Introdu id-ul alimentului: ";
-				cin >> ws;
-				getline(cin, buffer);
-				while (stringToInt(buffer) == 0)
-				{
-					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
-					getline(cin, buffer);
-				}
-				cout<<endl<<gasesteAliment(stringToInt(buffer), nrAlim, fileAliment);
-				if (meniuAnterior() != 1) optiune = 0;
-				break;
-			case 4:
-				cout << "Introdu id-ul alimentului pe care vrei sa il actualizezi: ";
-				cin >> ws;
-				getline(cin, buffer);
-				while (stringToInt(buffer) == 0)
-				{
-					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
-					getline(cin, buffer);
-				}
-				cout << "Alimentul curent este: " << endl;
-				cout << gasesteAliment(stringToInt(buffer), nrAlim, fileAliment) << endl;
-				cout << "Introdu noile atribute pentru alimentul selectat: " << endl;
-				actualizareAliment(stringToInt(buffer), adaugaAlimentConsola(), nrAlim, fileAliment);
-				if (meniuAnterior() != 1) optiune = 0;
-				break;
-			case 5:
-				cout << "Introdu id-ul alimentului pe care vrei sa il stergi: ";
-				cin >> ws;
-				getline(cin, buffer);
-				while (stringToInt(buffer) == 0)
-				{
-					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
-					getline(cin, buffer);
-				}
-				stergeAliment(stringToInt(buffer), nrAlim, fileAliment);
-				modificaAlimente(nrAlim, "Total.txt");
-				if (meniuAnterior() != 1) optiune = 0;
-				break;
-			deafult:
-				break;
-			}
-		}
-	} while (optiune != 0);
+		} while (optiune != 0);
+	
 }

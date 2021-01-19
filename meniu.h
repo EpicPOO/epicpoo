@@ -8,11 +8,13 @@
 #include "meniuFilm.h"
 #include "meniuBilet.h"
 #include "meniuAngajat.h"
+#include "emitereBilet.h"
 
 using namespace std;
 
 string optiuniUtilizatore = "1 - Film\n2 - Sala\n3 - Bilete\n4 - Aliment\n5 - Angajat\n0 - Revino la meniul anterior\n";
 int nrOptiuniUtilizator = 5; //nu include optiunea de returnare la meniul anterior (0)
+
 
 int ruleazaMeniuUtilizator(string optiuniUtilizator, int nrOptiuniUtilizator)
 {
@@ -38,15 +40,72 @@ int meniuAnteriorUtilizator()
 	} while (tmp != 0 && tmp != 1);
 }
 
+void adaugaObiect()
+{
+	string fileAliment = "Alimente.bin";
+	string fileAngajati = "Angajati.bin";
+	string fileFilm = "Filme.bin";
+	string fileSali = "Sali.bin";
+	string fileTotal = "Total.txt";
+	int nrAlim = citesteTotalAlimenteInt(fileTotal);
+	int nrAngajati = citesteTotalAngajatiInt(fileTotal);
+	int nrFilme = citesteTotalFilmeInt(fileTotal);
+	int nrSali = citesteTotalSaliInt(fileTotal);
+	string buffer;
+	cout << "Vrei sa adaugi un obiect in Baza de date?\n1 - Da\n0 - Nu\n";
+	cin >> ws;
+	getline(cin, buffer);
+	while (buffer == "1")
+	{
+		cout << "Introdu numele obiectul pe care vrei sa il adaugi: aliment, angajat, bilet, film, sala: \n";
+		cin >> ws;
+		getline(cin, buffer);
+		if (buffer == "aliment")
+		{
+			aliment a=adaugaAlimentConsola();
+			adaugaAliment(a, nrAlim, fileAliment);
+			modificaAlimente(nrAlim, fileTotal);
+		}
+		else if (buffer == "angajat")
+		{
+			angajati a = adaugaAngajatConsola();
+			adaugaAngajat(a, nrAngajati, fileAngajati);
+			modificaAngajati(nrAngajati, fileTotal);
+		}
+		else if (buffer == "bilet")
+		{
+			cout << "Ai ales emitere bilet.\n";
+			emitereBilet();
+		}
+		else if (buffer == "film")
+		{
+			film f = adaugaFilmConsola();
+			adaugaFilm(f, nrFilme, fileFilm);
+			modificaFilme(nrFilme, fileTotal);
+		}
+		else if (buffer == "sala")
+		{
+			sala s = adaugaSalaConsola();
+			adaugaSala(s, nrSali, fileSali);
+			modificaSali(nrSali, fileTotal);
+		}
+
+		cout << "Vrei sa adaugi inca un obiect in Baza de date?\n1 - Da\n0 - Nu\n";
+		cin >> ws;
+		getline(cin, buffer);
+	}
+}
+
 void meniu()
 {
-	if (testareExistentaFisiere() == 0)
+	while (testareExistentaFisiere() == 0)
 	{
-		cout << "Baza de date are probleme";
+		do
+		{
+			cout << "Baza de date este incompleta.\n";
+			adaugaObiect();
+		} while (testareExistentaFisiere() == 0);
 	}
-	else
-	{
-
 		int optiune;
 		string buffer;
 		
@@ -60,6 +119,7 @@ void meniu()
 			switch (alegereCategorie)
 			{
 			case 1:
+				emitereBilet();
 				break;
 			case 2:
 			{
@@ -172,6 +232,5 @@ void meniu()
 		}
 	}
 	*/
-	}
 }
 

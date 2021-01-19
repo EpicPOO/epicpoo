@@ -293,7 +293,7 @@ bool testTipFisier(string buffer) // Buharu -  testare tip fisier: bin sau text
 	}
 }
 
-bool testareExistentaFisiere() //Buharu pentru a testa existenta fisierelor, fizic
+bool testareExistentaFisiere() //Buharu pentru a testa existenta fisierelor, fizic 
 {
 	bool film = 0, sala = 0, bilet = 0, aliment = 0, angajat = 0, total = 0;
 	if (testTipFisier("filme.bin") == 1)
@@ -354,3 +354,6 @@ bool testareExistentaFisiere() //Buharu pentru a testa existenta fisierelor, fiz
 
 	}
 }
+
+
+

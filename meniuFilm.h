@@ -48,18 +48,21 @@ void meniuFilm()
 				break;
 			case 1:
 			{
-				afisareFilme(nrFilm, fileFilm);
+				if (testTipFisier(fileFilm) == 1)
+				{
+					afisareFilme(nrFilm, fileFilm);
+				}
+				else cout << "Nu exista filme salvate.\n";
 				if (meniuAnteriorFilm() != 1) optiune = 0;
 			}
 			break;
 			case 2:
-
-				adaugaBilet(adaugaBiletConsola(), nrFilm, fileFilm);
-				modificaAlimente(nrFilm, "Total.txt");
+				adaugaFilm(adaugaFilmConsola(), nrFilm, fileFilm);
+				modificaFilme(nrFilm, "Total.txt");
 				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			case 3:
-				cout << "Introdu id-ul alimentului: ";
+				cout << "Introdu id-ul filmului: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -67,11 +70,12 @@ void meniuFilm()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				cout << endl << gasesteFilm(stringToInt(buffer), nrFilm, fileFilm);
+				if (gasesteFilm(stringToInt(buffer), nrFilm, fileFilm).getNumeFilm() == "Negasit") cout << endl << "Filmul nu a fost gasit.";
+				else cout << endl << gasesteFilm(stringToInt(buffer), nrFilm, fileFilm);
 				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			case 4:
-				cout << "Introdu id-ul alimentului pe care vrei sa il actualizezi: ";
+				cout << "Introdu id-ul filmului pe care vrei sa il actualizezi: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -79,14 +83,18 @@ void meniuFilm()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				cout << "Alimentul curent este: " << endl;
-				cout << gasesteFilm(stringToInt(buffer), nrFilm, fileFilm) << endl;
-				cout << "Introdu noile atribute pentru alimentul selectat: " << endl;
-				actualizareFilm(stringToInt(buffer), adaugaFilmConsola(), nrFilm, fileFilm);
+				if (gasesteFilm(stringToInt(buffer), nrFilm, fileFilm).getNumeFilm() == "Negasit") cout << endl << "Filmul nu a fost gasit.";
+				else
+				{
+					cout << "Filmul curent este: " << endl;
+					cout << gasesteFilm(stringToInt(buffer), nrFilm, fileFilm) << endl;
+					cout << "Introdu noile atribute pentru filmul selectat: " << endl;
+					actualizareFilm(stringToInt(buffer), adaugaFilmConsola(), nrFilm, fileFilm);
+				}
 				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			case 5:
-				cout << "Introdu id-ul alimentului pe care vrei sa il stergi: ";
+				cout << "Introdu id-ul filmului pe care vrei sa il stergi: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -94,8 +102,12 @@ void meniuFilm()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				stergeFilm(stringToInt(buffer), nrFilm, fileFilm);
-				modificaAlimente(nrFilm, "Total.txt");
+				if (gasesteFilm(stringToInt(buffer), nrFilm, fileFilm).getNumeFilm() == "Negasit") cout << endl << "Filmul nu a fost gasit.";
+				else
+				{
+					stergeFilm(stringToInt(buffer), nrFilm, fileFilm);
+					modificaFilme(nrFilm, "Total.txt");
+				}
 				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			deafult:

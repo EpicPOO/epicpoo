@@ -10,15 +10,15 @@ string optiuniBilete = "1 - Afiseaza toate bilete disponibile\n2 - Adauga un bil
 int nrOptiuniBilete = 5; //nu include optiunea de returnare la meniul anterior (0)
 string fileBilete = "bilete.bin";
 
-int ruleazaMeniuBilete(string optiuniFilme, int nrOptiuni)
+int ruleazaMeniuBilete(string optiuniBilete, int nrOptiuni)
 {
 	int optiune = 0;
-	cout << endl << optiuniFilme;
+	cout << endl << optiuniBilete;
 	cin >> optiune;
 	while (optiune > nrOptiuni || optiune < 0)
 	{
 		cout << "Te rog introdu o optiune valida!" << endl;
-		cout << optiuniFilme;
+		cout << optiuniBilete;
 		cin >> optiune;
 	}
 	return optiune;
@@ -38,7 +38,7 @@ void meniuBilet()
 {
 	int optiune;
 	string buffer;
-	int nrFilm = citesteTotalBileteInt("Total.txt");
+	int nrBilete = citesteTotalBileteInt("Total.txt");
 	do
 	{
 		optiune = ruleazaMeniuBilete(optiuniBilete, nrOptiuniBilete);
@@ -48,18 +48,22 @@ void meniuBilet()
 				break;
 			case 1:
 			{
-				afisareBilete(nrFilm, fileBilete);
+				if (testTipFisier(fileBilete) == 1)
+				{
+					afisareBilete(nrBilete, fileBilete);
+				}
+				else cout << "Nu exista bilete salvate.\n";
 				if (meniuAnteriorBilet() != 1) optiune = 0;
 			}
 			break;
 			case 2:
 
-				adaugaBilet(adaugaBiletConsola(), nrFilm, fileBilete);
-				modificaBilete(nrFilm, "Total.txt");
+				adaugaBilet(adaugaBiletConsola(), nrBilete, fileBilete);
+				modificaBilete(nrBilete, "Total.txt");
 				if (meniuAnteriorBilet() != 1) optiune = 0;
 				break;
 			case 3:
-				cout << "Introdu id-ul alimentului: ";
+				cout << "Introdu id-ul biletului: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -67,11 +71,12 @@ void meniuBilet()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				cout << endl << gasesteBilet(stringToInt(buffer), nrFilm, fileBilete);
+				if (gasesteBilet(stringToInt(buffer), nrBilete, fileBilete).getNumeBilet() == "Negasit") cout << endl << "Biletul nu a fost gasit.";
+				else cout << endl << gasesteBilet(stringToInt(buffer), nrBilete, fileBilete);
 				if (meniuAnteriorBilet() != 1) optiune = 0;
 				break;
 			case 4:
-				cout << "Introdu id-ul alimentului pe care vrei sa il actualizezi: ";
+				cout << "Introdu id-ul biletului pe care vrei sa il actualizezi: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -79,14 +84,18 @@ void meniuBilet()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				cout << "Alimentul curent este: " << endl;
-				cout << gasesteBilet(stringToInt(buffer), nrFilm, fileBilete) << endl;
-				cout << "Introdu noile atribute pentru alimentul selectat: " << endl;
-				actualizareBilet(stringToInt(buffer), adaugaBiletConsola(), nrFilm, fileBilete);
+				if (gasesteBilet(stringToInt(buffer), nrBilete, fileBilete).getNumeBilet() == "Negasit")cout << endl << "Biletul nu a fost gasit.";
+				else
+				{
+					cout << "Biletul curent este: " << endl;
+					cout << gasesteBilet(stringToInt(buffer), nrBilete, fileBilete) << endl;
+					cout << "Introdu noile atribute pentru biletul selectat: " << endl;
+					actualizareBilet(stringToInt(buffer), adaugaBiletConsola(), nrBilete, fileBilete);
+				}
 				if (meniuAnteriorBilet() != 1) optiune = 0;
 				break;
 			case 5:
-				cout << "Introdu id-ul alimentului pe care vrei sa il stergi: ";
+				cout << "Introdu id-ul biletului pe care vrei sa il stergi: ";
 				cin >> ws;
 				getline(cin, buffer);
 				while (stringToInt(buffer) == 0)
@@ -94,8 +103,12 @@ void meniuBilet()
 					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 					getline(cin, buffer);
 				}
-				stergeBilet(stringToInt(buffer), nrFilm, fileBilete);
-				modificaBilete(nrFilm, "Total.txt");
+				if (gasesteBilet(stringToInt(buffer), nrBilete, fileBilete).getNumeBilet() == "Negasit")cout << endl << "Biletul nu a fost gasit.";
+				else
+				{
+					stergeBilet(stringToInt(buffer), nrBilete, fileBilete);
+					modificaBilete(nrBilete, "Total.txt");
+				}
 				if (meniuAnteriorBilet() != 1) optiune = 0;
 				break;
 			deafult:

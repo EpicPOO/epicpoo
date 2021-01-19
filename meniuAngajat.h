@@ -36,71 +36,85 @@ int meniuAnteriorAngajat()
 
 void meniuAngajat()
 {
-	int optiune;
-	string buffer;
-	int nrAngajat = citesteTotalAngajatiInt("Total.txt");
-	do
-	{
-		optiune = ruleazaMeniuAngajat(optiuniAngajat, nrOptiuniAngajat);
+		int optiune;
+		string buffer;
+		int nrAngajat = citesteTotalAngajatiInt("Total.txt");
+		do
 		{
-			switch (optiune) {
-			case 0:
-				break;
-			case 1:
+			optiune = ruleazaMeniuAngajat(optiuniAngajat, nrOptiuniAngajat);
 			{
-				afisareAngajati(nrAngajat, fileAngajati);
-				if (meniuAnteriorAngajat() != 1) optiune = 0;
-			}
-			break;
-			case 2:
+				switch (optiune) {
+				case 0:
+					break;
+				case 1:
+				{
+					if (testTipFisier(fileAngajati) == 1)
+					{
+						afisareAngajati(nrAngajat, fileAngajati);
+					}
+					else cout << "Nu exista angajati salvati.\n";
+					if (meniuAnteriorAngajat() != 1) optiune = 0;
+				}
+				break;
+				case 2:
 
-				adaugaAngajat(adaugaAngajatConsola(), nrAngajat, fileAngajati);
-				modificaAngajati(nrAngajat, "Total.txt");
-				if (meniuAnteriorAngajat() != 1) optiune = 0;
-				break;
-			case 3:
-				cout << "Introdu id-ul alimentului: ";
-				cin >> ws;
-				getline(cin, buffer);
-				while (stringToInt(buffer) == 0)
-				{
-					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+					adaugaAngajat(adaugaAngajatConsola(), nrAngajat, fileAngajati);
+					modificaAngajati(nrAngajat, "Total.txt");
+					if (meniuAnteriorAngajat() != 1) optiune = 0;
+					break;
+				case 3:
+					cout << "Introdu id-ul angajatului: ";
+					cin >> ws;
 					getline(cin, buffer);
-				}
-				cout << endl << gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati);
-				if (meniuAnteriorAngajat() != 1) optiune = 0;
-				break;
-			case 4:
-				cout << "Introdu id-ul alimentului pe care vrei sa il actualizezi: ";
-				cin >> ws;
-				getline(cin, buffer);
-				while (stringToInt(buffer) == 0)
-				{
-					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+					while (stringToInt(buffer) == 0)
+					{
+						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+						getline(cin, buffer);
+					}
+					if (gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume() == "Negasit") cout << endl << "Angajatul nu a fost gasit.";
+					else
+					cout << endl << gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati);
+					if (meniuAnteriorAngajat() != 1) optiune = 0;
+					break;
+				case 4:
+					cout << "Introdu id-ul angajatului pe care vrei sa il actualizezi: ";
+					cin >> ws;
 					getline(cin, buffer);
-				}
-				cout << "Alimentul curent este: " << endl;
-				cout << gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati) << endl;
-				cout << "Introdu noile atribute pentru alimentul selectat: " << endl;
-				actualizareAngajat(stringToInt(buffer), adaugaAngajatConsola(), nrAngajat, fileAngajati);
-				if (meniuAnteriorAngajat() != 1) optiune = 0;
-				break;
-			case 5:
-				cout << "Introdu id-ul alimentului pe care vrei sa il stergi: ";
-				cin >> ws;
-				getline(cin, buffer);
-				while (stringToInt(buffer) == 0)
-				{
-					cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+					while (stringToInt(buffer) == 0)
+					{
+						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+						getline(cin, buffer);
+					}
+					if (gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume() == "Negasit")cout << endl << "Angajatul nu a fost gasit.";
+					else
+					{
+						cout << "Angajatul curent este: " << endl;
+						cout << gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati) << endl;
+						cout << "Introdu noile atribute pentru angajatul selectat: " << endl;
+						actualizareAngajat(stringToInt(buffer), adaugaAngajatConsola(), nrAngajat, fileAngajati);
+					}
+					if (meniuAnteriorAngajat() != 1) optiune = 0;
+					break;
+				case 5:
+					cout << "Introdu id-ul angajatului pe care vrei sa il stergi: ";
+					cin >> ws;
 					getline(cin, buffer);
+					while (stringToInt(buffer) == 0)
+					{
+						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
+						getline(cin, buffer);
+					}
+					if (gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume() == "Negasit")cout << endl << "Angajatul nu a fost gasit.";
+					else
+					{
+						stergeAngajat(stringToInt(buffer), nrAngajat, fileAngajati);
+						modificaAngajati(nrAngajat, "Total.txt");
+					}
+					if (meniuAnteriorAngajat() != 1) optiune = 0;
+					break;
+				deafult:
+					break;
 				}
-				stergeAngajat(stringToInt(buffer), nrAngajat, fileAngajati);
-				modificaAngajati(nrAngajat, "Total.txt");
-				if (meniuAnteriorAngajat() != 1) optiune = 0;
-				break;
-			deafult:
-				break;
 			}
-		}
-	} while (optiune != 0);
+		} while (optiune != 0);
 }
