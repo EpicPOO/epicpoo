@@ -360,6 +360,24 @@ public:
 };
 // initializare atribut static
 int sala::numarSali = 0;
+
+int getLastIdSala(string fname)
+{
+	int idSala = 0;
+	if (testTipFisier(fname) == 1)
+	{
+		sala s;
+		streampos pos = 0; // pornim de la pozitia 0
+		for (int i = 0; i <= citesteTotalSaliInt("Total.txt"); i++)
+		{
+			pos = s.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+			idSala = s.getIdSala();
+		}
+		return idSala;
+	}
+	else return 1;
+}
+
 // operatorul<<
 ostream& operator<<(ostream& out, sala s)
 {
@@ -476,7 +494,8 @@ bool operator==(sala s1, sala s2)
 
 void adaugaSala(sala noua, int& nrTotalSali, string fname)
 {
-	noua.serializare(fname, ++nrTotalSali);
+	nrTotalSali++;
+	noua.serializare(fname, getLastIdSala(fname) + 1);
 }
 
 sala gasesteSala(int id, int nrTotalSali, string fname) // sau citire
