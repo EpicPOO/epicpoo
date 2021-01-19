@@ -4,10 +4,11 @@
 #include<fstream>
 #include "helpersCRUD.h" //Stefana: adaugat pentru accesare functie stringToInt din header
 #include "binar.h"
+#include "pr.h"
 #include<vector>
 using namespace std;
 
-class aliment : public binar
+class aliment : public binar, public pr
 {
 private:
 	const int idAliment = 0;
