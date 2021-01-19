@@ -9,7 +9,7 @@
 #include "meniuBilet.h"
 #include "meniuAngajat.h"
 #include "emitereBilet.h"
-
+//FINAL FAZA 2
 using namespace std;
 
 string optiuniUtilizatore = "1 - Film\n2 - Sala\n3 - Bilete\n4 - Aliment\n5 - Angajat\n0 - Revino la meniul anterior\n";
