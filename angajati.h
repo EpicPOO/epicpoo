@@ -644,7 +644,7 @@ angajati adaugaAngajatConsola() //Stefana: adaugare elemente din consola
 	cout << endl;
 	cout << "Introdu numarul de telefon: ";
 	getline(cin, buffer);
-	while (stringToInt(buffer) == 0 && buffer.length()!=10)
+	while (stringToInt(buffer) == 0 || buffer.length()!=10)
 	{
 		cout << "Numarul de telefon trebuie sa contina 10 cifre. Te rog sa reintroduci numarul de telefon: " << endl;
 		getline(cin, buffer);

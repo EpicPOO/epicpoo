@@ -108,24 +108,24 @@ int* selectieLocuri(sala s, int nrLocuri) //returneaza vectorul de locuri alese 
 	string fileSala = "Sali.bin";
 	string buffer;
 	sala sCopie = s;
-	int* locuri = new int[nrLocuri];
+	int* locuri = new int[nrLocuri]; //locurile selectate
 	cout << endl << "Locurile disponibile sunt: ";
 	int nrLocuriSala = s.getTotalSala();
 	int* locuriSala = new int[nrLocuriSala];
 	locuriSala = s.getTotalLocuri();
 	for (int i = 0; i < s.getTotalSala(); i++)
 	{
-		if (locuriSala[i] == 0) cout << i << " ";
+		if (locuriSala[i] == 0) cout << i+1 << " ";
 	}
 	cout << endl << "Introdu locurile alese din cele disponibile: ";
 	for (int i = 0; i < nrLocuri; i++)
 	{
-		cout << endl << "Introdu locul (" << i << "): ";
+		cout << endl << "Introdu locul (" << i+1 << "): ";
 		cin >> ws;
 		getline(cin, buffer);
 		do
 		{
-			while (stringToInt(buffer, ">=0") < 0 || stringToInt(buffer) > nrLocuriSala || locuriSala[stringToInt(buffer)] != 0)
+			while (stringToInt(buffer) == 0 || stringToInt(buffer) > nrLocuriSala+1 || locuriSala[stringToInt(buffer)-1] != 0)
 			{
 				cout << "Locul trebuie sa fie un intreg pozitiv dintre cele disponibile. Reintrodu locul: ";
 				cin >> ws;
@@ -133,7 +133,7 @@ int* selectieLocuri(sala s, int nrLocuri) //returneaza vectorul de locuri alese 
 			}
 			for (int j = 0; j <= i; j++)
 			{
-				if (locuri[j] == (stringToInt(buffer, ">=0")))
+				if (locuri[j] == (stringToInt(buffer)))
 				{
 					buffer = "gresit";
 					cout << endl << "Ai ales deja acest loc." << endl;
@@ -150,10 +150,12 @@ int* selectieLocuri(sala s, int nrLocuri) //returneaza vectorul de locuri alese 
 	cout << locuri[nrLocuri - 1] << "." << endl;
 	for (int j = 0; j < nrLocuri; j++)
 	{
-		locuriSala[j] = 1;
+		int loc = locuri[j];
+		locuriSala[loc -1] = loc;
 	}
 	sCopie.setTotalLocuri(locuriSala, nrLocuriSala);
-	sCopie.setNrCumparate(nrLocuri);
+	int nrCump = sCopie.getNrCumparate();
+	sCopie.setNrCumparate(nrCump+nrLocuri);
 	actualizareSala(s.getIdSala(), sCopie,citesteTotalSaliInt(fileTotal),fileSala);
 	return locuri;
 }

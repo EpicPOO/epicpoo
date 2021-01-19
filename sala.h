@@ -370,9 +370,9 @@ ostream& operator<<(ostream& out, sala s)
 	int locOcupate = s.nrRezervate + s.nrCumparate;
 	if (s.totalLocuri != nullptr)
 	{
-		for (int i = 0; i < locOcupate; i++)
+		for (int i = 0; i < s.totalSala; i++)
 		{
-			out << s.totalLocuri[i] << " ";
+			if(s.totalLocuri[i]!=0) out << s.totalLocuri[i] << " "; //modif stef
 		}
 	}
 	out << endl << "Locuri libere: " << s.nrLibere << endl;

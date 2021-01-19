@@ -119,7 +119,9 @@ void meniu()
 			switch (alegereCategorie)
 			{
 			case 1:
+				cout << "Ai ales emitere bilet.\n";
 				emitereBilet();
+				if (meniuAnteriorFilm() != 1) optiune = 0;
 				break;
 			case 2:
 			{

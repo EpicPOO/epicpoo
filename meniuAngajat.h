@@ -6,7 +6,7 @@
 #include "angajati.h"
 using namespace std;
 
-string optiuniAngajat = "1 - Afiseaza toati angajatii disponibile\n2 - Adauga un angajat\n3 - Cauta un angajat dupa id - ul unic\n4 - Actualizeaza un angajat\n5 - Sterge un angajat\n0 - Revino la meniul anterior\n";
+string optiuniAngajat = "1 - Afiseaza toti angajatii disponibili\n2 - Adauga un angajat\n3 - Cauta un angajat dupa id - ul unic\n4 - Actualizeaza un angajat\n5 - Sterge un angajat\n0 - Revino la meniul anterior\n";
 int nrOptiuniAngajat = 5; //nu include optiunea de returnare la meniul anterior (0)
 string fileAngajati = "angajati.bin";
 
