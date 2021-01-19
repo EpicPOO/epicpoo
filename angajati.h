@@ -480,12 +480,12 @@ int getLastIdAngajat(string fname)
 	int idFilm = 0;
 	if (testTipFisier(fname) == 1)
 	{
-		film f;
+		angajati a;
 		streampos pos = 0; // pornim de la pozitia 0
-		for (int i = 0; i <= citesteTotalFilmeInt("Total.txt"); i++)
+		for (int i = 0; i <= citesteTotalAngajatiInt("Total.txt"); i++)
 		{
-			pos = f.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
-			idFilm = f.getIdFilm();
+			pos = a.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+			idFilm = a.getIdAngajat();
 		}
 		return idFilm;
 	}
