@@ -367,6 +367,24 @@ public:
 
 int film::numarFilme = 0;
 
+int getLastIdFilm(string fname)
+{
+	int idFilm = 0;
+	if (testTipFisier(fname) == 1)
+	{
+		film f;
+		streampos pos = 0; // pornim de la pozitia 0
+		for (int i = 0; i <= citesteTotalFilmeInt("Total.txt"); i++)
+		{
+			pos = f.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+			idFilm = f.getIdFilm();
+		}
+		return idFilm;
+	}
+	else return 1;
+}
+
+
 ostream& operator<<(ostream& out, film f) // operator afisare
 {
 	out << "Id Film: " << f.idFilm << endl;
@@ -441,7 +459,8 @@ bool operator==(film f1, film f2)
 
 void adaugaFilm(film nou, int& nrTotalFilme, string fname)
 {
-	nou.serializare(fname, ++nrTotalFilme);
+	nrTotalFilme++;
+	nou.serializare(fname, getLastIdFilm(fname) + 1);
 }
 
 film gasesteFilm(int id, int nrTotalFilme, string fname) // sau citire
