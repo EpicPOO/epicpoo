@@ -39,6 +39,7 @@ void meniuAngajat()
 		int optiune;
 		string buffer;
 		int nrAngajat = citesteTotalAngajatiInt("Total.txt");
+		string numeAngajat;
 		do
 		{
 			optiune = ruleazaMeniuAngajat(optiuniAngajat, nrOptiuniAngajat);
@@ -71,7 +72,8 @@ void meniuAngajat()
 						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 						getline(cin, buffer);
 					}
-					if (gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume() == "Negasit") cout << endl << "Angajatul nu a fost gasit.";
+					numeAngajat = gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume();
+					if (numeAngajat == "Negasit") cout << endl << "Angajatul nu a fost gasit.";
 					else
 					cout << endl << gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati);
 					if (meniuAnteriorAngajat() != 1) optiune = 0;
@@ -85,7 +87,8 @@ void meniuAngajat()
 						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 						getline(cin, buffer);
 					}
-					if (gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume() == "Negasit")cout << endl << "Angajatul nu a fost gasit.";
+					numeAngajat = gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume();
+					if (numeAngajat == "Negasit")cout << endl << "Angajatul nu a fost gasit.";
 					else
 					{
 						cout << "Angajatul curent este: " << endl;
@@ -104,7 +107,8 @@ void meniuAngajat()
 						cout << "Id-ul introdus nu este valid. Introdu un id valid (numar intreg pozitiv): ";
 						getline(cin, buffer);
 					}
-					if (gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume() == "Negasit")cout << endl << "Angajatul nu a fost gasit.";
+					numeAngajat = gasesteAngajat(stringToInt(buffer), nrAngajat, fileAngajati).getNume();
+					if (numeAngajat == "Negasit")cout << endl << "Angajatul nu a fost gasit.";
 					else
 					{
 						stergeAngajat(stringToInt(buffer), nrAngajat, fileAngajati);

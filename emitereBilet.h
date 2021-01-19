@@ -92,7 +92,7 @@ int selectieNrLocuri(sala s) //returneaza nr de locuri alese //done, testat
 	cout << endl << "Sunt " << s.getNrLibere() << " locuri libere." << endl << "Introdu numarul de locuri: ";
 	cin >> ws;
 	getline(cin, buffer);
-	while (stringToInt(buffer) <= 0 && stringToInt(buffer) > s.getNrLibere())
+	while (stringToInt(buffer,">0") <= 0 || stringToInt(buffer) > s.getNrLibere())
 	{
 		cout << "Numarul de locuri trebuie sa fie un numar intrg mai mare decat 0 si mai mic decat " << s.getNrLibere() << "."
 			<< endl << "Reintrodu numarul de locuri: ";
@@ -166,16 +166,20 @@ void emitereBilet()
 	string fileBilet = "Bilete.bin";
 	string fileSala = "Sali.bin";
 	string fileFilme = "Filme.bin";
-	if (testTipFisier(fileSala) == 0)
+	int nrTotalFilme = citesteTotalFilmeInt(fileTotal);
+	int nrBilete = citesteTotalBileteInt(fileTotal);
+	int nrTotalSali = citesteTotalSaliInt(fileTotal);
+
+	if (testTipFisier(fileSala) == 0 || nrTotalSali==0)
 	{
 		cout << "Nu exista sali salvate in fisier.\n";
 	}
 
-	if (testTipFisier(fileFilm) == 0)
+	if (testTipFisier(fileFilm) == 0 || nrTotalFilme==0)
 	{
 		cout << "Nu exista filme salvate in fisier.\n";
 	}
-	if(testTipFisier(fileSala) == 0 || testTipFisier(fileFilm) == 0)
+	if(testTipFisier(fileSala) == 0 || testTipFisier(fileFilm) == 0 || nrTotalSali == 0 || nrTotalFilme == 0)
 	
 	{
 		cout << "Nu se poate emite bilet.\n";
@@ -184,9 +188,7 @@ void emitereBilet()
 	{
 		bilet b;
 
-		int nrTotalFilme = citesteTotalFilmeInt(fileTotal);
-		int nrBilete = citesteTotalBileteInt(fileTotal);
-		int nrTotalSali = citesteTotalSaliInt(fileTotal);
+		
 		string buffer;
 
 		int idFilm = selectiefilm();
