@@ -381,7 +381,7 @@ int getLastIdFilm(string fname)
 		}
 		return idFilm;
 	}
-	else return 1;
+	else return 0;
 }
 
 

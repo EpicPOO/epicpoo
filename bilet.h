@@ -338,7 +338,7 @@ int getLastIdBilet(string fname)
 		}
 		return idBilet;
 	}
-	else return 1;
+	else return 0;
 }
 
 ostream& operator<<(ostream& out, bilet b) // operator afisare

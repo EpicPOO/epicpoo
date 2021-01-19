@@ -375,7 +375,7 @@ int getLastIdSala(string fname)
 		}
 		return idSala;
 	}
-	else return 1;
+	else return 0;
 }
 
 // operatorul<<

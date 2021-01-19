@@ -489,7 +489,7 @@ int getLastIdAngajat(string fname)
 		}
 		return idFilm;
 	}
-	else return 1;
+	else return 0;
 }
 
 ostream& operator<<(ostream& out, angajati a)
