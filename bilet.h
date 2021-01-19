@@ -324,6 +324,23 @@ public:
 
 int bilet::numarBilete = 0;
 
+int getLastIdBilet(string fname)
+{
+	int idBilet = 0;
+	if (testTipFisier(fname) == 1)
+	{
+		bilet b;
+		streampos pos = 0; // pornim de la pozitia 0
+		for (int i = 0; i <= citesteTotalAlimenteInt("Total.txt"); i++)
+		{
+			pos = b.deserializare(pos, fname); //deserializeaza un obiect si intoarce pozitia la care a ramas
+			idBilet = b.getIdBilet();
+		}
+		return idBilet;
+	}
+	else return 1;
+}
+
 ostream& operator<<(ostream& out, bilet b) // operator afisare
 {
 	out << "ID bilet: " << b.idBilet << endl;
@@ -393,7 +410,8 @@ bool operator==(bilet f1, bilet f2)
 
 void adaugaBilet(bilet noul, int& nrTotalBilete, string fname)
 {
-	noul.serializare(fname, ++nrTotalBilete);
+	nrTotalBilete++;
+	noul.serializare(fname, getLastIdBilet(fname) + 1);
 }
 
 bilet gasesteBilet(int id, int nrTotalBilete, string fname) // sau citire
